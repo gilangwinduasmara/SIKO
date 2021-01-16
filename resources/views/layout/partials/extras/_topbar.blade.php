@@ -100,8 +100,8 @@
         <div class="dropdown">
             <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
-                    <i class="flaticon2-notification position-relative">
-                        <div id="notif-badge"  class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px"></div>
+                    <i class="flaticon2-notification position-relative" >
+                        <div id="notif-badge"  class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px" style="display: none"></div>
                     </i>
                 </div>
             </div>
@@ -113,8 +113,8 @@
         <div class="dropdown">
             <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
-                    <i class="flaticon-chat position-relative">
-                        <div id="chat-badge" class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px"></div>
+                    <i class="flaticon-chat position-relative" >
+                        <div id="chat-badge" class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px" style="display: none"></div>
                     </i>
                 </div>
             </div>
