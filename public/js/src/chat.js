@@ -11,10 +11,12 @@ function showChat(){
     }catch (e){
 
     }
-    renderChat().then(()=>{
-        $('#chat-spinner').hide();
-        KTAppChat.init();
-    });
+    setInterval(()=>{
+        renderChat().then(()=>{
+            $('#chat-spinner').hide();
+            KTAppChat.init();
+        });
+    }, 2000)
 }
 
 function sendChat(message){
@@ -52,14 +54,6 @@ async function renderChat(){
             if(chat.userID === userId.toString()){
                 html+=`
                     <div class="d-flex flex-column mb-5 align-items-end">
-<!--                        <div class="d-flex align-items-center">-->
-<!--                            <div class="symbol symbol-circle symbol-40 mr-3">-->
-<!--                                <img alt="Pic" src="/metronic/theme/html/demo5/dist/assets/media/users/300_12.jpg">-->
-<!--                            </div>-->
-                            <div>
-
-                            </div>
-<!--                        </div>-->
                         <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-left max-w-400px d-flex align-items-center">
                             <div>
                                 ${atob(chat.chat_konseling)}
@@ -70,16 +64,12 @@ async function renderChat(){
             }else{
                 html+=`
                     <div class="d-flex flex-column mb-5 align-items-start">
-<!--                        <div class="d-flex align-items-center">-->
-<!--                            <div class="symbol symbol-circle symbol-40 mr-3">-->
-<!--                                <img alt="Pic" src="/metronic/theme/html/demo5/dist/assets/media/users/300_12.jpg">-->
-<!--                            </div>-->
-<!--                            <div>-->
-<!--                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">Matt Pears</a>-->
-<!--                                <span class="text-muted font-size-sm">2 Hours</span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-                        <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px">${atob(chat.chat_konseling)}</div>
+                            <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px d-flex align-items-center">
+                            <div>
+                                ${atob(chat.chat_konseling)}
+                            </div>
+                            <div class="text-muted font-size-sm ml-2">${moment(chat.created_at).format("hh:mm:ss a")}</div>
+                            </div>
                     </div>`;
             }
         });

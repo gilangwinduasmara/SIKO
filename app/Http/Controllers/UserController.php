@@ -48,6 +48,11 @@ class UserController extends Controller
         }
     }
 
+    public function logout(){
+        request()->session()->invalidate();
+        return redirect("/");
+    }
+
     public function editProfile(){
         $this->assignUser();
         $konselor = $this->user->details;
@@ -94,11 +99,11 @@ class UserController extends Controller
         if ($token = auth()->attempt(['name' => request('username'), 'password' => request('password'), 'role' => 'admin'])) {
             $user = User::where('name', request('username'))->first();
             if($user){
-                $token = JWTAuth::fromUser($user);
+                session()->put('userId', $user->id);
+                session()->save();
                 return response()->json([
                     'success'=>true,
                     'message'=>'',
-                    'token'=>$token
                 ]);
             }else{
                 return response()->json([

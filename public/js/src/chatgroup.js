@@ -12,10 +12,13 @@ function showChat(){
     }catch (e){
 
     }
-    renderChat().then(()=>{
-        $('#chat-spinner').hide();
-        KTAppChat.init();
-    });
+    setInterval(()=>{
+        renderChat().then(()=>{
+            $('#chat-spinner').hide();
+            KTAppChat.init();
+        });
+    }, 2000)
+
 }
 
 function sendChat(message){

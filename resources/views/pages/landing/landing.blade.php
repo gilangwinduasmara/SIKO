@@ -22,7 +22,7 @@
         {{ Metronic::getGoogleFontsInclude() }}
 
     <link rel="stylesheet" href="/css/style.bundle.css">
-
+    <link rel="stylesheet" href="/css/app.css">
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
             let userId = {{Session::get('userId')}};
@@ -251,8 +251,8 @@
                     <h5 class="modal-title text-center" id="exampleModalLabel">Login Sebagai</h5>
                     <div class="role-select">
                         <div id="toggle__selected" class="toggle">konseli</div>
-                        <a href="#" class="active-role">konseli</a>
-                        <a href="#" class="role">konselor</a>
+                        <a href="#" class="active-role" style="color: #749ecd">konseli</a>
+                        <a href="#" class="role" style="color: #749ecd">konselor</a>
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <i aria-hidden="true" class="ki ki-close"></i>
@@ -273,10 +273,10 @@
     <div style="background-color: white;">
         <div>
             <div class="">
-                <header class="header"><img src="/static/media/logo_baru.e44b41bb.svg" style="cursor: pointer;">
+                <header class="header border-0"><img src="/static/media/logo_baru.e44b41bb.svg" style="cursor: pointer;">
                     <div>
                         <nav>
-                            <ul>
+                            <ul class="pb-0">
                                 <li><a href="#pengumuman">Pengumuman</a></li>
                                 <li><a href="#layanan">Layanan</a></li>
                                 <li><a href="#konselor">Konselor</a></li>

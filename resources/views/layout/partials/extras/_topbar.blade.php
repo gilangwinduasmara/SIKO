@@ -96,7 +96,7 @@
     @endif --}}
 
     {{-- Languages --}}
-    @if (config('layout.extras.languages.display'))
+    @if (true)
         <div class="dropdown">
             <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
@@ -123,10 +123,37 @@
                 </ul>
             </div>
         </div>
+        <div class="dropdown">
+            <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
+                <div class="btn btn-icon btn-dropdown w-auto btn-clean d-flex align-items-center btn-lg px-2">
+                    <div class="symbol symbol-25">
+                        <img class="img-fit" src={{"/avatars/".$user->avatar}} alt="image">
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
+                <ul class="navi navi-hover py-4">
+                    <li class="navi-item">
+                        <a href="#" class="navi-link">
+                            <div class="navi-text">
+                                <div class="font-weight-bold">Ganti Password</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navi-item">
+                        <a href="/logout" class="navi-link">
+                            <div class="navi-text">
+                                <div class="font-weight-bold">Logout</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     @endif
 
     {{-- User --}}
-    @if (config('layout.extras.user.display'))
+    {{-- @if (config('layout.extras.user.display'))
         @if (config('layout.extras.user.layout') == 'offcanvas')
             <div class="topbar-item">
                 <div class="btn btn-icon w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
@@ -151,5 +178,5 @@
                 </div>
             </div>
         @endif
-    @endif
+    @endif --}}
 </div>

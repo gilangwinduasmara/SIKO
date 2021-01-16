@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PagesController@landing');
+Route::get('/admin', 'AdminController@index');
+Route::get('/admin/login', 'AdminController@login');
+
 
 Route::middleware(['session'])->group(function(){
     Route::get('/dashboard', 'PagesController@index');
@@ -35,6 +39,11 @@ Route::get('/profile', 'PagesController@profile');
     Route::get('/setup/referral', 'PagesController@referralSetup');
 
 });
+
+// Admin routes
+    Route::get('/admin/dashboard', 'AdminController@dashboard');
+
+    Route::post('/admin/post', 'AdminController@doLogin');
 
 // Demo routes
 Route::get('/datatables', 'PagesController@datatables');
@@ -99,6 +108,7 @@ Route::get('services/rekamkonseling', 'RekamKonselingController@show');
 Route::post('services/rekamkonseling', 'RekamKonselingController@update');
 
 Route::post('services/user/edit', 'UserController@editProfile');
+Route::get('/logout', 'UserController@logout');
 
 
 Route::get('services/notification', 'NotificationController@index');
@@ -107,3 +117,5 @@ Route::get('services/notification/count/{id}', 'NotificationController@count');
 Route::post('services/notification', 'NotificationController@store');
 Route::put('services/notification/{id}', 'NotificationController@update');
 Route::post('services/notification/read/{id}', 'NotificationController@read');
+
+

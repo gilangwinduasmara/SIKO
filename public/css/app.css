@@ -4,3 +4,10 @@
 .sticky-toolbar{
     display: none;
 }
+.icon-pengumuman {
+    position: absolute;
+    -webkit-transform: rotate(-56deg) scale(1.2);
+    transform: rotate(-56deg) scale(1.2);
+    right: 20px;
+    top: 116vh;
+}
