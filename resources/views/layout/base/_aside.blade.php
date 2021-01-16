@@ -29,7 +29,7 @@
     </div>
 
     {{-- Aside menu --}}
-    <div class="aside-menu-wrapper d-flex flex-column justify-content-center" id="kt_aside_menu_wrapper">
+    <div class="aside-menu-wrapper" id="kt_aside_menu_wrapper">
 
         @if (config('layout.aside.self.display') === false)
             <div class="header-logo">

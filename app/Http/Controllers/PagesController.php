@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CaseConference;
+use App\JadwalKonselor;
 use App\Konseli;
 use App\Konseling;
 use App\Konselor;
@@ -106,7 +107,7 @@ class PagesController extends Controller
 
         $daftarkonseling = Konseling::with('rangkumanKonseling')->doesntHave('rangkumanKonseling')->with('jadwal')->with(['konseli' => function ($query){
             $query->with('user')->get();
-        }])->where('refered','tidak')->where('konselor_id', $user->details->id)->get()->groupBy('jadwal.hari');
+        }])->where('refered','!=','ya')->where('konselor_id', $user->details->id)->get()->groupBy('jadwal.hari');
         if($this->user->role == 'konselor'){
             $statistik = $this->statistic();
 //            dd($statistik);
@@ -122,6 +123,13 @@ class PagesController extends Controller
 
     }
 
+    public function profile(){
+        $this->assignUser();
+        $user = $this->user;
+        $jadwal = JadwalKonselor::where('konselor_id', $user->details->id)->get()->groupBy('hari');
+        return view('pages.konselor.profile', compact('user', 'jadwal'));
+    }
+
     public function daftarkonseli(){
         $this->assignUser();
         $page_title = 'Daftar Konseli';
@@ -129,7 +137,7 @@ class PagesController extends Controller
         $type = 'daftarkonseling';
         $konselor = Konselor::where('user_id', $this->user->id)->get()->first();
 
-        $konseling = Konseling::where('refered', '!=', 'ya')->with('rangkumanKonseling')->with('referal')->with(['konseli' => function ($query) {
+        $konseling = Konseling::where('refered', '!=', 'ya')->with('rangkumanKonseling')->with('referral')->with(['konseli' => function ($query) {
             $query->with('user')->with(['prodi' => function ($query){
                 $query->with('faculty')->get();
             }])->get();
@@ -175,7 +183,7 @@ class PagesController extends Controller
             $query->with(['konselor' => function($query){
                 $query->with('user')->get();
             }]);
-        }])->get();
+        }])->where('status', 'on-going')->get();
         $caseconferences = [];
         $konselors = Konselor::with('user')->get();
         foreach($cases as $case){

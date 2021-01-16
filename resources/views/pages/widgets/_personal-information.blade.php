@@ -90,11 +90,11 @@
                             <div class="modal-body" style="height: 300px;">
                                 <div class="form-group">
                                     <label>Judul</label>
-                                <input type="text" class="form-control"  readonly value="{{$konseling->referal->judul_referral}}"/>
+                                <input type="text" class="form-control"  readonly value="{{$konseling->referral->judul_referral}}"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>Pesan <span class="text-danger">*</span></label>
-                                <textarea type="text" class="form-control" readonly>{{$konseling->referal->pesan_referral}}</textarea>
+                                    <label>Pesan</label>
+                                <textarea type="text" class="form-control" readonly>{{$konseling->referral->pesan_referral}}</textarea>
                                 </div>
                             </div>
                             <div class="modal-footer">

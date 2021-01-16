@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col-lg-6 col-xxl-6">
-            <div class="card card-custom p-8 ">
+            <div class="card border card-custom p-8 ">
                 <div class="d-flex align-items-center rounded-top">
                     {{-- Symbol --}}
                     <div class="symbol symbol-md bg-light-primary mr-3 flex-shrink-0">
@@ -20,7 +20,7 @@
                     <div class="text-dark m-0 mr-3 font-size-h5">{{$user->details->nama_konselor}}</div>
                         <div class="text-muted">{{$user->details->profesi_konselor}}</div>
                     </div>
-                    <span class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"><i class="fas fa-pen"></i></span>
+                    <a href="/profile"><span class="btn btn-clean btn-hover-light-warning btn-sm btn-icon"><i class="fas fa-pen"></i></span></a>
                 </div>
                 <div class="py-9">
                     <div class="d-flex align-items-center mb-2">
@@ -45,7 +45,7 @@
     <div class="row mt-8">
 
         <div class="col-lg-6 col-xxl-6">
-            <div class="card card-custom">
+            <div class="card border card-custom">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4 d-flex flex-column justify-content-center align-items-center">
@@ -64,7 +64,7 @@
                 </div>
             </div>
 
-            <div class="card card-custom my-8">
+            <div class="card border card-custom my-8">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4 d-flex flex-column justify-content-center align-items-center">
@@ -84,7 +84,7 @@
             </div>
         </div>
         <div class="col-lg-6 col-xxl-4">
-            <div class="card card-custom">
+            <div class="card border card-custom">
                 <div class="card-body">
                     <div class="row d-flex justify-content-center align-items-center h-200px">
                         <div class="col-4 d-flex flex-column justify-content-center align-items-center">

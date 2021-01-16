@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\JadwalKonselor;
 use App\Konseli;
 use App\Konselor;
 use App\User;
@@ -44,6 +46,34 @@ class UserController extends Controller
                 'data'=>null
             ]);
         }
+    }
+
+    public function editProfile(){
+        $this->assignUser();
+        $konselor = $this->user->details;
+        for($i=0; $i<count((array)request()->dataJadwal);$i++){
+            $itemJadwal = request()->dataJadwal[$i];
+            if($itemJadwal['id'] == "new"){
+                JadwalKonselor::create([
+                    'hari' => $itemJadwal['hari'],
+                    'jam_mulai' => $itemJadwal['jam_mulai'],
+                    'jam_akhir' => $itemJadwal['jam_mulai']+1,
+                    'konselor_id'=> $konselor['id'],
+                    'available' => true
+                ]);
+            }else{
+                $jadwal = JadwalKonselor::find($itemJadwal['id']);
+                $jadwal->hari = $itemJadwal['hari'];
+                $jadwal->jam_mulai = $itemJadwal['jam_mulai'];
+                $jadwal->jam_akhir = ($itemJadwal['jam_mulai'])+1;
+                $jadwal->save();
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => ''
+        ]);
     }
 
     public function adminLogin(){

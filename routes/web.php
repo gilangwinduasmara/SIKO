@@ -19,6 +19,8 @@ Route::get('/', 'PagesController@landing');
 Route::middleware(['session'])->group(function(){
     Route::get('/dashboard', 'PagesController@index');
 
+Route::get('/profile', 'PagesController@profile');
+
 // Konselor routes
     Route::get('/daftarkonseli', 'PagesController@daftarkonseli');
     Route::get('/arsip', 'PagesController@arsip');
@@ -92,3 +94,16 @@ Route::get('services/referral/{id}', 'ReferalController@show');
 Route::post('services/referral', 'ReferalController@store');
 Route::post('services/referral/createagreement', 'ReferalController@createAgreement');
 Route::post('services/referral/declineagreement', 'ReferalController@declideAgreement');
+
+Route::get('services/rekamkonseling', 'RekamKonselingController@show');
+Route::post('services/rekamkonseling', 'RekamKonselingController@update');
+
+Route::post('services/user/edit', 'UserController@editProfile');
+
+
+Route::get('services/notification', 'NotificationController@index');
+Route::get('services/notification/{id}', 'NotificationController@show');
+Route::get('services/notification/count/{id}', 'NotificationController@count');
+Route::post('services/notification', 'NotificationController@store');
+Route::put('services/notification/{id}', 'NotificationController@update');
+Route::post('services/notification/read/{id}', 'NotificationController@read');

@@ -63,6 +63,7 @@ License: You must have a valid license purchased only from themeforest(the above
         </script>
 
         {{-- Global Theme JS Bundle (used by all pages)  --}}
+        <script src="/js/src/config.js"></script>
         @foreach(config('layout.resources.js') as $script)
             <script src="{{ asset($script) }}" type="text/javascript"></script>
         @endforeach

@@ -49,28 +49,29 @@
                         <td>
                             <div class="modal fade" id={{"modal_rekam_konseling__".$rk->id}} data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
+                                    <form class="modal-content" name="form__rekam_konseling">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Rekam Konseling</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <i aria-hidden="true" class="ki ki-close"></i>
                                             </button>
                                         </div>
-                                        <form class="modal-body">
+                                        <div class="modal-body">
+                                            <input type="text" name="id" value={{$rk->id}} hidden>
                                             <div class="form-group">
                                                 <label>Topik <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" required value="{{$rk->judul_konseling}}">
+                                                <input name="judul_konseling" type="text" class="form-control" required value="{{$rk->judul_konseling}}">
                                             </div>
                                             <div class="form-group">
                                                 <label>Rekam Konseling <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" required {{$rk->isi_rekam_konseling}}/>
+                                                <input name="isi_rekam_konseling" type="text" class="form-control" required value="{{$rk->isi_rekam_konseling}}"/>
                                             </div>
-                                        </form>
+                                        </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-light-warning font-weight-bold" data-dismiss="modal">Tutup</button>
                                             <input type="Submit" class="btn btn-warning font-weight-bold" name="save-rekam-konseling" value="Simpan">
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </td>

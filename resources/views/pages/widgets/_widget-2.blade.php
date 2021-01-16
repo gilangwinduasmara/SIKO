@@ -1,6 +1,6 @@
 {{-- List Widget 9 --}}
 
-<div class="card card-custom {{ @$class }}">
+<div class="card card-custom border {{ @$class }}">
     {{-- Header --}}
     <div class="card-header align-items-center border-0 mt-4">
         <h3 class="card-title align-items-start flex-column">
@@ -9,7 +9,7 @@
         </h3>
         <div class="card-toolbar">
             <div class="dropdown dropdown-inline">
-                <a href="#" class="btn btn-light-primary btn-sm font-weight-bolder dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Senin</a>
+                <a href="#" class="btn btn-light-warning btn-sm font-weight-bolder dropdown-toggle dropdown-daftarkonseling" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Senin</a>
                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="">
                     <!--begin::Navigation-->
                     <ul class="navi navi-hover">

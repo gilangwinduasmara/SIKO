@@ -1,5 +1,29 @@
 // Setup Event Listener
+$.fn.serializeObject = function() {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name]) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
 
+function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
 
 $('#button__ask_referral').click(function (){
     let searchParams = new URLSearchParams(window.location.search);
@@ -103,6 +127,16 @@ $('#button_caseconference__decline').click(function(){
     });
 });
 
+$('#button__close_case').click(function(){
+    toastr.options = conf.toastr.options.saving;
+    toastr.info("Sedang memproses data")
+    const konseling_id = konseling.id;
+    axios.post('/services/konseling/end', {
+        id: konseling_id
+    }).then(res => {
+        window.location.href = "/dashboard";
+    });
+})
 
 $('#button_caseconference__agree').click(function(){
     const konseling_id = konseling.id;
@@ -146,4 +180,14 @@ $(document).ready(function(){
             showChat();
         }
     }
+})
+
+$('form[name="form__rekam_konseling"]').submit(function(e){
+    console.log('submit')
+    e.preventDefault();
+    toastr.options = conf.toastr.options.saving
+    toastr.info("", "Menyimpan data");
+    axios.post('/services/rekamkonseling', $(this).serialize()).then((res)=>{
+        window.location.href = window.location.href;
+    })
 })

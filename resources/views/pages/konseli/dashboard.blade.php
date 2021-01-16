@@ -92,7 +92,7 @@
                                     <button name={{"konseli__referral"}} {{$konseling->refered == "ask"?:"disabled"}} id={{"personal_information__referal_"}} class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3">Referal</button>
                                 </div>
                                 <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2 flex-grow-1">
-                                    <button id={{"personal_information__rangkumankonseling_"}} href="#"
+                                    <button data-toggle="modal" data-target="#modal__close_case" href="#"
                                             class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3">Close Case
                                     </button>
                                 </div>
@@ -140,6 +140,25 @@
         @endif
 
 
+        <div class="modal fade" id="modal__close_case" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Akhiri Sesi Konseling</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>Anda yakin ingin mengakhiri sesi konseling</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-dismiss="modal" type="button" class="btn btn-light-warning font-weight-bold">Tolak</button>
+                        <button id="button__close_case" type="button" class="btn btn-warning font-weight-bold">Setuju</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="modal fade" id="modal__case_conference" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
