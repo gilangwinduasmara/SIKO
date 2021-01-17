@@ -57,9 +57,13 @@ $(document).ready(function(){
         $('#dropdown-chat').html(chatHtml)
         if(notifCount>0){
             $('#notif-badge').show();
+        }else{
+            $('#notif-badge').hide();
         }
         if(chatCount>0){
             $('#chat-badge').show();
+        }else{
+            $('#chat-badge').hide();
         }
     })
 

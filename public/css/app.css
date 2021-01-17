@@ -1,3 +1,6 @@
+body{
+    scroll-behavior: smooth;
+}
 .img-fit{
     object-fit: cover;
 }

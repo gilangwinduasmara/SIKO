@@ -193,8 +193,8 @@
                         <div>Saya menyetujui dan mengijinkan Konselor saya untuk merujuk saya ke Konselor lain. Pernyataan ini saya buat tanpa ada paksaan dari pihak manapun.</div>
                     </div>
                     <div class="modal-footer">
-                        <button id="button_caseconference__decline" type="button" class="btn btn-light-warning font-weight-bold">Tolak</button>
-                        <button id="button_caseconference__agree" type="button" class="btn btn-warning font-weight-bold">Setuju</button>
+                        <button id="button_referral__decline" type="button" class="btn btn-light-warning font-weight-bold">Tolak</button>
+                        <button id="button_referral__agree" type="button" class="btn btn-warning font-weight-bold">Setuju</button>
                     </div>
                 </div>
             </div>

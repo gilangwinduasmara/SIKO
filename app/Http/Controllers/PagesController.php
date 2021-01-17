@@ -39,7 +39,7 @@ class PagesController extends Controller
             'total_conference' =>$countConference
         ];
         foreach($konselings as $konseling){
-            if($konseling->status_selesai == "C" && $konseling->refered == 'tidak'){
+            if($konseling->status_selesai == "C" && $konseling->refered != 'ya'){
                 if($konseling->status_konseling == 'ref'){
                     $referal++;
                 }else{
@@ -174,6 +174,14 @@ class PagesController extends Controller
 
         // dd($konselis);
         return view('pages.konselor.daftarkonseli', compact('page_title', 'page_description', 'konselings', 'showChat', 'type', 'user'));
+    }
+
+    public function gantiJadwal(){
+        $this->assignUser();
+        if($this->user->role != "konseli"){
+            return redirect("/dashboard");
+        }
+        return view('pages.konseli.gantijadwal')
     }
 
     public function caseconference(){

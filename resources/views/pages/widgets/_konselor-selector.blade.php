@@ -20,84 +20,12 @@
             </button>
             <!--end::Aside Mobile Toggle-->
             <!--begin::Dropdown Menu-->
-            <div class="dropdown dropdown-inline">
-                <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="ki ki-bold-more-hor icon-md"></i>
-                </button>
-                <div class="dropdown-menu p-0 m-0 dropdown-menu-left dropdown-menu-md">
-                    <!--begin::Navigation-->
-                    <ul class="navi navi-hover py-5">
-                        <li class="navi-item">
-                            <a href="#" class="navi-link">
-                                <span class="navi-icon">
-                                    <i class="flaticon2-drop"></i>
-                                </span>
-                                <span class="navi-text">New Group</span>
-                            </a>
-                        </li>
-                        <li class="navi-item">
-                            <a href="#" class="navi-link">
-                                <span class="navi-icon">
-                                    <i class="flaticon2-list-3"></i>
-                                </span>
-                                <span class="navi-text">Contacts</span>
-                            </a>
-                        </li>
-                        <li class="navi-item">
-                            <a href="#" class="navi-link">
-                                <span class="navi-icon">
-                                    <i class="flaticon2-rocket-1"></i>
-                                </span>
-                                <span class="navi-text">Groups</span>
-                                <span class="navi-link-badge">
-                                    <span class="label label-light-primary label-inline font-weight-bold">new</span>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="navi-item">
-                            <a href="#" class="navi-link">
-                                <span class="navi-icon">
-                                    <i class="flaticon2-bell-2"></i>
-                                </span>
-                                <span class="navi-text">Calls</span>
-                            </a>
-                        </li>
-                        <li class="navi-item">
-                            <a href="#" class="navi-link">
-                                <span class="navi-icon">
-                                    <i class="flaticon2-gear"></i>
-                                </span>
-                                <span class="navi-text">Settings</span>
-                            </a>
-                        </li>
-                        <li class="navi-separator my-3"></li>
-                        <li class="navi-item">
-                            <a href="#" class="navi-link">
-                                <span class="navi-icon">
-                                    <i class="flaticon2-magnifier-tool"></i>
-                                </span>
-                                <span class="navi-text">Help</span>
-                            </a>
-                        </li>
-                        <li class="navi-item">
-                            <a href="#" class="navi-link">
-                                <span class="navi-icon">
-                                    <i class="flaticon2-bell-2"></i>
-                                </span>
-                                <span class="navi-text">Privacy</span>
-                                <span class="navi-link-badge">
-                                    <span class="label label-light-danger label-rounded font-weight-bold">5</span>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <!--end::Navigation-->
-                </div>
-            </div>
+
             <!--end::Dropdown Menu-->
         </div>
         <div class="text-center flex-grow-1">
             <div class="text-dark-75 font-weight-bold font-size-h5" id="chat__username">Daftar Sesi Konseling</div>
+            <span class="font-weight-bold text-muted font-size-sm" id="selected_konselor"></span>
             {{-- <div>
                 <span class="label label-sm label-dot label-success"></span>
                 <span class="font-weight-bold text-muted font-size-sm">Active</span>
@@ -195,7 +123,7 @@
     <!--end::Header-->
     <!--begin::Body-->
     <div class="card-body">
-        <div class="text-center mb-10">Pilihlah Konselor yang jadwalnya masih tersedia</div>
+        <div class="text-center mb-10">Pilih jadwal Konselor yang tersedia</div>
 
         <div class="row">
             <div class="col">
@@ -204,7 +132,7 @@
                         <ul class="dashboard-tabs nav nav-pills nav-warning row row-paddingless m-0 p-0 flex-column flex-sm-row" role="tablist">
                             @foreach($days as $day)
                             <li id={{"list_hari__".ucwords($day)}} class="nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                                <a id={{"day_item__".ucwords($day)}} class="nav-link py-3 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="" data-value={{ucwords($day)}} href={{"#day__".$day}}>
+                                <a id={{"day_item__".ucwords($day)}} class="nav-link py-3 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="" data-value={{ucwords($day)}} >
                                     <span class="font-size-lg py-2 font-weight-bold text-center">{{ucwords($day)}}</span>
                                 </a>
                             </li>
@@ -221,11 +149,11 @@
                 </div>
             </div>
         </div>
-        <div class="row px-3">
-                <ul class="dashboard-tabs nav nav-pills nav-warning row row-paddingless m-0 p-0 flex-column flex-sm-row" role="tablist" id="ul__days_selector">
+        <div class="row px-3" id="jadwal">
+            <ul class="dashboard-tabs nav nav-pills nav-warning row row-paddingless m-0 p-0 flex-column flex-sm-row" role="tablist" id="ul__days_selector">
 
-                </ul>
-            </div>
+            </ul>
+        </div>
         </div>
         <form class="row d-flex justify-content-center align-items-center" id="form_daftar_sesi">
             <input id="input__konselor_id" type="text" hidden name="konselor_id">

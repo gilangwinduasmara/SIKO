@@ -37,6 +37,8 @@ $('.role-select > a').click(function(){
 
 $('#form__login').submit(function(e){
     e.preventDefault();
+    toastr.options = conf.toastr.options.saving;
+    toastr.info("Sedang memproses data")
     // console.log($(this).serialize());
     const url = state.selectedRole === 'konselor' ? '/services/auth/login' : '/services/auth/siasat';
     axios.post(url, $(this).serialize()).then((response) => {
@@ -55,6 +57,9 @@ $('#form__login').submit(function(e){
                 $('#input__fakultas').val(data.fakultas);
                 $('#input__email').val(data.email);
             }
+        }else{
+            toastr.options = conf.toastr.options.saving;
+            toastr.error("Login gagal!", response.data.message)
         }
     });
 });

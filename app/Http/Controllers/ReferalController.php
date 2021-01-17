@@ -102,7 +102,7 @@ class ReferalController extends Controller
     public function declideAgreement(Request $request){
         $konseling = Konseling::with('konseli')->with('konselor')->find($request->konseling_id);
         if($konseling->refered == 'ask'){
-            $konseling->refered = 'declined';
+            $konseling->refered = 'tidak';
             $konseling->save();
 
             $Notification = Notification::create([

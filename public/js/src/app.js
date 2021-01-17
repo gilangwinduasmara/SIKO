@@ -26,6 +26,8 @@ function makeid(length) {
  }
 
 $('#button__ask_referral').click(function (){
+    toastr.options = conf.toastr.options.saving;
+    toastr.info("Sedang memproses data")
     let searchParams = new URLSearchParams(window.location.search);
     const konseling_id = searchParams.get('id');
     axios.post('/services/referral/createagreement', {
@@ -36,16 +38,21 @@ $('#button__ask_referral').click(function (){
 });
 
 $('#button__ask_case_conference').click(function (){
+    toastr.options = conf.toastr.options.saving;
+    toastr.info("Sedang memproses data")
     let searchParams = new URLSearchParams(window.location.search);
     const konseling_id = searchParams.get('id');
     axios.post('/services/conference/createagreement', {
         konseling_id
     }).then((res) => {
        console.log(res.data);
+       window.location.href = window.location.href;
     });
 });
 
 $('#button__masuk_case_conference').click(function(){
+    toastr.options = conf.toastr.options.saving;
+    toastr.info("Sedang memproses data")
     var checkedKonselors = [];
     let searchParams = new URLSearchParams(window.location.search);
     $.each(konselors, function(i, konselor){
@@ -106,10 +113,12 @@ $('button[name="konseli__caseconference"]').click(function(){
 
 $('button[name="konseli__referral"]').click(function(){
     console.log('modal');
-    $('#modal__case_conference').modal('show');
+    $('#modal__referral').modal('show');
 });
 
 $('#button_caseconference__agree').click(function(){
+    toastr.options = conf.toastr.options.saving;
+    toastr.info("Sedang memproses data")
     const konseling_id = konseling.id;
     axios.post('/services/conference/createagreement', {
         konseling_id
@@ -120,6 +129,8 @@ $('#button_caseconference__agree').click(function(){
 
 $('#button_caseconference__decline').click(function(){
     const konseling_id = konseling.id;
+    toastr.options = conf.toastr.options.saving;
+    toastr.info("Sedang memproses data")
     axios.post('/services/conference/declineagreement', {
         konseling_id
     }).then((res) => {
@@ -138,7 +149,10 @@ $('#button__close_case').click(function(){
     });
 })
 
-$('#button_caseconference__agree').click(function(){
+
+$('#button_referral__agree').click(function(){
+    toastr.options = conf.toastr.options.saving;
+    toastr.info("Sedang memproses data")
     const konseling_id = konseling.id;
     axios.post('/services/referral/createagreement', {
         konseling_id
@@ -147,14 +161,18 @@ $('#button_caseconference__agree').click(function(){
     });
 });
 
-$('#button_caseconference__decline').click(function(){
+$('#button_referral__decline').click(function(){
+    toastr.options = conf.toastr.options.saving;
+    toastr.info("Sedang memproses data")
     const konseling_id = konseling.id;
     axios.post('/services/referral/declineagreement', {
         konseling_id
     }).then((res) => {
+        console.log(res.data)
         window.location.href = "/dashboard";
     });
 });
+
 
 $('form[name="form__rangkumankonseling"').submit(function(e){
     e.preventDefault();
@@ -175,8 +193,8 @@ $(document).ready(function(){
     if(path === "caseconference"){
         if(urlParam.has("id")){
             selectedCaseconference = caseconferences.filter((o) => (o.id === parseInt(urlParam.get("id"))))[0];
-            $('#chat-container').show();
-            $('#conference-information-container').hide();
+            // $('#chat-container').show();
+            // $('#conference-information-container').hide();
             showChat();
         }
     }

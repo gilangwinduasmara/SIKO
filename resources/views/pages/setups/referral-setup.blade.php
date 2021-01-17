@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <div class="card card-custom glutter-b card-stretch">
-                            <div id="step-card-1" class="card-body {{$konseling->refered == "tidak"? 'bg-white': 'bg-light'}}">
+                            <div id="step-card-1" class="card-body {{($konseling->refered == "tidak" || $konseling->refered == "declined" )? 'bg-white': 'bg-light'}}">
                                 <div class="card-title">
                                     <span>1. Persetujuan Referral</span><br>
                                     <span class="text-muted">Meminta persetujuan ke konseli untuk merujuk mereka ke konselor lain</span>
@@ -129,7 +129,7 @@
                                                                                 <img class="img-fit" alt="Pic" src={{"/avatars/".$konselor->user->avatar}}>
                                                                             </div>
                                                                             <div class="d-flex flex-column">
-                                                                                <a data id={{"daftarkonselor__".$konselor->id}} href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konselor->nama_konselor}}</a>
+                                                                                <a data id={{"daftarkonselor__".$konselor->id}} href="#chat-container" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konselor->nama_konselor}}</a>
                                                                                 <span class="text-muted font-weight-bold font-size-sm">{{ $konselor->profesi_konselor }}</span>
                                                                             </div>
                                                                         </div>
@@ -167,7 +167,7 @@
                                     <textarea type="text" class="form-control"  id="input__pesan"></textarea>
                                 </div>
                                 <div class="card-body py-3">
-                                    <button id="button__submit_referral" class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3" value="Kirim" type="submit">Masuk ke conference</button>
+                                    <button id="button__submit_referral" class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3" value="Kirim" type="submit">Kirim Referral</button>
                                 </div>
                             </div>
                             @endif

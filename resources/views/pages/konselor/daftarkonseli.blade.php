@@ -52,7 +52,7 @@
                                         <div class="d-flex flex-column">
                                             <a id={{"daftarkonseli__".$konseling->id}} href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konseling->konseli->nama_konseli}}</a>
                                             @if (count($konseling->chats) > 0)
-                                                <span class="text-muted font-weight-bold font-size-sm">{{ base64_decode($konseling->chats[0]->chat_konseling) }}</span>
+                                                <span class="text-muted font-weight-bold font-size-sm">{{ substr(base64_decode($konseling->chats[0]->chat_konseling), 0,20) }}</span>
                                             @endif
                                         </div>
                                     </div>

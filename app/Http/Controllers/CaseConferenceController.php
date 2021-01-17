@@ -124,7 +124,7 @@ class CaseConferenceController extends Controller
     public function declideAgreement(Request $request){
         $konseling = Konseling::with('konseli')->with('konselor')->find($request->konseling_id);
         if($konseling->conferenced == 'ask'){
-            $konseling->conferenced = 'declined';
+            $konseling->conferenced = 'tidak';
             $konseling->save();
 
             $Notification = Notification::create([

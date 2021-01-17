@@ -31,7 +31,7 @@
             <link href="{{ config('layout.self.rtl') ? asset(Metronic::rtlCssPath($theme)) : asset($theme) }}" rel="stylesheet" type="text/css"/>
         @endforeach
 
-        <script src="{{ asset('js/src/dropdown.js') }}" type="text/javascript"></script>
+
 
     <style type="text/css">@import url(https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500);</style>
     <style type="text/css">
@@ -295,10 +295,10 @@
                                 masalahmu, <br>dapatkan dukungan yang kamu butuhkan. <br>Saat ini juga, di Satya Wacana
                                 Counseling.
                             </div>
-                            <div style="max-width: 170px; margin-left: auto; margin-right: auto;"><input type="button"
+                            <div style="max-width: 170px; margin-left: auto; margin-right: auto;"><button type="button"
                                  class="button undefined"
-                                 value="Mulai Konseling"
-                                 style="width: 170px; background: rgb(78, 115, 223); color: white; height: 46px;">
+                                 value=""
+                                 style="width: 170px; background: rgb(78, 115, 223); color: white; height: 46px;" data-toggle="modal" data-target="#modal__login">Mulai Konseling</button>
                             </div>
                         </div>
                     </div>
@@ -414,7 +414,6 @@
     </div>
 </div>
 
-
 @if (config('layout.page-loader.type') != '')
     @include('layout.partials._page-loader')
 @endif
@@ -430,8 +429,32 @@
 @foreach(config('layout.resources.js') as $script)
     <script src="{{ asset($script) }}" type="text/javascript"></script>
 @endforeach
+<script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
 <script src="/js/owl.carousel.js" type="text/javascript"></script>
+<script src="/js/src/config.js" type="text/javascript"></script>
 <script src="/js/src/landing.js" type="text/javascript"></script>
+<script src="{{ asset('js/pages/features/miscellaneous/toastr.js') }}" type="text/javascript"></script>
+<script>
+    $(function () {
+        console.log("show toast")
+        toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "progressBar": true,
+                "preventDuplicates": false,
+                "positionClass": "toast-top",
+                "showDuration": "400",
+                "hideDuration": "1000",
+                "timeOut": "7000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["success"]("lol");
+    });
+</script>
 
 </body>
 </html>

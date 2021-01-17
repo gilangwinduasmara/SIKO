@@ -33,6 +33,7 @@ Route::get('/profile', 'PagesController@profile');
 // Konseli routes
     Route::get('/daftarsesi', 'PagesController@daftarSesi');
     Route::get('/ruangkonseling', 'PagesController@ruangkonseling');
+    Route::get('/gantijadwal', 'PagesController@gantiJadwal');
 
 // Setups routes
     Route::get('/setup/caseconference', 'PagesController@conferenceSetup');

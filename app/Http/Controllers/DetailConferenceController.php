@@ -40,7 +40,7 @@ class DetailConferenceController extends Controller
 
         $c = CaseConference::with(['detailConferences' => function($query){
             $query->with('konselor')->where('role','host')->first();
-        }])->find(1);
+        }])->find($request->case_conference_id);
         $a = $c->detailConferences->first();
 //        memberids, case_conference_id
         $ids = $request->memberids;

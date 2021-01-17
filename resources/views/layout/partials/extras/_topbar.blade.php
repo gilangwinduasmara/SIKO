@@ -127,7 +127,7 @@
             <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-dropdown w-auto btn-clean d-flex align-items-center btn-lg px-2">
                     <div class="symbol symbol-25">
-                        <img class="img-fit" src={{"/avatars/".$user->avatar}} alt="image">
+                        <img class="img-fit" src={{"/avatars/default.jpg"}} alt="image">
                     </div>
                 </div>
             </div>

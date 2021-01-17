@@ -73,8 +73,10 @@
             <!--end::Aside-->
             <!--begin::Content-->
             <div class="flex-row-fluid ml-lg-8" id="kt_chat_content">
+                @if(count($caseconferences)>0)
                 @include('pages.widgets._conference-information')
                 @include('pages.widgets.chat._chat-group')
+                @endif
             </div>
             <!--end::Content-->
         </div>

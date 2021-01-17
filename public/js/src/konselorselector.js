@@ -38,6 +38,7 @@ $.each(konselors, function(index, konselor){
     $('#daftarkonselor__'+konselor.id).click(function(){
        console.log(konselor.id);
        renderJadwalSelector(konselor.id);
+       $('#selected_konselor').text(konselor.nama_konselor)
        $('#button__daftar_sesi_referral').attr('disabled', true);
        $('#button__daftar_sesi').attr('disabled', true);
        $('#input__konselor_id').val(konselor.id);
