@@ -104,6 +104,7 @@ Route::get('services/referral/{id}', 'ReferalController@show');
 Route::post('services/referral', 'ReferalController@store');
 Route::post('services/referral/createagreement', 'ReferalController@createAgreement');
 Route::post('services/referral/declineagreement', 'ReferalController@declideAgreement');
+Route::post('services/referral/begin', 'ReferalController@beginReferral');
 
 Route::get('services/rekamkonseling', 'RekamKonselingController@show');
 Route::post('services/rekamkonseling', 'RekamKonselingController@update');
@@ -118,5 +119,5 @@ Route::get('services/notification/count/{id}', 'NotificationController@count');
 Route::post('services/notification', 'NotificationController@store');
 Route::put('services/notification/{id}', 'NotificationController@update');
 Route::post('services/notification/read/{id}', 'NotificationController@read');
-
+Route::get('/notification/{id}', 'NotificationController@read');
 

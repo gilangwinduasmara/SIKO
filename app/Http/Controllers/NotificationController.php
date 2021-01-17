@@ -29,6 +29,8 @@ class NotificationController extends Controller
      */
 
     public function read($id){
+        $this->assignUser();
+        $user = $this->user;
         $notif = Notification::find($id);
         if($notif->type == 'chat'){
             $data = $notif->data;
@@ -36,6 +38,61 @@ class NotificationController extends Controller
         }
         $notif->read_at = now();
         $notif->save();
+
+        if($notif->type == 'chat'){
+            if($user->role === 'konseli'){
+                return redirect('/ruangkonseling');
+            }
+            if($user->role === 'konselor'){
+                return redirect('/daftarkonseli?open&id='.$notif->data);
+            }
+        }
+
+        if($notif->type == 'new_referral'){
+            return redirect('/daftarkonseli?open&id='.$notif->data);
+        }
+
+        if($notif->type == 'new_conference'){
+            return redirect('/caseconference?id='.$notif->data);
+        }
+
+        if($notif->type == 'ask_referral'){
+            if($user->role === 'konseli'){
+                return redirect("/dashboard#modal__referral");
+            }
+        }
+
+        if($notif->type == 'ask_conference'){
+            if($user->role === 'konseli'){
+                return redirect("/dashboard#modal__case_conference");
+            }
+        }
+
+        if($notif->type == 'agreed_referral'){
+            if($user->role === 'konselor'){
+                return redirect("/setup/referral?id=".$notif->data);
+            }
+        }
+        if($notif->type == 'declined_referral'){
+            if($user->role === 'konselor'){
+                return redirect("/setup/referral?id=".$notif->data);
+            }
+        }
+
+        if($notif->type == 'agreed_conference'){
+            if($user->role === 'konselor'){
+                return redirect("/setup/caseconference?id=".$notif->data);
+            }
+        }
+
+        if($notif->type == 'declined_conference'){
+            if($user->role === 'konselor'){
+                return redirect("/setup/caseconference?id=".$notif->data);
+            }
+        }
+
+        return redirect('/dashboard');
+
         return response()->json([
             'success' => true,
         ]);

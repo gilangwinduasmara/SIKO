@@ -139,7 +139,6 @@
             </div>
         @endif
 
-
         <div class="modal fade" id="modal__close_case" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -150,7 +149,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div>Anda yakin ingin mengakhiri sesi konseling</div>
+                        <div>Anda yakin ingin mengakhiri sesi konseling?</div>
                     </div>
                     <div class="modal-footer">
                         <button data-dismiss="modal" type="button" class="btn btn-light-warning font-weight-bold">Tolak</button>
@@ -160,6 +159,8 @@
             </div>
         </div>
 
+        @if ($konseling!=null)
+        @if($konseling->conferenced == "ask")
         <div class="modal fade" id="modal__case_conference" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -179,7 +180,8 @@
                 </div>
             </div>
         </div>
-
+        @endif
+        @if($konseling->refered == "ask")
         <div class="modal fade" id="modal__referral" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -199,6 +201,9 @@
                 </div>
             </div>
         </div>
+        @endif
+        @endif
+
     </div>
 
 @endsection

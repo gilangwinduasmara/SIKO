@@ -46,7 +46,7 @@
             {{ Metronic::printAttrs('aside_menu') }}>
 
             <ul class="menu-nav {{ Metronic::printClasses('aside_menu_nav', false) }}">
-                {{ Menu::renderVerMenu(config('menu_aside.items')) }}
+                {{ Menu::renderVerMenu(config('menu_aside.'.$user->role)) }}
             </ul>
         </div>
     </div>

@@ -193,11 +193,54 @@ $(document).ready(function(){
     if(path === "caseconference"){
         if(urlParam.has("id")){
             selectedCaseconference = caseconferences.filter((o) => (o.id === parseInt(urlParam.get("id"))))[0];
-            // $('#chat-container').show();
-            // $('#conference-information-container').hide();
             showChat();
         }
     }
+    if(path === "daftarkonseli"){
+        if(urlParam.has("id")){
+            $('#daftarkonseli__'+urlParam.get("id")).click();
+            if(urlParam.has("open")){
+                $('button[name="personal_information__ruangkonseling"]').click();
+            }
+        }
+    }
+    $("#"+window.location.href.split("#")[1]).modal('show');
+
+
+})
+
+$('#cari-konseling').keyup(function(){
+    const searchVal = $(this).val().toLowerCase();
+    const filteredKonseling = konselings.filter((o, i) => {
+        return o.konseli.nama_konseli.toLowerCase().indexOf(searchVal) > -1
+    })
+    console.log(filteredKonseling)
+    let newHtml = ``;
+    filteredKonseling.map((item, index) => {
+
+        newHtml+=`
+
+        <div class="d-flex align-items-center justify-content-between mb-5">
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-circle symbol-50 mr-3">
+                                            <img alt="Pic" src={{"/avatars/".$konseling->konseli->user->avatar}}>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <a id={{"daftarkonseli__".$konseling->id}} href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konseling->konseli->nama_konseli}}</a>
+                                            @if (count($konseling->chats) > 0)
+                                                <span class="text-muted font-weight-bold font-size-sm">{{ substr(base64_decode($konseling->chats[0]->chat_konseling), 0,20) }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column align-items-end">
+                                        <span class="text-muted font-weight-bold font-size-sm">35 mins</span>
+                                    </div>
+                                </div>
+
+
+        `
+
+    })
 })
 
 $('form[name="form__rekam_konseling"]').submit(function(e){

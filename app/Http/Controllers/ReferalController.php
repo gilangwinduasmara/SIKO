@@ -99,6 +99,37 @@ class ReferalController extends Controller
         ]);
     }
 
+    public function beginReferral(Request $request){
+        $this->assignUser();
+        $user = $this->user;
+        $selectedJadwal = JadwalKonselor::find($request->jadwal_konselor_id);
+
+        $konseling = Konseling::where('konseli_id',$user->details->id)->where('status_selesai','C')->where('status_konseling','ref')->with(['konselor' => function ($query){
+            $query->with('user')->get();
+        }])->with('jadwal')->with('referal')->get()->first();
+
+        if($konseling->jadwal == $selectedJadwal){
+            $selectedJadwal->available = "false";
+            $selectedJadwal->save();
+        }else{
+            $jadwalFromKonseling = JadwalKonselor::find($konseling->jadwal->id);
+            $jadwalFromKonseling->available = "true";
+
+            $konseling->jadwal_konselor_id = $selectedJadwal->id;
+            $selectedJadwal->available = "false";
+            $selectedJadwal->save();
+            $jadwalFromKonseling->save();
+            $konseling->save();
+        }
+
+        return response()->json([
+            'success' => true
+        ]);
+        // dd($konseling->konseli);
+
+
+    }
+
     public function declideAgreement(Request $request){
         $konseling = Konseling::with('konseli')->with('konselor')->find($request->konseling_id);
         if($konseling->refered == 'ask'){

@@ -24,47 +24,40 @@ $(document).ready(function(){
     let chatHtml = '';
     let notifCount = 0;
     let chatCount = 0;
+
     axios.get('/services/notification').then(res=>{
         console.log(res.data)
         res.data.rows.map((item, index) => {
             if(item.type === 'chat'){
-                chatHtml+=`
+                $('#chat-badge').show();
+                chatHtml +=`
                 <li class="navi-item">
-                    <a href="#" class="navi-link">
+                    <a href=${"/notification/"+item.id} class="navi-link">
                         <div class="navi-text">
                             <div class="font-weight-bold">${item.title}</div>
-                            <div class="text-muted">${atob(item.message)}</div>
+                            <div class="text-muted">${item.message}</div>
                         </div>
                     </a>
                 </li>
                 `;
-                chatCount++;
+                $('#dropdown-chat').html(chatHtml)
             }else{
-                notifHtml+=`
+                $('#notif-badge').show();
+                notifHtml +=`
                 <li class="navi-item">
-                    <a href="#" class="navi-link">
+                    <a href=${"/notification/"+item.id} class="navi-link">
                         <div class="navi-text">
-                            <div class="font-weight-bold ">${item.title}</div>
+                            <div class="font-weight-bold">${item.title}</div>
                             <div class="text-muted">${item.message}</div>
                         </div>
                     </a>
-                </li>`;
-                notifCount++;
+                </li>
+                `;
+                $('#dropdown-notif').html(notifHtml)
             }
+
+
         })
-        console.log(notifHtml)
-        $('#dropdown-notif').html(notifHtml)
-        $('#dropdown-chat').html(chatHtml)
-        if(notifCount>0){
-            $('#notif-badge').show();
-        }else{
-            $('#notif-badge').hide();
-        }
-        if(chatCount>0){
-            $('#chat-badge').show();
-        }else{
-            $('#chat-badge').hide();
-        }
     })
 
 })

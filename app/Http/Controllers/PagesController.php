@@ -72,23 +72,7 @@ class PagesController extends Controller
             ],
             'count' => $count
         ];
-//        return response()->json([
-//            'success' => true,
-//            'data' => [
-//                'aktif' => [
-//                    'baru' => $baru,
-//                    'referral' => $referal,
-//                    'total' => $baru+$referal
-//                ],
-//                'selesai' => [
-//                    'cc' => $cc,
-//                    'r' => $r,
-//                    'e' => $e,
-//                    'total' => $cc+$r+$e
-//                ],
-//                'count' => $count
-//            ]
-//        ]);
+
     }
 
     public function index()
@@ -132,6 +116,7 @@ class PagesController extends Controller
 
     public function daftarkonseli(){
         $this->assignUser();
+        $user = $this->user;
         $page_title = 'Daftar Konseli';
         $page_description = '';
         $type = 'daftarkonseling';
@@ -178,10 +163,11 @@ class PagesController extends Controller
 
     public function gantiJadwal(){
         $this->assignUser();
+        $user = $this->user;
         if($this->user->role != "konseli"){
             return redirect("/dashboard");
         }
-        return view('pages.konseli.gantijadwal')
+        return view('pages.konseli.gantijadwal');
     }
 
     public function caseconference(){
@@ -208,6 +194,7 @@ class PagesController extends Controller
 
     public function arsip(){
         $this->assignUser();
+        $user = $this->user;
         $page_title = 'Daftar Konseli';
         $page_description = '';
         $type = 'arsip';
@@ -232,42 +219,55 @@ class PagesController extends Controller
 
     public function landing(){
         $this->assignUser();
+        $user = $this->user;
         $konselors = Konselor::with('user')->get();
         return view('pages.landing.landing', compact('konselors'));
     }
 
     public function conferenceSetup(Request $request){
         $this->assignUser();
+        $user = $this->user;
         $currentKonselor = Konselor::where('user_id', $this->user->id)->get()->first();
         $page_title = 'Case Conference';
         $page_description = '';
         $konseling = Konseling::find($request->get('id'));
         $konselors = Konselor::with('user')->where('id', '!=', $currentKonselor->id)->get();
-        return view('pages.setups.case-conference-setup', compact('page_title', 'page_description', 'konseling', 'konselors'));
+        return view('pages.setups.case-conference-setup', compact('page_title', 'page_description', 'konseling', 'konselors', 'user'));
     }
     public function referralSetup(Request $request){
         $this->assignUser();
+        $user = $this->user;
         $currentKonselor = Konselor::where('user_id', $this->user->id)->get()->first();
         $page_title = 'Case Conference';
         $page_description = '';
         $konseling = Konseling::find($request->get('id'));
         $konselors = Konselor::with('user')->where('id', '!=', $currentKonselor->id)->get();
-        return view('pages.setups.referral-setup', compact('page_title', 'page_description', 'konseling', 'konselors'));
+        return view('pages.setups.referral-setup', compact('page_title', 'page_description', 'konseling', 'konselors', 'user'));
     }
 
     public function ruangKonseling(){
         $this->assignUser();
+        $user = $this->user;
         $konseling = Konseling::where('konseli_id',$this->user->details->id)->where('status_selesai','C')->where('refered','!=','ya')->with(['konseli' => function ($query){
             $query->with('user')->get();
         }])->with(['konselor' => function ($query){
             $query->with('user')->get();
         }])->with('jadwal')->with('referal')->get()->first();
         $user = $this->user;
+        if($konseling->jadwal->available == 'candidate'){
+            $konselor = $konseling->konselor;
+            $jadwals = JadwalKonselor::where('konselor_id',$konselor->id)->where(function ($query) use($konseling){
+                $query->where('available','true')->orWhere('id', $konseling->jadwal->id);
+            })->get()->groupBy('hari');
+            // dd($jadwals);
+            return view('pages.konseli.gantijadwal', compact('user', 'konseling', 'konselor', 'jadwals'));
+        }
         return view('pages.konseli.ruangkonseling', compact('user', 'konseling'));
     }
 
     public function daftarSesi(){
         $this->assignUser();
+        $user = $this->user;
         $page_title = 'Dashboard';
         $page_description = 'Some description for the page';
         $user = $this->user;
@@ -292,7 +292,7 @@ class PagesController extends Controller
 //                array_push($return, $konselor);
 //            }
         }
-        return view('pages.konseli.daftarsesi', compact('konselors'));
+        return view('pages.konseli.daftarsesi', compact('konselors', 'user'));
     }
 
     /**

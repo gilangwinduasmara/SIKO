@@ -101,12 +101,17 @@
             <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
                     <i class="flaticon2-notification position-relative" >
-                        <div id="notif-badge"  class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px" style="display: none"></div>
+                        <div id="notif-badge"  class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px; display: none"></div>
                     </i>
                 </div>
             </div>
             <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
                 <ul class="navi navi-hover py-4" id="dropdown-notif">
+                    <li class="navi-item">
+                        <div class="navi-text">
+                            <div class="font-weight-bold text-center">Belum ada chat</div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -114,12 +119,17 @@
             <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
                     <i class="flaticon-chat position-relative" >
-                        <div id="chat-badge" class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px" style="display: none"></div>
+                        <div id="chat-badge" class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px; display: none"></div>
                     </i>
                 </div>
             </div>
             <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
                 <ul class="navi navi-hover py-4" id="dropdown-chat">
+                    <li class="navi-item">
+                        <div class="navi-text">
+                            <div class="font-weight-bold text-center">Belum ada chat</div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

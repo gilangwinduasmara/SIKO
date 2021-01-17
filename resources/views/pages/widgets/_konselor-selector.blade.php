@@ -24,7 +24,7 @@
             <!--end::Dropdown Menu-->
         </div>
         <div class="text-center flex-grow-1">
-            <div class="text-dark-75 font-weight-bold font-size-h5" id="chat__username">Daftar Sesi Konseling</div>
+            <div class="text-dark-75 font-weight-bold font-size-h5" id="chat__username">{{$title ?? "Daftar Sesi Konseling"}}</div>
             <span class="font-weight-bold text-muted font-size-sm" id="selected_konselor"></span>
             {{-- <div>
                 <span class="label label-sm label-dot label-success"></span>
@@ -155,12 +155,13 @@
             </ul>
         </div>
         </div>
-        <form class="row d-flex justify-content-center align-items-center" id="form_daftar_sesi">
+        <form class="row d-flex justify-content-center align-items-center" id={{$submit['form_id']??"form_daftar_sesi"}}>
             <input id="input__konselor_id" type="text" hidden name="konselor_id">
             <input id="input__jadwal_konselor_id" type="text" hidden name="jadwal_konselor_id">
 
             <div class="col-sm-2">
-                <button type="submit" id="button__daftar_sesi" href="/daftarsesi" class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3" disabled>Daftar Sesi
+                <button type="submit" id="button__daftar_sesi" href="/daftarsesi" class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3" disabled>
+                    {{$submit['button_title']??"Daftar Sesi"}}
                 </button>
             </div>
         </form>

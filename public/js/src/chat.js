@@ -1,4 +1,4 @@
-
+var currentChat = null;
 $('#button__showpersonalinformation').click(function(){
     showPersonalInformationById(selectedKonseling);
     $('#chat-container').hide();
@@ -43,6 +43,7 @@ async function renderChat(){
     let chats = request.data.rows;
     console.log(chats);
     let html = "";
+    let lastId = null;
     Object.keys(chats).map((timestamp, index) => {
         html+=`
             <div class="d-flex flex-column mb-5 align-items-center">
@@ -72,8 +73,13 @@ async function renderChat(){
                             </div>
                     </div>`;
             }
+            lastId = chat.id;
         });
     });
-    console.log(html);
     $('#messages-box').html(html);
+    if(currentChat!==lastId){
+        console.log('scroll')
+        $('.scroll').scrollTop($('#messages-box').height());
+    }
+    currentChat = lastId;
 }

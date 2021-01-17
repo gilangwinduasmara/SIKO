@@ -31,11 +31,11 @@
                                     </span>
                                 </span>
                             </div>
-                            <input type="text" class="form-control py-4 h-auto" placeholder="Cari">
+                            <input id="cari-konseling" type="text" class="form-control py-4 h-auto" placeholder="Cari">
                         </div>
                         <!--end:Search-->
                         <!--begin:Users-->
-                        <div class="mt-7 scroll scroll-pull ps ps--active-y" style="height: 12px; overflow: hidden;">
+                        <div id="konseli-wrapper" class="mt-7 scroll scroll-pull ps ps--active-y" style="height: 12px; overflow: hidden;">
                             @if (count($konselings) == 0)
                                 <center>
                                     <span>Belum ada data</span>
@@ -90,7 +90,8 @@
         var konselings = @json($konselings);
         var user = @json($user);
         var selectedKonselingDetail = konselings[0];
-        var selectedKonseling = konselings[0].id;
+        var selectedKonseling = selectedKonselingDetail.id;
+
     </script>
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/pages/custom/chat/chat.js') }}" type="text/javascript"></script>
