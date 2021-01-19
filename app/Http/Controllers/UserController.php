@@ -55,7 +55,25 @@ class UserController extends Controller
 
     public function editProfile(){
         $this->assignUser();
+        $user = $this->user;
         $konselor = $this->user->details;
+        if($user->role == 'admin'){
+            $konselor = Konselor::find(request()->id);
+        }
+
+        $konselorUser = User::find($konselor->user_id);
+        $konselorUser->name = request()->personal['nama'];
+        $konselorUser->email = request()->personal['email'];
+
+        $konselorUser->save();
+
+        $konselor->nama_konselor = request()->personal['nama'];
+        $konselor->profesi_konselor = request()->personal['profesi'];
+        $konselor->email_konselor = request()->personal['email'];
+        $konselor->no_hp_konselor = request()->personal['nohp'];
+
+        $konselor->save();
+
         for($i=0; $i<count((array)request()->dataJadwal);$i++){
             $itemJadwal = request()->dataJadwal[$i];
             if($itemJadwal['id'] == "new"){
@@ -80,6 +98,52 @@ class UserController extends Controller
             'message' => ''
         ]);
     }
+
+
+    public function tambahKonselor(){
+        $this->assignUser();
+        $konselorUser = User::create([
+            'name' => request()->personal['nama'],
+            'email' => request()->personal['email'],
+            'password' => bcrypt('siko'),
+            'role' => 'konselor',
+            'avatar' => 'default.jpg'
+        ]);
+
+        $konselor = Konselor::create([
+            'nama_konselor' => request()->personal['nama'],
+            'profesi_konselor' => request()->personal['profesi'],
+            'email_konselor' => request()->personal['email'],
+            'no_hp_konselor' => request()->personal['nohp'],
+            'status' => 'aktif',
+            'user_id' => $konselorUser->id
+        ]);
+
+        for($i=0; $i<count((array)request()->dataJadwal);$i++){
+            $itemJadwal = request()->dataJadwal[$i];
+            if($itemJadwal['id'] == "new"){
+                JadwalKonselor::create([
+                    'hari' => $itemJadwal['hari'],
+                    'jam_mulai' => $itemJadwal['jam_mulai'],
+                    'jam_akhir' => $itemJadwal['jam_mulai']+1,
+                    'konselor_id'=> $konselor['id'],
+                    'available' => true
+                ]);
+            }else{
+                $jadwal = JadwalKonselor::find($itemJadwal['id']);
+                $jadwal->hari = $itemJadwal['hari'];
+                $jadwal->jam_mulai = $itemJadwal['jam_mulai'];
+                $jadwal->jam_akhir = ($itemJadwal['jam_mulai'])+1;
+                $jadwal->save();
+            }
+        }
+        $savedKonselor = Konselor::with('user')->with('jadwal')->find($konselor->id);
+        return response()->json([
+            'success' => true,
+            'data' =>$konselor
+        ]);
+    }
+
 
     public function adminLogin(){
         $validator = Validator::make(request()->all(), [

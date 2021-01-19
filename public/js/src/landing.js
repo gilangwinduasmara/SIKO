@@ -14,9 +14,11 @@ function changeSelectedRole(){
     $('.role-select .active-role').attr('class', 'role');
 
     if(state.selectedRole === 'konseli'){
+        $('#login-email').attr("placeholder", "Email")
         state.selectedRole = 'konselor';
         $('#toggle__selected').addClass('is-konselor-selected');
     }else{
+        $('#login-email').attr("placeholder", "NIM")
         state.selectedRole = 'konseli';
         $('#toggle__selected').removeClass('is-konselor-selected');
     }

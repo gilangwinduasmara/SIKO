@@ -400,7 +400,7 @@ class KonselingController extends Controller
         $notification = Notification::create([
             "type" => "new_konseling",
             "data" => $konseling->id,
-            'title' => '',
+            'title' => $this->user->details->nama_konseli,
             "message" => "sesi konseling baru",
             "user_id" => $konselor->user_id
         ]);

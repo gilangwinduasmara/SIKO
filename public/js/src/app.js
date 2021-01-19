@@ -1,4 +1,6 @@
 // Setup Event Listener
+
+
 $.fn.serializeObject = function() {
     var o = {};
     var a = this.serializeArray();
@@ -176,6 +178,8 @@ $('#button_referral__decline').click(function(){
 
 $('form[name="form__rangkumankonseling"').submit(function(e){
     e.preventDefault();
+    toastr.options = conf.toastr.options.saving
+    toastr.info("", "Menyimpan data");
     axios.post('/services/rangkumankonseling', $(this).serialize()).then((res) => {
         console.log(res.data)
         window.location.href="/daftarkonseli"
@@ -211,36 +215,33 @@ $(document).ready(function(){
 
 $('#cari-konseling').keyup(function(){
     const searchVal = $(this).val().toLowerCase();
-    const filteredKonseling = konselings.filter((o, i) => {
+    let k = konselings;
+
+    console.log(k.length)
+    const filteredKonseling = k.filter((o, i) => {
         return o.konseli.nama_konseli.toLowerCase().indexOf(searchVal) > -1
     })
     console.log(filteredKonseling)
     let newHtml = ``;
     filteredKonseling.map((item, index) => {
-
         newHtml+=`
-
-        <div class="d-flex align-items-center justify-content-between mb-5">
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-circle symbol-50 mr-3">
-                                            <img alt="Pic" src={{"/avatars/".$konseling->konseli->user->avatar}}>
-                                        </div>
-                                        <div class="d-flex flex-column">
-                                            <a id={{"daftarkonseli__".$konseling->id}} href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konseling->konseli->nama_konseli}}</a>
-                                            @if (count($konseling->chats) > 0)
-                                                <span class="text-muted font-weight-bold font-size-sm">{{ substr(base64_decode($konseling->chats[0]->chat_konseling), 0,20) }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column align-items-end">
-                                        <span class="text-muted font-weight-bold font-size-sm">35 mins</span>
-                                    </div>
-                                </div>
-
-
+            <div class="d-flex align-items-center justify-content-between mb-5">
+                <div class="d-flex align-items-center">
+                    <div class="symbol symbol-circle symbol-50 mr-3">
+                        <img alt="Pic" src="/avatars/${item.konseli.user.avatar}">
+                    </div>
+                    <div class="d-flex flex-column">
+                        <a id=${"daftarkonseli__"+item.id} href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">${item.konseli.nama_konseli}</a>
+                        <span class="text-muted font-weight-bold font-size-sm">${item.chats.length>0?atob(item.chats[0].chat_konseling):''}</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-end">
+                    <span class="text-muted font-weight-bold font-size-sm"></span>
+                </div>
+            </div>
         `
-
     })
+    $('#konseli-wrapper').html(newHtml)
 })
 
 $('form[name="form__rekam_konseling"]').submit(function(e){
@@ -249,6 +250,6 @@ $('form[name="form__rekam_konseling"]').submit(function(e){
     toastr.options = conf.toastr.options.saving
     toastr.info("", "Menyimpan data");
     axios.post('/services/rekamkonseling', $(this).serialize()).then((res)=>{
-        window.location.href = window.location.href;
+        window.location.reload();
     })
 })

@@ -18,7 +18,7 @@
                         </span>
                     </button>
                 </span>
-                <h3 class="card-label">Informasi Konseli
+                <h3 class="card-label">Informasi Konseling
                 {{-- <small>sub title</small></h3> --}}
             </div>
 
@@ -36,13 +36,20 @@
                 <div class="flex-grow-1">
                     <div class="d-flex justify-content-between flex-wrap mt-1">
                         <div class="d-flex mr-3">
+                            @if($user->role=="konselor")
                             <a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">{{$konseli->nama_konseli}}</a>
+                            @else
+                            <a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">{{$konseling->konselor->nama_konselor}}</a>
+                            @endif
+                            @if($user->role=="konselor")
                             <a href="#">
                                 <span>{{$konseling->jadwal->jam_mulai.":00 - ".$konseling->jadwal->jam_akhir.":00"}}</span>
                             </a>
+                            @endif
                         </div>
                     </div>
                     <div class="d-flex flex-wrap justify-content-between mt-1">
+                        @if($user->role == 'konselor')
                         <div class="">
                             <div class="row">
                                 <div class="col-3">
@@ -73,11 +80,23 @@
                                 </div>
                             </div>
                         </div>
+                        @else
+                        <div>
+                            <div class="my-6">
+                                <a href="#" class="text-dark-50 text-hover-primary font-size-sm font-weight-bold mr-3 my-8">{{$konseling->konselor->profesi_konselor}}</a><br>
+                            </div>
+                            <div class="my-8">
+                                <a href="#" class="text-dark-50 text-hover-primary font-size-sm font-weight-bold mr-3">{{$konseling->konselor->user->email}}</a>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
             @if ($konseling->status_konseling == "ref")
+                @if($user->role == 'konselor')
                 <button data-toggle="modal" data-target="#modal-pesan-rujukan" class="btn btn-warning">Pesan Rujukan</button>
+                @endif
                 <div class="modal fade" id="modal-pesan-rujukan"tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content" >

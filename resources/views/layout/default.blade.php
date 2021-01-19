@@ -40,6 +40,8 @@ License: You must have a valid license purchased only from themeforest(the above
         @foreach (Metronic::initThemes() as $theme)
             <link href="{{ config('layout.self.rtl') ? asset(Metronic::rtlCssPath($theme)) : asset($theme) }}" rel="stylesheet" type="text/css"/>
         @endforeach
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+
 
         {{-- Includable CSS --}}
         <link rel="stylesheet" href="/css/app.css">

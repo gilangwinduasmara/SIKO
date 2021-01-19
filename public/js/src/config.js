@@ -19,5 +19,20 @@ var conf = {
                 "hideMethod": "fadeOut"
             }
         }
+    },
+    datatable: {
+        translate: {
+            records: {
+                processing: 'Memuat data ...',
+                noRecords: 'Tidak ada data'
+            },
+            toolbar: {
+                pagination: {
+                    items: {
+                        info: "Menampilkan {{start}} - {{end}} dari {{total}} data"
+                    }
+                }
+            }
+        }
     }
 }

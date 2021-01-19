@@ -96,7 +96,7 @@
     @endif --}}
 
     {{-- Languages --}}
-    @if (true)
+    @if ($user->role != 'admin')
         <div class="dropdown">
             <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
@@ -109,7 +109,7 @@
                 <ul class="navi navi-hover py-4" id="dropdown-notif">
                     <li class="navi-item">
                         <div class="navi-text">
-                            <div class="font-weight-bold text-center">Belum ada chat</div>
+                            <div class="font-weight-bold text-center">Belum ada notifikasi</div>
                         </div>
                     </li>
                 </ul>

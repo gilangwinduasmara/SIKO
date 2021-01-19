@@ -39,6 +39,7 @@
             </div>
         @endif
 
+        @if(isset($user))
         <div
             id="kt_aside_menu"
             class="aside-menu my-4 {{ Metronic::printClasses('aside_menu', false) }}"
@@ -49,6 +50,7 @@
                 {{ Menu::renderVerMenu(config('menu_aside.'.$user->role)) }}
             </ul>
         </div>
+        @endif
     </div>
 
 </div>

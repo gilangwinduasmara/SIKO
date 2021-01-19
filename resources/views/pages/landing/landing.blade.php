@@ -261,7 +261,7 @@
                 <form class="d-flex flex-column align-items-center justify-content-center" id="form__login">
                     <div class="popup-forms">
                         <input type="text" hidden value="konseli" name="role">
-                        <input name="email" placeholder="NIM">
+                        <input id="login-email" name="email" placeholder="NIM">
                         <input class="my-2" name="password" placeholder="Password" type="password">
                     </div>
                     <div class="button-submit px-4 mt-2+

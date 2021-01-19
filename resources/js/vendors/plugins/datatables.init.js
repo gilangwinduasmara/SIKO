@@ -10,6 +10,18 @@ var defaults = {
 	}
 };
 
+var search = function (settings, data, dataIndex) {
+    console.log('tes')
+    var min = $('#datepicker_dari').val();
+    var max = $('#datepicker_sampai').val();
+    var startDate = new Date(data[1]);
+    if (min == null && max == null) { return true; }
+    if (min == null && startDate <= max) { return true; }
+    if (max == null && startDate >= min) { return true; }
+    if (startDate <= max && startDate >= min) { return true; }
+    return false;
+}
+
 if (KTUtil.isRTL()) {
 	defaults = {
 		"language": {
@@ -20,10 +32,12 @@ if (KTUtil.isRTL()) {
 				"previous": '<i class="ki ki-arrow-next"></i>'
 			}
 		}
-	}
+    }
 }
 
+
 $.extend(true, $.fn.dataTable.defaults, defaults);
+$.extend(true, $.fn.dataTable.ext.search, search);
 
 // fix dropdown overflow inside datatable
 KTApp.initAbsoluteDropdown('.dataTables_wrapper');

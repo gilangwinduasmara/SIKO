@@ -43,7 +43,12 @@ Route::get('/profile', 'PagesController@profile');
 
 // Admin routes
     Route::get('/admin/dashboard', 'AdminController@dashboard');
-
+    Route::get('/admin/konselor', 'AdminController@konselor');
+    Route::get('/admin/report', 'AdminController@report');
+    Route::get('/admin/setting', 'AdminController@setting');
+    Route::get('/admin/informasi', 'AdminController@informasi');
+    Route::get('/admin/konselor/tambah', 'AdminController@tambahKonselor');
+    Route::get('/admin/konselor/edit/{id}', 'AdminController@editKonselor');
     Route::post('/admin/post', 'AdminController@doLogin');
 
 // Demo routes
@@ -61,6 +66,8 @@ Route::get('/icons/svg', 'PagesController@svg');
 // Quick search dummy route to display html elements in search dropdown (header search)
 Route::get('/quick-search', 'PagesController@quickSearch')->name('quick-search');
 
+Route::post('/services/konselor/tambahKonselor', 'UserController@tambahKonselor');
+Route::post('/services/konselor/editKonselor', 'UserController@editKonselor');
 
 Route::post('services/auth/login', 'UserController@login');
 Route::post('services/auth/login/admin', 'UserController@adminLogin');
@@ -121,3 +128,13 @@ Route::put('services/notification/{id}', 'NotificationController@update');
 Route::post('services/notification/read/{id}', 'NotificationController@read');
 Route::get('/notification/{id}', 'NotificationController@read');
 
+
+Route::post('/services/setting', 'SettingController@store');
+
+Route::put('/services/pengumuman', 'PengumumanController@update');
+Route::post('/services/pengumuman', 'PengumumanController@store');
+Route::delete('/services/pengumuman/{id}', 'PengumumanController@destroy');
+
+Route::put('/services/quote', 'QuoteController@update');
+Route::post('/services/quote', 'QuoteController@store');
+Route::delete('/services/quote/{id}', 'QuoteController@destroy');

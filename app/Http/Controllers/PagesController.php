@@ -202,7 +202,9 @@ class PagesController extends Controller
 
         $konselor = Konselor::where('user_id', $this->user->id)->get()->first();
 
-        $konselings = Konseling::with(['referral' => function ($query){
+        $konselings = Konseling::with(['konselor'=>function($query){
+            $query->with('user');
+        }])->with(['referral' => function ($query){
                             $query->with('konselor')->get();
                         }])->with('rangkumanKonseling')->has('rangkumanKonseling')->with(['konseli' => function ($query) {
                             $query->with('user')->with(['prodi' => function ($query){
@@ -214,6 +216,9 @@ class PagesController extends Controller
         $showChat = false;
         // dd($konselis);
         $user = $this->user;
+        if($user->role == 'konseli'){
+            return view('pages.konseli.arsip', compact('page_title', 'page_description', 'konselings', 'showChat', 'type', 'user'));
+        }
         return view('pages.konselor.daftarkonseli', compact('page_title', 'page_description', 'konselings', 'showChat', 'type', 'user'));
     }
 

@@ -32,13 +32,15 @@ class NotificationController extends Controller
         $this->assignUser();
         $user = $this->user;
         $notif = Notification::find($id);
+        if($notif->read_at != null){
+            return redirect()->back();
+        }
         if($notif->type == 'chat'){
             $data = $notif->data;
             $chats = Notification::where('data', $data)->update(['read_at' => now()]);
         }
         $notif->read_at = now();
         $notif->save();
-
         if($notif->type == 'chat'){
             if($user->role === 'konseli'){
                 return redirect('/ruangkonseling');
@@ -93,9 +95,6 @@ class NotificationController extends Controller
 
         return redirect('/dashboard');
 
-        return response()->json([
-            'success' => true,
-        ]);
     }
 
     public function index(Request $request)
@@ -111,13 +110,13 @@ class NotificationController extends Controller
         foreach($notifications as $notif){
             array_push($n, $notif);
         }
-        return response()->json([
-            'success'=>true,
-            'message'=>'',
-            'rows'=>$n,
-        ]);
+        // return response()->json([
+        //     'success'=>true,
+        //     'message'=>'',
+        //     'rows'=>$n,
+        // ]);
         if(true){
-            $notifications = Notification::where('type','chat')->where('user_id', $user->id)->get()->groupBy(['data']);
+            $notifications = Notification::where('read_at')->where('type','chat')->where('user_id', $user->id)->get()->groupBy(['data']);
             $notification = [];
             foreach($notifications as $n){
                 $konseling = Konseling::find($n[0]['data']);
@@ -142,12 +141,32 @@ class NotificationController extends Controller
                 };
             }
             $askConference = [];
-            $_conferences = Notification::where('user_id', $user->id)->whereIn('type', ['ask_conference','agreed_conference','invitation_conference', 'declined_conference'])->orderBy('created_at')->get();
+            $_conferences = Notification::where('read_at')->where('user_id', $user->id)->whereIn('type', ['ask_conference','agreed_conference','invitation_conference', 'declined_conference'])->orderBy('created_at')->get();
+            // return response()->json([$_conferences]);
             foreach($_conferences as $c){
                 $conf = Konseling::find($c->data);
+                if($c->type == 'ask_conference'){
+                    if($conf->conferenced != 'ask'){
+                        continue;
+                    }
+                }
+                if($c->type == 'ask_referral'){
+                    if($conf->refered != 'ask'){
+                        continue;
+                    }
+                }
                 array_push($notification, $c);
             }
 
+            $_others = Notification::where('read_at')->where('user_id', $user->id)->whereIn('type', ['new_konseling'])->orderBy('created_at')->get();
+            foreach ($_others as $o) {
+                if($o->type == 'new_konseling'){
+                    $k = Konseling::with('chats')->find($o->data);
+                    if($k->status_selesai == 'C' && $k->refered != "ya" && count($k->chats) == 0){
+                        array_push($notification, $o);
+                    }
+                }
+            }
         }
         return response()->json([
             'success'=>true,

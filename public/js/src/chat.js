@@ -5,13 +5,15 @@ $('#button__showpersonalinformation').click(function(){
 });
 
 function showChat(){
+    $('#messages-box').html("");
+    window.clearInterval(window.chatInterval);
     $('#chat-spinner').show();
     try {
         showPersonalInformationById(null);
     }catch (e){
 
     }
-    setInterval(()=>{
+    window.chatInterval = setInterval(()=>{
         renderChat().then(()=>{
             $('#chat-spinner').hide();
             KTAppChat.init();
