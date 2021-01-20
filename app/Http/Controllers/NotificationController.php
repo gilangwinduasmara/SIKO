@@ -93,6 +93,18 @@ class NotificationController extends Controller
             }
         }
 
+        if($notif->type == 'new_konseling'){
+            if($user->role === 'konselor'){
+                return redirect("/daftarkonseli?open&id=".$notif->data);
+            }
+        }
+
+        if($notif->type == 'end_konseling'){
+            if($user->role === 'konselor'){
+                return redirect("/daftarkonseli?id=".$notif->data);
+            }
+        }
+
         return redirect('/dashboard');
 
     }
@@ -158,11 +170,17 @@ class NotificationController extends Controller
                 array_push($notification, $c);
             }
 
-            $_others = Notification::where('read_at')->where('user_id', $user->id)->whereIn('type', ['new_konseling'])->orderBy('created_at')->get();
+            $_others = Notification::where('read_at')->where('user_id', $user->id)->whereIn('type', ['new_konseling', 'end_konseling'])->orderBy('created_at')->get();
             foreach ($_others as $o) {
                 if($o->type == 'new_konseling'){
                     $k = Konseling::with('chats')->find($o->data);
                     if($k->status_selesai == 'C' && $k->refered != "ya" && count($k->chats) == 0){
+                        array_push($notification, $o);
+                    }
+                }
+                if($o->type == 'end_konseling'){
+                    $k = Konseling::with('rangkumanKonseling')->find($o->data);
+                    if($k->rangkumanKonseling == null){
                         array_push($notification, $o);
                     }
                 }

@@ -7,6 +7,7 @@ use App\JadwalKonselor;
 use App\Konseli;
 use App\Konseling;
 use App\Konselor;
+use App\Pengumuman;
 use App\Setting;
 use App\User;
 use Illuminate\Http\Request;
@@ -224,9 +225,10 @@ class PagesController extends Controller
 
     public function landing(){
         $this->assignUser();
+        $pengumuman = Pengumuman::get()->first();
         $user = $this->user;
         $konselors = Konselor::with('user')->get();
-        return view('pages.landing.landing', compact('konselors'));
+        return view('pages.landing.landing', compact('konselors', 'pengumuman'));
     }
 
     public function conferenceSetup(Request $request){
@@ -236,16 +238,34 @@ class PagesController extends Controller
         $page_title = 'Case Conference';
         $page_description = '';
         $konseling = Konseling::find($request->get('id'));
+
+        if($konseling == null || $konseling->konselor_id != $user->details->id || $konseling->refered == 'ya' || $konseling->status_selesai != 'C'){
+            return redirect('/dashboard');
+        }
+
         $konselors = Konselor::with('user')->where('id', '!=', $currentKonselor->id)->get();
         return view('pages.setups.case-conference-setup', compact('page_title', 'page_description', 'konseling', 'konselors', 'user'));
     }
+
+    public function gantiPassword(){
+        $this->assignUser();
+        $user = $this->user;
+        if($user->role == 'konseli'){
+            return redirect('/dashboard');
+        }
+        return view('pages.gantipassword', compact('user'));
+    }
+
     public function referralSetup(Request $request){
         $this->assignUser();
         $user = $this->user;
         $currentKonselor = Konselor::where('user_id', $this->user->id)->get()->first();
-        $page_title = 'Case Conference';
+        $page_title = 'Referral';
         $page_description = '';
         $konseling = Konseling::find($request->get('id'));
+        if($konseling == null || $konseling->konselor_id != $user->details->id || $konseling->refered == 'ya' || $konseling->status_selesai != 'C'){
+            return redirect('/dashboard');
+        }
         $konselors = Konselor::with('user')->where('id', '!=', $currentKonselor->id)->get();
         return view('pages.setups.referral-setup', compact('page_title', 'page_description', 'konseling', 'konselors', 'user'));
     }
@@ -258,6 +278,11 @@ class PagesController extends Controller
         }])->with(['konselor' => function ($query){
             $query->with('user')->get();
         }])->with('jadwal')->with('referal')->get()->first();
+
+        if($konseling == null){
+            return redirect('/dashboard');
+        }
+
         $user = $this->user;
         if($konseling->jadwal->available == 'candidate'){
             $konselor = $konseling->konselor;
@@ -276,6 +301,14 @@ class PagesController extends Controller
         $page_title = 'Dashboard';
         $page_description = 'Some description for the page';
         $user = $this->user;
+
+        $konseling = Konseling::where('konseli_id',$user->details->id)->where('status_selesai','C')->where('refered','!=','ya')->with(['konselor' => function ($query){
+            $query->with('user')->get();
+        }])->with('jadwal')->with('referal')->get()->first();
+
+        if($konseling != null){
+            return redirect('/dashboard');
+        }
 
         $settings = Setting::get()->first();
         $konselors =  Konselor::with('user')->with(['jadwalKonselor' => function($query){

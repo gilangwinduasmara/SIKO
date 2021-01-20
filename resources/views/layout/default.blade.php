@@ -54,8 +54,10 @@ License: You must have a valid license purchased only from themeforest(the above
         @if (config('layout.page-loader.type') != '')
             @include('layout.partials._page-loader')
         @endif
-
-        @include('layout.base._layout')
+        @include('layout.base._layout', [
+            'header' => $header ?? true,
+            'contentClass' => $contentClass ?? 'container'
+        ])
 
         <script>var HOST_URL = "{{ route('quick-search') }}";</script>
 

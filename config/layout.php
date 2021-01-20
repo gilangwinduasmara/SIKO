@@ -126,9 +126,14 @@ return [
         ],
         'style' => 'solid' // transparent, solid. can be transparent only if 'fixed' => false
     ],
-
     // Content
-    'content' => [
+    'content' =>
+    request()->is('/') ?
+    [
+        'width' => 'fixed', // fluid, fixed
+        'extended' => true, // true, false
+    ]:
+    [
         'width' => 'fixed', // fluid, fixed
         'extended' => false, // true, false
     ],
@@ -199,7 +204,7 @@ return [
 
         // Quick Actions
         'quick-actions' => [
-            'display' => true,
+            'display' => false,
             'layout' => 'dropdown', // offcanvas, dropdown
             'dropdown' => [
                 'style' => 'dark' // light|dark
@@ -211,7 +216,7 @@ return [
 
         // User
         'user' => [
-            'display' => true,
+            'display' => false,
             'layout' => 'offcanvas', // offcanvas, dropdown
             'dropdown' => [
                 'style' => 'dark' // light|dark
@@ -223,12 +228,12 @@ return [
 
         // Languages
         'languages' => [
-            'display' => true
+            'display' => false
         ],
 
         // Cart
         'cart' => [
-            'display' => true,
+            'display' => false,
             'dropdown' => [
                 'style' => 'dark' // light|dark
             ]
@@ -236,7 +241,7 @@ return [
 
         // Quick Panel
         'quick-panel' => [
-            'display' => true,
+            'display' => false,
             'offcanvas' => [
                 'direction' => 'right'
             ]

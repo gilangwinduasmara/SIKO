@@ -24,7 +24,7 @@ var conf = {
         translate: {
             records: {
                 processing: 'Memuat data ...',
-                noRecords: 'Tidak ada data'
+                noRecords: 'Data tidak ditemukan'
             },
             toolbar: {
                 pagination: {

@@ -47,6 +47,15 @@ class ChatKonselingController extends Controller
         }
 
         $chat = ChatKonseling::where('konseling_id', $input['konseling_id'])->get()->groupBy('tgl_chat');
+
+        $konseling = Konseling::find($input['konseling_id']);
+        if($konseling->status_selesai != "C"){
+            return response()->json([
+                'success' => false,
+                'error' => 'konseling_end',
+                'data' => $konseling
+            ]);
+        }
         return response()->json([
             'success' => true,
             'message' => '',
@@ -68,6 +77,9 @@ class ChatKonselingController extends Controller
 
         $konseling = Konseling::find($request->konseling_id);
         $sender = User::find($this->user->id);
+
+
+
         if($sender->role == 'konseli'){
             $konselor = Konselor::find($konseling->konselor_id);
             $notification = Notification::create([

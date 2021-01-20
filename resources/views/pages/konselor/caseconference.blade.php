@@ -31,38 +31,41 @@
                                     </span>
                                 </span>
                             </div>
-                            <input type="text" class="form-control py-4 h-auto" placeholder="Cari">
+                            <input id="input__cari" type="text" class="form-control py-4 h-auto" placeholder="Cari">
                         </div>
                         <!--end:Search-->
                         <!--begin:Users-->
-                        <div class="mt-7 scroll scroll-pull ps ps--active-y" style="height: 12px; overflow: hidden;">
-                            @if (count($caseconferences) == 0)
-                                <center>
-                                    <span>Belum ada data</span>
-                                </center>
-                            @endif
-                            @foreach ($caseconferences as $case)
-                                {{-- @php ($konseling = json_decode(json_encode($konseling))) --}}
-                                <div class="d-flex align-items-center justify-content-between mb-5">
-                                    <div class="card card-custom flex-grow-1">
-                                        <div class="card-body d-flex align-items-center">
-                                            <div class="symbol symbol-circle symbol-50 mr-3">
-                                                {{-- <img alt="Pic" src={{"/avatars/".$konseling->konseli->user->avatar}}> --}}
+                        <div class="mt-7">
+                            <table id="table_list" style="display: none">
+                                <thead>
+                                    <th>
+                                        <td></td>
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($caseconferences as $case)
+                                    <tr>
+                                        <td>
+                                            @php($detailConferences = json_decode(json_encode($case))->detail_conferences)
+                                            <div class="d-flex align-items-center justify-content-between mb-5">
+                                                <div class="card card-custom flex-grow-1">
+                                                    <div class="card-body d-flex align-items-center ">
+                                                        <div class="w-25 h-25" >
+                                                        </div>
+                                                        <div class="d-flex flex-column">
+                                                            <a href="#" name="konselor_list_item" data-value={{$case->id}} class="text-dark text-hover-warning mb-1 font-size-lg">{{ $case->judul_case_conference }}</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="d-flex flex-column">
-                                                {{-- <a id={{"daftarkonseli__".$konseling->id}} href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konseling->konseli->nama_konseli}}</a> --}}
-                                                {{-- @if (count($konseling->chats) > 0)
-                                                    @endif --}}
-                                                <a href="#" name="konselor_list_item" data-value={{$case->id}} class="text-dark text-hover-warning mb-1 font-size-lg">{{ $case->judul_case_conference }}</a>
-                                            </div>
-                                            {{-- <div class="d-flex flex-column align-items-end">
-                                                <span class="text-muted font-weight-bold font-size-sm">35 mins</span>
-                                            </div> --}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end:User-->
-                            @endforeach
+                                        </td>
+                                    </tr>
+                                    <!--end:User-->
+                                @endforeach
+                                </tbody>
+                            </table>
+
+
                         <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 12px; right: -2px;"><div class="ps__thumb-y" tabindex="0" style="top: -28px; height: 40px;"></div></div></div>
                         <!--end:Users-->
                     </div>

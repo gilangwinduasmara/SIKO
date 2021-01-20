@@ -8,13 +8,13 @@
     @php($konseli = $user->details)
     <div class="row">
         <div class="col">
-            <div id={{"personal_information__"}} >
-                <div class="card card-custom gutter-b">
+            <div id={{"personal_information__"}} class="mt-8">
+                <div class="card border card-custom gutter-b">
                     <div class="card-body">
                         <div class="d-flex mb-9">
                             <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
                                 <div class="symbol symbol-50 symbol-lg-120">
-                                    <img src={{{"/avatars/".$user->avatar}}} alt="image">
+                                    <img class="img-fit" src={{{"/avatars/".$user->avatar}}} alt="image">
                                 </div>
                                 <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
                                     <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
@@ -93,6 +93,28 @@
                                 </div>
                                 <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2 flex-grow-1">
                                     <button data-toggle="modal" data-target="#modal__close_case" href="#"
+                                            class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3">Close Case
+                                    </button>
+                                </div>
+                            </div>
+                            @else
+                            <div class="d-flex align-items-center flex-wrap mt-8">
+                                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2 flex-grow-1">
+                                    <a
+                                        href="#"
+                                            class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3 disabled">Ruang Konseling
+                                    </a>
+                                </div>
+                                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2 flex-grow-1">
+                                    <button
+                                        disabled href=""} class="btn
+                                        btn-warning btn-shadow-hover font-weight-bolder w-100 py-3">Case Conference</button>
+                                </div>
+                                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2 flex-grow-1">
+                                    <button disabled class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3">Referal</button>
+                                </div>
+                                <div class="d-flex align-items-center flex-lg-fill mr-5 mb-2 flex-grow-1">
+                                    <button disabled href="#"
                                             class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3">Close Case
                                     </button>
                                 </div>

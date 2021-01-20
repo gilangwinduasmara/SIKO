@@ -19,14 +19,13 @@ $.each(hari, function(i, item){
     displayDaftarKonselingByHari('Senin')
 })
 
-$(document).ready(function(){
-    let notifHtml = '';
-    let chatHtml = '';
-    let notifCount = 0;
-    let chatCount = 0;
-
+function refreshNotification(){
     axios.get('/services/notification').then(res=>{
         console.log(res.data)
+        let notifHtml = '';
+        let chatHtml = '';
+        $('#dropdown-chat').html("")
+        $('#dropdown-notif').html("")
         res.data.rows.map((item, index) => {
             if(item.type === 'chat'){
                 $('#chat-badge').show();
@@ -59,5 +58,15 @@ $(document).ready(function(){
 
         })
     })
+}
+
+$(document).ready(function(){
+
+    let notifCount = 0;
+    let chatCount = 0;
+    refreshNotification();
+    setInterval(()=>{
+        refreshNotification();
+    }, 25000)
 
 })

@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-6 col-xxl-6">
+        <div class="col-lg-6 col-xxl-6 mb-8">
             <div class="card border card-custom p-8 d-flex flex-column justify-content-center align-items-center">
                 <div>
                     Konselor
@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6 col-xxl-6 mt-8">
+        <div class="col-lg-6 col-xxl-6 mb-8">
             <div class="card border card-custom p-8 d-flex flex-column justify-content-center align-items-center">
                 <div>
                     Case Conference
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xxl-12 mt-8">
+        <div class="col-xxl-12">
             <div class="card border card-custom p-8">
                 <div class="row align-items-items justify-content-center">
                     <div class="col-lg-4 col-xxl-4 p-8 d-flex flex-column justify-content-center align-items-center">

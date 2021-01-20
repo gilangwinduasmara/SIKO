@@ -1,6 +1,18 @@
 // Setup Event Listener
 
-
+$(document).ready(function(){
+    tablelist = $('#table_list').KTDatatable({
+        translate: conf.datatable.translate,
+        search: {
+            input: $('#input__cari'),
+            key: 'generalSearch'
+        },
+        sortable: false
+    })
+    // $('#input__cari').keyup(function(){
+    //     tablelist.search($(this).val())
+    // })
+})
 $.fn.serializeObject = function() {
     var o = {};
     var a = this.serializeArray();

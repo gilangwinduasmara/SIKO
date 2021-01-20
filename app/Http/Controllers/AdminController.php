@@ -26,9 +26,9 @@ class AdminController extends Controller
         $this->assignUser();
         $user = $this->user;
         if(session()->has('userId')){
-            return redirect('/admin/dashboard', compact('user'));
+            return redirect('/admin/dashboard');
         }else{
-            return redirect('/admin/login', compact('user'));
+            return redirect('/admin/login');
         }
     }
     public function login(){

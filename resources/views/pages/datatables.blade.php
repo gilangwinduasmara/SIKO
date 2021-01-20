@@ -145,7 +145,7 @@
             </div>
             <!--end::Search Form-->
 
-            <table class="table table-bordered table-hover" id="kt_datatable">
+            <table class="table table-bordered table-hover" id="kt_datatable" >
                 <thead>
                 <tr>
                     <th>Record ID</th>

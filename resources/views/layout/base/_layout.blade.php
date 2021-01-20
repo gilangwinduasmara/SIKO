@@ -14,8 +14,9 @@
             @endif
 
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
-
-                @include('layout.base._header')
+                @if ($header)
+                    @include('layout.base._header')
+                @endif
 
                 <div class="content {{ Metronic::printClasses('content', false) }} d-flex flex-column flex-column-fluid" id="kt_content">
 
@@ -27,7 +28,9 @@
                         @endif
                     @endif
 
-                    @include('layout.base._content')
+                    @include('layout.base._content',[
+                        'contentClass' => $contentClass ?? 'container'
+                    ])
                 </div>
 
                 @include('layout.base._footer')

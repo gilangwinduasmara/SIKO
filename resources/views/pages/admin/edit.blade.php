@@ -95,6 +95,8 @@
     <script>
         $(document).ready(function(){
             $('#button__konselor-simpan').click(function(){
+                toastr.options = conf.toastr.options.saving;
+                toastr.info("Menyimpan data...")
                 const dataJadwal = [];
                 const personal = $('#form-personal').serializeObject();
                 $.each($("select"), function(i,v){
@@ -108,9 +110,9 @@
                     dataJadwal,
                     personal
                 })
-                @if(false)
+                @if($action == "create")
                 axios.post('/services/konselor/tambahKonselor', {personal, dataJadwal}).then(res=>{
-
+                    window.location.href="/admin/konselor";
                 })
                 @else
                 axios.post('/services/user/edit',{

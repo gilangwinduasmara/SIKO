@@ -96,60 +96,64 @@
     @endif --}}
 
     {{-- Languages --}}
-    @if ($user->role != 'admin')
-        <div class="dropdown">
-            <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
-                <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
-                    <i class="flaticon2-notification position-relative" >
-                        <div id="notif-badge"  class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px; display: none"></div>
-                    </i>
+    @if (isset($user) )
+        @if ($user->role != 'admin')
+            <div class="dropdown">
+                <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
+                    <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+                        <i class="flaticon2-notification position-relative" >
+                            <div id="notif-badge"  class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px; display: none"></div>
+                        </i>
+                    </div>
+                </div>
+                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
+                    <ul class="navi navi-hover py-4" id="dropdown-notif">
+                        <li class="navi-item">
+                            <div class="navi-text">
+                                <div class="font-weight-bold text-center">Belum ada notifikasi</div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
-                <ul class="navi navi-hover py-4" id="dropdown-notif">
-                    <li class="navi-item">
-                        <div class="navi-text">
-                            <div class="font-weight-bold text-center">Belum ada notifikasi</div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="dropdown">
-            <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
-                <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
-                    <i class="flaticon-chat position-relative" >
-                        <div id="chat-badge" class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px; display: none"></div>
-                    </i>
+            <div class="dropdown">
+                <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
+                    <div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+                        <i class="flaticon-chat position-relative" >
+                            <div id="chat-badge" class="bg-primary p-2 rounded-lg position-absolute" style="top: -5px; right: -5px; display: none"></div>
+                        </i>
+                    </div>
+                </div>
+                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
+                    <ul class="navi navi-hover py-4" id="dropdown-chat">
+                        <li class="navi-item">
+                            <div class="navi-text">
+                                <div class="font-weight-bold text-center">Belum ada chat</div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
-                <ul class="navi navi-hover py-4" id="dropdown-chat">
-                    <li class="navi-item">
-                        <div class="navi-text">
-                            <div class="font-weight-bold text-center">Belum ada chat</div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        @endif
         <div class="dropdown">
             <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                 <div class="btn btn-icon btn-dropdown w-auto btn-clean d-flex align-items-center btn-lg px-2">
                     <div class="symbol symbol-25">
-                        <img class="img-fit" src={{"/avatars/default.jpg"}} alt="image">
+                        <img class="img-fit" src={{"/avatars/".$user->avatar}} alt="image">
                     </div>
                 </div>
             </div>
             <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
                 <ul class="navi navi-hover py-4">
-                    <li class="navi-item">
-                        <a href="#" class="navi-link">
-                            <div class="navi-text">
-                                <div class="font-weight-bold">Ganti Password</div>
-                            </div>
-                        </a>
-                    </li>
+                    @if ($user->role != 'konseli')
+                        <li class="navi-item">
+                            <a href="#" class="navi-link">
+                                <div class="navi-text">
+                                    <div class="font-weight-bold">Ganti Password</div>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
                     <li class="navi-item">
                         <a href="/logout" class="navi-link">
                             <div class="navi-text">
@@ -160,6 +164,7 @@
                 </ul>
             </div>
         </div>
+
     @endif
 
     {{-- User --}}

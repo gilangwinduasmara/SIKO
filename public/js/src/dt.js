@@ -82,51 +82,82 @@
         //         }
         //     ]
         // });
-    var datatable = $('#kt_datatable').DataTable({})
+    var datatable = $('#kt_datatable').DataTable({
+        columnDefs: [
+            {
+                targets: 1,
+                render: function(data){
+                    return data
+                }
+            }
+        ],
+        initComplete: function(){
+            $('#kt_datatable').show();
+        },
+        pageLength: 5,
+    })
+    $('#kt_datatable_filter').hide();
+    $('#kt_datatable_length').hide();
+
+
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            var min  = $('#datepicker_dari').val();
+            var max  = $('#datepicker_sampai').val();
+            console.log(min, max);
+            var createdAt = data[1] || 0; // Our date column in the table
+            if  (
+                    ( min == "" || max == "" )
+                    ||
+                    ( moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max) )
+                )
+            {
+                return true;
+            }
+            return false;
+        }
+    );
+
+
+
     $('#kt_datatable_search_query').keyup(function(){
         console.log($(this).val())
         datatable.search($(this).val()).draw();
     })
     $('#kt_datatable_search_status').on('change', function() {
-        console.log($(this).val())
-        if($(this).val() == 0){
+        if($(this).val() == ""){
             datatable.search("", 'Status')
         }else{
-            if($(this).val() == 3){
+            if($(this).val() == "Selesai"){
                 $('#keterangan-1').hide();
                 $('#keterangan-2').show();
-            }else if($(this).val() == 2){
+            }else if($(this).val() == "Aktif"){
                 $('#keterangan-1').show();
                 $('#keterangan-2').hide();
             }
-            datatable.search($(this).val().toLowerCase(), 'Status');
+            console.log($(this).val())
+            if(detail){
+                datatable.columns(6).search($(this).val()).draw();
+            }else{
+                datatable.columns(3).search($(this).val()).draw();
+            }
         }
     });
 
-    $('#datepicker_dari').change(function(){
-        console.log(datatable);
+    $('.datepicker-search').change(function(){
+        datatable.draw();
     })
 
     $('#kt_datatable_search_keterangan').on('change', function() {
-        if($(this).val() == 0){
-            datatable.search("", 'Keterangan')
-        }else{
-            datatable.search($(this).val().toLowerCase(), 'Keterangan');
-        }
+        console.log($(this).val())
+        datatable.columns(4).search($(this).val()).draw();
     });
     $('#kt_datatable_search_keterangan2').on('change', function() {
-        if($(this).val() == 0){
-            datatable.search("", 'Keterangan')
-        }else{
-            datatable.search($(this).val().toLowerCase(), 'Keterangan');
-        }
+        console.log($(this).val())
+        datatable.columns(4).search($(this).val()).draw();
     });
     $('#kt_datatable_search_fakultas').on('change', function() {
-        if($(this).val() == 0){
-            datatable.search("", 'Fakultas')
-        }else{
-            datatable.search($(this).val().toLowerCase(), 'Fakultas');
-        }
+        datatable.columns(2).search($(this).val()).draw();
     });
 
     $('#kt_datatable_search_status, #kt_datatable_search_keterangan').selectpicker();

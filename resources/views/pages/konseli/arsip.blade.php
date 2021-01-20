@@ -31,37 +31,50 @@
                                     </span>
                                 </span>
                             </div>
-                            <input id="cari-konseling" type="text" class="form-control py-4 h-auto" placeholder="Cari">
+                            <input id="input__cari" type="text" class="form-control py-4 h-auto" placeholder="Cari">
                         </div>
                         <!--end:Search-->
                         <!--begin:Users-->
-                        <div id="konseli-wrapper" class="mt-7 scroll scroll-pull ps ps--active-y" style="height: 12px; overflow: hidden;">
-                            @if (count($konselings) == 0)
+                        <div id="konseli-wrapper" class="mt-7" pageLength=5>
+                            {{-- @if (count($konselings) == 0)
                                 <center>
                                     <span>Belum ada data</span>
                                 </center>
-                            @endif
-                            @foreach ($konselings as $konseling)
-                                @php ($konseling = json_decode(json_encode($konseling)))
-                                <!--begin:User-->
-                                <div class="d-flex align-items-center justify-content-between mb-5">
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-circle symbol-50 mr-3">
-                                            <img class="img-fit" alt="Pic" src={{"/avatars/".$konseling->konselor->user->avatar}}>
-                                        </div>
-                                        <div class="d-flex flex-column">
-                                            <a id={{"daftarkonseli__".$konseling->id}} href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konseling->konselor->nama_konselor}}</a>
-                                            @if (count($konseling->chats) > 0)
-                                                {{-- <span class="text-muted font-weight-bold font-size-sm">{{ substr(base64_decode($konseling->chats[0]->chat_konseling), 0,20) }}</span> --}}
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column align-items-end">
-                                        <span class="text-muted font-weight-bold font-size-sm">35 mins</span>
-                                    </div>
-                                </div>
-                                <!--end:User-->
-                            @endforeach
+                            @endif --}}
+                            <table id="table_list">
+                                <thead>
+                                    <tr hidden><th></th></tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($konselings as $konseling)
+                                        @php ($konseling = json_decode(json_encode($konseling)))
+                                        <!--begin:User-->
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-between mb-5">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="symbol symbol-circle symbol-50 mr-3">
+                                                            <img class="img-fit" alt="Pic" src={{"/avatars/".$konseling->konselor->user->avatar}}>
+                                                        </div>
+                                                        <div class="d-flex flex-column">
+                                                            <a id={{"daftarkonseli__".$konseling->id}} href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konseling->konselor->nama_konselor}}</a>
+                                                            @if (count($konseling->chats) > 0)
+                                                                {{-- <span class="text-muted font-weight-bold font-size-sm">{{ substr(base64_decode($konseling->chats[0]->chat_konseling), 0,20) }}</span> --}}
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column align-items-end">
+                                                        <span class="text-muted font-weight-bold font-size-sm"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!--end:User-->
+                                    @endforeach
+                                </tbody>
+                            </table>
+
                         <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 12px; right: -2px;"><div class="ps__thumb-y" tabindex="0" style="top: -28px; height: 40px;"></div></div></div>
                         <!--end:Users-->
                     </div>

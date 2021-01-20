@@ -137,7 +137,6 @@ class UserController extends Controller
                 $jadwal->save();
             }
         }
-        $savedKonselor = Konselor::with('user')->with('jadwal')->find($konselor->id);
         return response()->json([
             'success' => true,
             'data' =>$konselor

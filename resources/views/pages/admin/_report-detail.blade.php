@@ -26,8 +26,8 @@
                             <div class="d-flex align-items-center">
                                 <select class="form-control" id="kt_datatable_search_status">
                                     <option value="">Status</option>
-                                    <option value="2">Aktif</option>
-                                    <option value="3">Selesai</option>
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Selesai">Selesai</option>
                                 </select>
                             </div>
                         </div>
@@ -78,8 +78,8 @@
                         <td>{{$konseling->konseli->progdi}}</td>
                         <td>{{$konseling->konseli->suku}}</td>
                         <td>{{$konseling->konseli->agama}}</td>
-                        <td>{{$konseling->status_selesai == "C" ? 2: 3}}</td>
-                        <td><button class="btn btn-link" data-toggle="modal" data-target={{"#modal__rk_".$konseling->id}} name="" class="text-warning" href="#">{{count(((array)json_decode(json_encode($konseling))->rekam_konselings))}}</button></td>
+                        <td>{{$konseling->status_selesai == "C" ? 'Aktif': 'Selesai'}}</td>
+                        <td><button class="btn btn-link text-warning" data-toggle="modal" data-target={{"#modal__rk_".$konseling->id}} name="" class="text-warning" href="#">{{count(((array)json_decode(json_encode($konseling))->rekam_konselings))}}</button></td>
                     </tr>
 
                 @endforeach
@@ -91,7 +91,7 @@
             <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-body" style="height: 300px;">
-                        <table class="table">
+                        <table class="table" style="display: none">
                             <thead>
                                 <tr>
                                     <th>No</th>

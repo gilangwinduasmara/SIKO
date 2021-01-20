@@ -1,3 +1,7 @@
+@extends('layout.default', [
+    'header' =>false,
+    'contentClass' => 'container-fluid'
+])
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -172,14 +176,26 @@
     </style>
     <link rel="stylesheet" href="/css/landing.css">
 </head>
-<body style="overflow-x: visible">
+<body >
 <noscript>You need to enable JavaScript to run this app.</noscript>
+@section('content')
+
 <div id="root">
     <div class="modal fade" id="modal__register" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="max-height: 100vh">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content" id="modal-content_login" >
                 <div class="modal-body px-8">
                     <form class="d-flex flex-column align-items-center justify-content-center" id="form__register">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="symbol symbol-50 symbol-circle">
+                                    <img id="img-avatar" src="/avatars/default.jpg" alt="">
+                                </div>
+                                <input id="input_file" type="file" value="Tambah Foto" hidden>
+                                <input type="text" value="" name="avatar" hidden>
+                                <button id="button_foto" class="btn btn-warning">Pilih Foto</button>
+                            </div>
+                        </div>
                         <div class="row w-100">
                             <div class="col-6">
                                 <div class="form-group">
@@ -254,9 +270,6 @@
                         <a href="#" class="active-role" style="color: #749ecd">konseli</a>
                         <a href="#" class="role" style="color: #749ecd">konselor</a>
                     </div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i aria-hidden="true" class="ki ki-close"></i>
-                    </button>
                 </div>
                 <form class="d-flex flex-column align-items-center justify-content-center" id="form__login">
                     <div class="popup-forms">
@@ -264,8 +277,7 @@
                         <input id="login-email" name="email" placeholder="NIM">
                         <input class="my-2" name="password" placeholder="Password" type="password">
                     </div>
-                    <div class="button-submit px-4 mt-2+
--"><input type="Submit" class="button undefined" value="Login" style="height: 38px; background: rgb(118, 159, 205); color: white; width: 170px;"></div>
+                    <div class="button-submit px-4 mt-2"><input type="Submit" class="button undefined" value="Login" style="height: 38px; background: rgb(118, 159, 205); color: white; width: 170px;"></div>
                 </form>
             </div>
         </div>
@@ -287,31 +299,34 @@
                         </nav>
                     </div>
                 </header>
-                <div class="landing-section" id="home"><img class="people"
-                                                            src="/static/media/ilustrasi_landingpage.f3d0ad17.svg">
-                    <div class="hero">
-                        <div><h1>UKSW Peduli.</h1>
-                            <div class="hero-quote">Konseling gratis oleh Campus Ministry. <br>Apapun yang menjadi
-                                masalahmu, <br>dapatkan dukungan yang kamu butuhkan. <br>Saat ini juga, di Satya Wacana
-                                Counseling.
+                <div>
+                    <div class="vh-100 align-items-center row justify-content-around">
+                        <div class="col-xl-6 d-flex flex-column align-items-center mt-12">
+                            <div>
+                                <h1>UKSW Peduli.</h1>
+                                <div class="h3">Konseling gratis oleh Campus Ministry. <br>Apapun yang menjadi
+                                    masalahmu, <br>dapatkan dukungan yang kamu butuhkan. <br>Saat ini juga, di Satya Wacana
+                                    Counseling.
+                                </div>
                             </div>
-                            <div style="max-width: 170px; margin-left: auto; margin-right: auto;"><button type="button"
-                                 class="button undefined"
-                                 value=""
-                                 style="width: 170px; background: rgb(78, 115, 223); color: white; height: 46px;" data-toggle="modal" data-target="#modal__login">Mulai Konseling</button>
+                            <div style="max-width: 170px;"><button type="button"
+                                class="button undefined"
+                                value=""
+                                style="width: 170px; background: rgb(78, 115, 223); color: white; height: 46px;" data-toggle="modal" data-target="#modal__login">Mulai Konseling</button>
                             </div>
+                        </div>
+                        <div class="col-5 d-flex justify-content-center">
+                            <img style="height: 350px" src="/static/media/ilustrasi_landingpage.f3d0ad17.svg">
                         </div>
                     </div>
                 </div>
-                <div id="pengumuman">
+                <div>
                     <div class="pengunguman-flash">
-                        <div class="icon-pengumuman"><img src="/static/media/landingpage_icon_pengumuman.8de94192.svg">
-                        </div>
                         <div class="pengunguman-wraper"
                              style="display: flex; flex-direction: column; padding-top: 24px;">
-                            <div class="pengunguman-flash-title">x</div>
-                            <div class="pengunguman-flash-description">x</div>
-                            <a href="/pengumuman?id=12">Lihat Selengkapnya</a></div>
+                            <div class="pengunguman-flash-title">{{$pengumuman->judul}}</div>
+                            <div class="pengunguman-flash-description">{{$pengumuman->isi}}</div>
+                            <a href={{"/pengumuman?id=".$pengumuman->id}}>Lihat Selengkapnya</a></div>
                         <div style="display: flex; justify-content: flex-end; width: 100%;">
                             <div style="width: 300px;"><a href="/pengumuman" style="text-decoration: none;"><input
                                         type="button" class="button undefined" value="Lihat semua pengumuman"
@@ -320,20 +335,31 @@
                         </div>
                     </div>
                 </div>
+
                 <div id="layanan">
-                    <div class="landing-section container-section">
-                        <div style="display: flex; justify-content: space-around; align-items: center; width: 100%;">
-                            <img src="/static/media/ilustrasi_landingpage_layanan.7d0edf05.svg" style="height: 320px;">
-                            <div class="section-title" style="text-align: left; width: 600px; margin-right: 120px;">
-                                <div style="font-weight: normal; margin-bottom: 8px;">Layanan</div>
-                                Satya Wacana Counseling selalu siap membantumu..
-                                <div style="width: 100%; display: flex; justify-content: center;">
+                    <div class="row p-6">
+                        <div class="col-lg-4">
+                            <div class="col-6">
+                                <img src="/static/media/ilustrasi_landingpage_layanan.7d0edf05.svg" style="height: 320px;">
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="" >
+                                <div class="display-4">
+                                    Layanan
+                                </div>
+                                <div class="display-4 font-weight-bolder">
+                                    Satya Wacana Counseling <br>selalu siap membantumu..
+                                </div>
+                                <div class="w-80 d-flex justify-content-center">
                                     <div class="yellow-bar"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="services">
-                            <div class="service-container">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="d-flex flex-column align-items-center">
                                 <div class="service-quote"><img
                                         src="/static/media/icon_landingpage_diskusi.3fc9f1d7.svg">Mendiskusikan
                                     masalahmu
@@ -342,7 +368,9 @@
                                     mendengarkan masalahmu dan berdiskusi untuk mendapatkan solusi terbaik.
                                 </div>
                             </div>
-                            <div class="service-container">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex flex-column align-items-center">
                                 <div class="service-quote"><img
                                         src="/static/media/icon_landingpage_versiterbaik.c4f90a41.svg">Mencapai versi
                                     terbaikmu
@@ -351,7 +379,9 @@
                                     langkahmu dalam mencapai versi terbaik dirimu.
                                 </div>
                             </div>
-                            <div class="service-container">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex flex-column align-items-center">
                                 <div class="service-quote"><img
                                         src="/static/media/icon_landingpage_percayadiri.8c532434.svg">Menjadi pribadi
                                     yang percaya diri
@@ -388,24 +418,37 @@
                 <div id="quote">
                     <div></div>
                 </div>
-                <footer class="footer" style="height: 200px; color: white; background: rgb(25, 43, 69);">
-                    <div style="display: flex; width: 100%; justify-content: space-between;">
-                        <div class="footer-alamat" style="display: flex; flex-direction: column;">
-                            <div
-                                style="display: flex; justify-content: space-between; padding: 24px; width: 280px; align-items: center;">
-                                <img src="/static/media/uksw.d5473bc6.png" style="height: 92px; margin-right: 24px;">
-                                <div>Jl. Diponegoro 52-60 Salatiga-Indonesia 50711 +62 813 9178 2878</div>
+                <footer class="footer" style="color: white; background: rgb(25, 43, 69);">
+                    <div class="row justify-content-between p-6">
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="/static/media/uksw.d5473bc6.png" style="height: 92px">
+                                </div>
+                                <div class="col-8">
+                                    <div>Jl. Diponegoro 52-60 Salatiga-Indonesia 50711 +62 813 9178 2878</div>
+                                </div>
                             </div>
                         </div>
-                        <div style="display: flex; justify-content: space-between; width: 180px; padding: 28px;"><a
-                                href="https://www.facebook.com/ukswsalatiga1956?_rdc=1&amp;_rdr" target="_blank"><img
-                                    src="/static/media/icon_landingpage_facebook.d5e7c814.svg"
-                                    style="height: 42px;"></a><a href="https://twitter.com/uksw_salatiga"
-                                                                 target="_blank"><img
-                                    src="/static/media/icon_landingpage_twitter.2d4450fb.svg" style="height: 42px;"></a><a
-                                href="https://instagram.com/uksw_salatiga" target="_blank"><img
-                                    src="/static/media/icon_landingpage_instagram.a12b5891.svg"
-                                    style="height: 42px;"></a></div>
+                        <div class="col-md-2 col-xs-1 my-8">
+                            <div class="row">
+                                <div class="col-4 d-flex justify-content-center">
+                                    <a href="https://www.facebook.com/ukswsalatiga1956?_rdc=1&amp;_rdr" target="_blank">
+                                        <img src="/static/media/icon_landingpage_facebook.d5e7c814.svg" style="height: 42px;">
+                                    </a>
+                                </div>
+                                <div class="col-4 d-flex justify-content-center">
+                                    <a href="https://twitter.com/uksw_salatiga" target="_blank">
+                                        <img src="/static/media/icon_landingpage_twitter.2d4450fb.svg" style="height: 42px;">
+                                    </a>
+                                </div>
+                                <div class="col-4 d-flex justify-content-center">`
+                                    <a href="https://instagram.com/uksw_salatiga" target="_blank">
+                                        <img src="/static/media/icon_landingpage_instagram.a12b5891.svg" style="height: 42px;">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div style="text-align: center;">Copyright 2019 © GMIT - UKSW</div>
                 </footer>
@@ -413,6 +456,7 @@
         </div>
     </div>
 </div>
+@endsection
 
 @if (config('layout.page-loader.type') != '')
     @include('layout.partials._page-loader')
@@ -434,27 +478,6 @@
 <script src="/js/src/config.js" type="text/javascript"></script>
 <script src="/js/src/landing.js" type="text/javascript"></script>
 <script src="{{ asset('js/pages/features/miscellaneous/toastr.js') }}" type="text/javascript"></script>
-<script>
-    $(function () {
-        console.log("show toast")
-        toastr.options = {
-                "closeButton": true,
-                "debug": true,
-                "progressBar": true,
-                "preventDuplicates": false,
-                "positionClass": "toast-top",
-                "showDuration": "400",
-                "hideDuration": "1000",
-                "timeOut": "7000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            }
-            toastr["success"]("lol");
-    });
-</script>
 
 </body>
 </html>

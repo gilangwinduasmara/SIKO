@@ -58,7 +58,7 @@ class KonselingController extends Controller
     }
 
     public function end(Request $request){
-        $konseling = Konseling::find($request->id);
+        $konseling = Konseling::with('konseli')->with('konselor')->find($request->id);
         if($konseling){
             $konseling->status_selesai = 'E';
             $conference = CaseConference::where('konseling_id', $request->id)->where('status','on-going')->first();
@@ -72,6 +72,15 @@ class KonselingController extends Controller
                 $conference->save();
             }
             $konseling->save();
+
+            $notification = Notification::create([
+                "type" => "end_konseling",
+                "data" => $konseling->id,
+                'title' => $konseling->konseli->nama_konseli,
+                "message" => "mengakhiri sesi konseling",
+                "user_id" => $konseling->konselor->user_id
+            ]);
+
             return response()->json([
                 'success' => true,
                 'message' => 'Konseling Selesai'

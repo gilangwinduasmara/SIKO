@@ -17,33 +17,33 @@
                             <div class="d-flex align-items-center">
                                 <select class="form-control" id="kt_datatable_search_status">
                                     <option value="">Status</option>
-                                    <option value="2">Aktif</option>
-                                    <option value="3">Selesai</option>
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Selesai">Selesai</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-2 my-2 my-md-0" id="keterangan-1">
                             <div class="d-flex align-items-center">
-                                <select class="form-control" id="kt_datatable_search_keterangan">
+                                <select class="form-control keterangan-search" id="kt_datatable_search_keterangan">
                                     <option value="">Keterangan</option>
-                                    <option value="2">Baru</option>
-                                    <option value="3">Referral</option>
+                                    <option value="Baru">Baru</option>
+                                    <option value="Referal">Referal</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-2 my-2 my-md-0" id="keterangan-2" style="display: none">
                             <div class="d-flex align-items-center">
-                                <select class="form-control" id="kt_datatable_search_keterangan2">
+                                <select class="form-control keterangan-search" id="kt_datatable_search_keterangan2">
                                     <option value="">Keterangan</option>
-                                    <option value="4">Refered</option>
-                                    <option value="5">Close Case</option>
-                                    <option value="6">Expired</option>
+                                    <option value="Referred">Referred</option>
+                                    <option value="Close Case">Close Case</option>
+                                    <option value="Expired">Expired</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-2 my-2 my-md-0">
                             <div class="input-group date" >
-                                <input type="text" class="form-control" readonly  id="datepicker_dari" placeholder="Dari"/>
+                                <input type="text" class="form-control datepicker-search" readonly  id="datepicker_dari" placeholder="Dari"/>
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                     <i class="la la-calendar"></i>
@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-md-2 my-2 my-md-0">
                             <div class="input-group date" >
-                                <input type="text" class="form-control" readonly  id="datepicker_sampai" placeholder="Sampai"/>
+                                <input type="text" class="form-control datepicker-search" readonly  id="datepicker_sampai" placeholder="Sampai"/>
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                     <i class="la la-calendar"></i>
@@ -66,7 +66,7 @@
             </div>
         </div>
         {{-- {{json_encode($presensis)}} --}}
-        <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable" pageLength=5>
+        <table id="kt_datatable" pageLength=5 style="display: none">
             <thead>
             <tr>
                 <th title="Field #1">No</th>
@@ -89,6 +89,8 @@
                             $keterangan = 2;
                             $status_selesai = $presensi->konseling->status_selesai;
                             $status_konseling = $presensi->konseling->status_konseling;
+                            $s = ['','','Aktif','Selesai'];
+                            $k = ['','','Baru','Referal', 'Referred', 'Close Case', 'Expired'];
                             // status
                             // 2: aktif
                             // 3: selesai
@@ -128,7 +130,7 @@
                                     $status = 3;
                                     $keterangan = 6;
                                 }
-                                echo $status;
+                                echo $s[$status];
                             @endphp
 
 
@@ -136,13 +138,15 @@
                         </td>
                         <td>
                             @php
-                                echo $keterangan;
+                                echo $k[$keterangan];
                             @endphp
                             {{-- {{$presensi->konseling->status_konseling == "ref"? 3: 2}} --}}
                         </td>
                         <td>
-                            <button name="toggle-detail" data-value="{{$presensi->isi_rekam_konseling}}" class="btn btn-link text-truncate text-warning">
-                                {{$presensi->isi_rekam_konseling}}
+                            <button name="toggle-detail" data-value="{{$presensi->id}}" class="btn btn-link text-truncate text-warning">
+                                @php
+                                    echo substr($presensi->isi_rekam_konseling, 0, 20);
+                                @endphp
                             </button>
                         </td>
                     </tr>
@@ -152,23 +156,13 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal__detail" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+<div class="modal fade" id="modal__detail" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-            </div>
             <div class="modal-body">
                 <div id="rk__detail">
 
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary font-weight-bold">Save changes</button>
             </div>
         </div>
     </div>

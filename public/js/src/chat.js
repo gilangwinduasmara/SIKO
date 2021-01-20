@@ -42,6 +42,10 @@ async function renderChat(){
         }
     }
     let request = await axios.get('/api/chatkonseling?konseling_id='+selectedKonseling);
+    if(!request.data.success){
+        showPersonalInformationById(selectedKonseling);
+        $('#chat-container').hide();
+    }
     let chats = request.data.rows;
     console.log(chats);
     let html = "";

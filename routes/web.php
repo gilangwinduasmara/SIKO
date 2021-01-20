@@ -24,6 +24,7 @@ Route::middleware(['session'])->group(function(){
     Route::get('/dashboard', 'PagesController@index');
 
 Route::get('/profile', 'PagesController@profile');
+Route::get('/gantipassword', 'PagesController@gantiPassword');
 
 // Konselor routes
     Route::get('/daftarkonseli', 'PagesController@daftarkonseli');

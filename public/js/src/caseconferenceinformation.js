@@ -62,14 +62,16 @@ $(document).ready(function(){
     renderCaseConferenceInformation(selectedCaseconference.id);
 })
 
-$('a[name=konselor_list_item]').click(function(){
+
+$("#table_list").on("click", 'a[name=konselor_list_item]', function(){
     const selectedId = $(this).data("value")
     selectedCaseconference = caseconferences.filter(function(obj){
         return obj.id === selectedId;
     })[0]
     renderCaseConferenceInformation($(this).data("value"));
     console.log(selectedCaseconference);
-})
+});
+
 
 $('#button__tambahkonselor').click(function(){
     $('#modal__tambahkonselor').modal('show');
