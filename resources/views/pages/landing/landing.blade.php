@@ -454,7 +454,7 @@
                             </div>
                         </div>
                         @else
-                        <div class="pengunguman-wraper" style="display: flex; flex-direction: column; padding-top: 24px; 100%">
+                        <div class="pengunguman-wraper" style="display: flex; flex-direction: column; padding-top: 24px; width: 100%">
                             <div class="pengunguman-flash-title">Belum ada pengumuman</div>
                             <div style="display: flex; justify-content: flex-end; width: 100%;">
                             <div style="width: 300px;">
