@@ -29,3 +29,25 @@ body{
     height: 6px;
 
 }
+
+.role-select{
+    width: 200px;
+}
+
+.popup-forms{
+    width: 500px;
+}
+
+.button-submit{
+    width: 275px;
+}
+
+.toggle{
+    width: 100px;
+}
+
+.ic-pengumuman{
+    position: absolute;
+    top: -72px;
+    transform: rotate(-45deg);
+}

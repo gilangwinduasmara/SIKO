@@ -332,7 +332,7 @@
     </div>
     <div class="modal fade" id="modal__login" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true" style="max-height: 100vh">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content" id="modal-content_login" >
+            <div class="modal-content py-8" id="modal-content_login" >
                 <div class="modal-body">
                     <h5 class="modal-title text-center" id="exampleModalLabel">Login Sebagai</h5>
                     <div class="role-select">
@@ -340,14 +340,34 @@
                         <a href="#" class="active-role" style="color: #749ecd">konseli</a>
                         <a href="#" class="role" style="color: #749ecd">konselor</a>
                     </div>
+                    <div class="row justify-content-center radio-role">
+                        <div class="col-3">
+                            <div class="form-check">
+                                <input class="form-check-input shadow" type="radio" name="exampleRadios" id="radio__m" value="n" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                  Mahasiswa
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input disabled class="form-check-input shadow" type="radio" name="exampleRadios" id="radio__d" value="m">
+                                <label class="form-check-label" for="exampleRadios2">
+                                    Dosen / Pegawai
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
                 <form class="d-flex flex-column align-items-center justify-content-center" id="form__login">
                     <div class="popup-forms">
                         <input type="text" hidden value="konseli" name="role">
                         <input id="login-email" name="email" placeholder="NIM">
                         <input class="my-2" name="password" placeholder="Password" type="password">
                     </div>
-                    <div class="button-submit px-4 mt-2"><input type="Submit" class="button undefined" value="Login" style="height: 38px; background: rgb(118, 159, 205); color: white; width: 170px;"></div>
+                    <div class="button-submit px-4 mt-8"><input type="Submit" class="button undefined" value="Login" style="height: 38px; background: rgb(118, 159, 205); color: white; width: 170px;"></div>
                 </form>
             </div>
         </div>
@@ -382,16 +402,17 @@
                     </div>
                 </header>
                 <div>
+                    <div class="d-lg-none" style="margin-top: 200px"></div>
                     <div class="vh-100 align-items-center row justify-content-around">
-                        <div class="col-xl-6 d-flex flex-column align-items-center mt-12">
-                            <div>
-                                <h1>UKSW Peduli.</h1>
+                        <div class="col-xl-6 d-flex flex-column align-items-center">
+                            <div class="px-6" style="margin-top: -100px">
+                                <h1 class="display-2 font-weight-bolder">UKSW Peduli.</h1>
                                 <div class="h3">Konseling gratis oleh Campus Ministry. <br>Apapun yang menjadi
                                     masalahmu, <br>dapatkan dukungan yang kamu butuhkan. <br>Saat ini juga, di Satya Wacana
                                     Counseling.
                                 </div>
                             </div>
-                            <div style="max-width: 170px;">
+                            <div style="max-width: 170px" class="mt-8">
                                 @if($user)
                                     <a href="/dashboard" type="button" class="button px-8" style="height: 32px; background: rgb(78, 115, 223); color: white;">
                                         @if ($user->role == 'konseli')
@@ -404,9 +425,9 @@
                                     </a>
                                     @else
                                     <button type="button"
-                                class="button undefined"
-                                value=""
-                                style="width: 170px; background: rgb(78, 115, 223); color: white; height: 46px;" data-toggle="modal" data-target="#modal__login">Mulai Konseling</button>
+                                    class="button undefined"
+                                    value=""
+                                    style="width: 170px; background: rgb(78, 115, 223); color: white; height: 46px;" data-toggle="modal" data-target="#modal__login">Mulai Konseling</button>
                                     @endif
                             </div>
                         </div>
@@ -417,7 +438,9 @@
                 </div>
                 <div >
                     <div class="pengunguman-flash" id="pengumuman">
-                        @php($pengumuman=null)
+                        <div class="d-flex justify-content-end position-relative">
+                            <img class="ic-pengumuman" src="/static/media/landingpage_icon_pengumuman.8de94192.svg" alt="">
+                        </div>
                         @if($pengumuman)
                         <div class="pengunguman-wraper"
                              style="display: flex; flex-direction: column; padding-top: 24px;">
@@ -430,7 +453,7 @@
                                         style="background: rgb(78, 115, 223); color: white; width: 170px; height: 46px;"></a>
                             </div>
                         </div>
-                        @endif
+                        @else
                         <div class="pengunguman-wraper" style="display: flex; flex-direction: column; padding-top: 24px;">
                             {{-- <div class="pengunguman-flash-title">{{$pengumuman->judul}}</div> --}}
                             <div class="pengunguman-flash-title">Belum ada pengumuman</div>
@@ -442,6 +465,7 @@
                                 </a>
                             </div> --}}
                         </div>
+                        @endif
                     </div>
                 </div>
 
@@ -504,7 +528,7 @@
                     </div>
                 </div>
                 <div id="konselor">
-                    <div class="landing-section container-section" style="background-color: rgb(25, 43, 69);">
+                    <div class="landing-section container-section mt-50" style="background-color: rgb(25, 43, 69);">
                         <div class="section-title" style="color: white;">Daftar Konselor</div>
                         <div class="yellow-bar"></div>
                         <div class="conselors-section">

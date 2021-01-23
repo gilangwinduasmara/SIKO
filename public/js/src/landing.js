@@ -22,7 +22,6 @@ $(document).ready(function(){
     function showSlide(currentDisplay){
         $('.text-slide-container > .text-slide-item').each(function(index){
 
-            console.log(currentDisplay, index)
             $('.text-slide-item').css('margin-left','-2500px');
             $(this).show();
             $(this).animate({marginLeft: [0, 'swing']})
@@ -31,7 +30,6 @@ $(document).ready(function(){
                 $('.text-slide-item').css('margin-left','0');
                 setTimeout(()=>{
                     $(this).animate({marginLeft: '3500px'})
-                    console.log('out')
                 }
                 ,animationSpeed-animationInOut)
             }else{
@@ -222,6 +220,14 @@ $(document).ready(function(){
 
 });
 
+$(document).ready(function(){
+    $('#radio__m').click(function(){
+        $('#login-email').attr("placeholder", "NIM")
+    })
+    $('#radio__d').click(function(){
+        $('#login-email').attr("placeholder", "NIP")
+    })
+})
 
 function changeSelectedRole(){
     var roleEl = $('.role-select .role');
@@ -231,10 +237,13 @@ function changeSelectedRole(){
     if(state.selectedRole === 'konseli'){
         $('#login-email').attr("placeholder", "Email")
         state.selectedRole = 'konselor';
+        $('.radio-role').hide()
         $('#toggle__selected').addClass('is-konselor-selected');
     }else{
         $('#login-email').attr("placeholder", "NIM")
         state.selectedRole = 'konseli';
+        $('#radio__m').click();
+        $('.radio-role').show()
         $('#toggle__selected').removeClass('is-konselor-selected');
     }
     $('input[name="role"]').attr('value', state.selectedRole);
