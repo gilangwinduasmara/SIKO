@@ -417,6 +417,8 @@
                 </div>
                 <div >
                     <div class="pengunguman-flash" id="pengumuman">
+                        @php($pengumuman=null)
+                        @if($pengumuman)
                         <div class="pengunguman-wraper"
                              style="display: flex; flex-direction: column; padding-top: 24px;">
                             <div class="pengunguman-flash-title">{{$pengumuman->judul}}</div>
@@ -427,6 +429,18 @@
                                         type="button" class="button undefined" value="Lihat semua pengumuman"
                                         style="background: rgb(78, 115, 223); color: white; width: 170px; height: 46px;"></a>
                             </div>
+                        </div>
+                        @endif
+                        <div class="pengunguman-wraper" style="display: flex; flex-direction: column; padding-top: 24px;">
+                            {{-- <div class="pengunguman-flash-title">{{$pengumuman->judul}}</div> --}}
+                            <div class="pengunguman-flash-title">Belum ada pengumuman</div>
+                            {{-- <a href={{"/pengumuman?id=".$pengumuman->id}}>Lihat Selengkapnya</a></div>
+                            <div style="display: flex; justify-content: flex-end; width: 100%;">
+                            <div style="width: 300px;">
+                                <a href="/pengumuman" style="text-decoration: none;">
+                                    <input type="button" class="button undefined" value="Lihat semua pengumuman" style="background: rgb(78, 115, 223); color: white; width: 170px; height: 46px;">
+                                </a>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

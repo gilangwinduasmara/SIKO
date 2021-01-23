@@ -34,7 +34,7 @@
             </tbody>
         </table>
         <div class="modal fade" id="modal__edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-xl" role="document">
                 <form class="modal-content" id="form_pengumuman__edit">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Edit Pengumuman</h5>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-group">
                             <label>Isi<span class="text-danger">*</span></label>
-                            <textarea id="isi" name="isi" type="text" class="form-control" required></textarea>
+                            <textarea id="isi" name="isi" type="text" class="form-control" rows="10" required></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
