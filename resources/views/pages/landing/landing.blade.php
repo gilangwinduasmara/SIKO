@@ -456,7 +456,6 @@
                         @else
                         <div class="pengunguman-wraper" style="display: flex; flex-direction: column; padding-top: 24px;">
                             <div class="pengunguman-flash-title">Belum ada pengumuman</div>
-                            <a href={{"/pengumuman?id=".$pengumuman->id}}>Lihat Selengkapnya</a></div>
                             <div style="display: flex; justify-content: flex-end; width: 100%;">
                             <div style="width: 300px;">
                             </div>
