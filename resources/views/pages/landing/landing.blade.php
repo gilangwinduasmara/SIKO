@@ -455,15 +455,11 @@
                         </div>
                         @else
                         <div class="pengunguman-wraper" style="display: flex; flex-direction: column; padding-top: 24px;">
-                            {{-- <div class="pengunguman-flash-title">{{$pengumuman->judul}}</div> --}}
                             <div class="pengunguman-flash-title">Belum ada pengumuman</div>
-                            {{-- <a href={{"/pengumuman?id=".$pengumuman->id}}>Lihat Selengkapnya</a></div>
+                            <a href={{"/pengumuman?id=".$pengumuman->id}}>Lihat Selengkapnya</a></div>
                             <div style="display: flex; justify-content: flex-end; width: 100%;">
                             <div style="width: 300px;">
-                                <a href="/pengumuman" style="text-decoration: none;">
-                                    <input type="button" class="button undefined" value="Lihat semua pengumuman" style="background: rgb(78, 115, 223); color: white; width: 170px; height: 46px;">
-                                </a>
-                            </div> --}}
+                            </div>
                         </div>
                         @endif
                     </div>
@@ -527,7 +523,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="konselor">
+                <div id="konselor" style="margin-top: 50px">
                     <div class="landing-section container-section mt-50" style="background-color: rgb(25, 43, 69);">
                         <div class="section-title" style="color: white;">Daftar Konselor</div>
                         <div class="yellow-bar"></div>
