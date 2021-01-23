@@ -9,7 +9,7 @@ class CaseConference extends Model
     protected $fillable = ['tgl_mulai_case_conference', 'judul_case_conference', 'status', 'konseling_id'];
 
     public function konseling (){
-        return $this->hasOne('App\Konseling');
+        return $this->belongsTo('App\Konseling');
     }
 
     public function detailConferences(){

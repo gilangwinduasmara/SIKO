@@ -10,7 +10,7 @@ var conf = {
                 "preventDuplicates": true,
                 "onclick": null,
                 "showDuration": "100000",
-                "hideDuration": "1000",
+                "hideDuration": "0",
                 "timeOut": "5000",
                 "extendedTimeOut": "1000",
                 "showEasing": "swing",

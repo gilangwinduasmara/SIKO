@@ -125,10 +125,35 @@ $('#button__profile-simpan').click(function(){
         dataJadwal,
         personal
     })
-    axios.post('/services/user/edit',{
-        dataJadwal,
-        personal
-    }).then(res => {
-        window.location.href = window.location.href
-    })
+
+    let checkJadwal = dataJadwal.map((item, index) => ({hari: item.hari, jam_mulai: item.jam_mulai}))
+
+    let tmp = [];
+    let conflict = false;
+    for(var i=0; i<checkJadwal.length; i++){
+        for(var j=0; j<checkJadwal.length; j++){
+            if(i!=j){
+                if(JSON.stringify(checkJadwal[i]) == JSON.stringify(checkJadwal[j])){
+                    conflict = true;
+                    console.log(checkJadwal[i], i, j)
+                    break
+                }
+            }
+        }
+        if(conflict) break;
+    }
+
+    if(conflict){
+        Swal.fire("", "Tidak boleh ada jadwal yang sama!", "error");
+        toastr.clear();
+    }else{
+        axios.post('/services/user/edit',{
+            dataJadwal,
+            personal
+        }).then(res => {
+            toastr.clear();
+            window.location.href = window.location.href
+        })
+    }
+
 })

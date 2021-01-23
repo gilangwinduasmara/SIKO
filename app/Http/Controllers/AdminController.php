@@ -60,7 +60,7 @@ class AdminController extends Controller
             'total_conference' => count($caseconferences)
         ];
         foreach($konselings as $konseling){
-            if($konseling->status_selesai == "C" && $konseling->refered == 'tidak'){
+            if($konseling->status_selesai == "C" && $konseling->refered != 'ya'){
                 if($konseling->status_konseling == 'ref'){
                     $referal++;
                 }else{

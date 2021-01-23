@@ -31,35 +31,43 @@
                                     </span>
                                 </span>
                             </div>
-                            <input type="text" class="form-control py-4 h-auto" placeholder="Cari">
+                            <input id="input__cari" type="text" class="form-control py-4 h-auto" placeholder="Cari">
                         </div>
                         <!--end:Search-->
                         <!--begin:Users-->
-                        <div class="mt-7 scroll scroll-pull ps ps--active-y" style="height: 12px; overflow: hidden;">
-                            @if (count($konselors) == 0)
-                                <center>
-                                    <span>Belum ada data</span>
-                                </center>
-                            @endif
-                            @foreach ($konselors as $konselor)
-                            <!--begin:User-->
-                                <div class="d-flex align-items-center justify-content-between mb-5">
-                                    <div class="d-flex align-items-center">
-                                        <div class="symbol symbol-circle symbol-50 mr-3">
-                                            <img class="img-fit" alt="Pic" src={{"/avatars/".$konselor->user->avatar}}>
-                                        </div>
-                                        <div class="d-flex flex-column">
-                                            <a data id={{"daftarkonselor__".$konselor->id}} href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konselor->nama_konselor}}</a>
-                                            <span class="text-muted font-weight-bold font-size-sm">{{ $konselor->profesi_konselor }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-column align-items-end">
-                                        <span class="text-muted font-weight-bold font-size-sm">35 mins</span>
-                                    </div>
-                                </div>
-                                <!--end:User-->
-                            @endforeach
-                            <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 12px; right: -2px;"><div class="ps__thumb-y" tabindex="0" style="top: -28px; height: 40px;"></div></div></div>
+                        <div class="mt-7">
+
+                            <table id="table_list">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($konselors as $konselor)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center justify-content-between mb-5">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="symbol symbol-circle symbol-50 mr-3">
+                                                        <img class="img-fit" alt="Pic" src={{"/avatars/".$konselor->user->avatar}}>
+                                                    </div>
+                                                    <div class="d-flex flex-column">
+                                                        <a data id={{"daftarkonselor__".$konselor->id}} href="#chat-container" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konselor->nama_konselor}}</a>
+                                                        <span class="text-muted font-weight-bold font-size-sm">{{ $konselor->profesi_konselor }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column align-items-end">
+                                                    <span class="text-muted font-weight-bold font-size-sm">35 mins</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
                         <!--end:Users-->
                     </div>
                     <!--end::Body-->
@@ -71,6 +79,7 @@
             <div class="flex-row-fluid ml-lg-8" id="kt_chat_content">
                 @include('pages.widgets._konselor-selector')
             </div>
+
             <!--end::Content-->
         </div>
         <!--end::Chat-->

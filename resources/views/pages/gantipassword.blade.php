@@ -18,18 +18,18 @@
                <form class="card-body" id="form__gantipasword">
                    <div class="form-group">
                        <label>Password lama</label>
-                       <input name="oldpassword" type="password" required class="form-control">
-                       <span class="text-danger"></span>
+                       <input name="password_lama" type="password" required class="form-control">
+                       <span class="text-danger error"></span>
                    </div>
                    <div class="form-group">
                        <label>Password baru</label>
-                       <input name="newpassword" type="password" required class="form-control">
-                       <span class="text-danger"></span>
+                       <input name="password" type="password" required class="form-control">
+                       <span class="text-danger error"></span>
                    </div>
                    <div class="form-group">
-                       <label>Ulangi password</label>
-                       <input name="repeatpassword" type="password" required class="form-control">
-                       <span class="text-danger"></span>
+                       <label>Konfirmasi password</label>
+                       <input name="repeat" type="password" required class="form-control">
+                       <span class="text-danger error"></span>
                    </div>
                    <input type="submit" class="btn btn-warning" value="Simpan">
                 </form>
@@ -46,22 +46,61 @@
     <script src="{{asset('js/src/app.js')}}"></script>
     <script>
         $(()=>{
-            $('#form__gantipasword > ').submit((e)=>{
+            $('#form__gantipasword').submit(function(e){
                 e.preventDefault();
+                let error = false;
+                $('.error').each(function(){
+                    console.log($(this).text())
+                    if($(this).text().trim().length > 0){
+                        console.log('error')
+                        error = true
+                    }
+                })
+
+                if(error) {
+                    return false
+                }
+
+                axios.post('/services/auth/changepassword', $(this).serialize()).then(res => {
+                    Swal.fire({
+                        text: "Password berhasil diubah",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok",
+                        customClass: {
+                            confirmButton: "btn btn-success"
+                        }
+                    });
+                    return false
+                }).catch(err => {
+                    console.log(err)
+                    Swal.fire({
+                            title: "Ganti password gagal",
+                            text: "Password yang anda masukkan salah!",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+                })
             })
-            $('input[name="oldpassword"]').keyup(function(){
+
+
+            $('input[name="password"]').keyup(function(){
                 console.log($(this).val())
                 if($(this).val().length < 8){
-                    $(this).next().text("tes")
+                    $(this).next().text("Password harus lebih dari 8 karakter")
                 }else{
                     $(this).next().text("")
                 }
             })
 
-            $('input[name="newpassword"]').keyup(function(){
+            $('input[name="repeat"]').keyup(function(){
                 console.log($(this).val())
-                if($(this).val().length < 8){
-                    $(this).next().text("tes")
+                if($(this).val() != $('input[name="password"]').val()){
+                    $(this).next().text("Konfirmasi password tidak sama dengan password baru")
                 }else{
                     $(this).next().text("")
                 }

@@ -1,8 +1,5 @@
 @extends('layout.default', [
-    'header' =>false,
-    'contentClass' => 'container-fluid'
 ])
-<html lang="en">
 <head>
     <meta charset="utf-8">
     <link rel="icon" href="/browser-icon.ico">
@@ -21,8 +18,7 @@
         {{-- Favicon --}}
         <link rel="shortcut icon" href="{{ asset('media/logos/favicon.ico') }}" />
         <link rel="stylesheet" href="/css/owl.carousel.css" />
-{{--        <link rel="stylesheet" href="/css/owl.theme.default.css" />--}}
-{{--         Fonts--}}
+
         {{ Metronic::getGoogleFontsInclude() }}
 
     <link rel="stylesheet" href="/css/style.bundle.css">
@@ -176,14 +172,59 @@
     </style>
     <link rel="stylesheet" href="/css/landing.css">
 </head>
-<body >
-<noscript>You need to enable JavaScript to run this app.</noscript>
 @section('content')
+<header class="header border-0">
+    <a href="/">
+        <img src="/static/media/logo_baru.e44b41bb.svg" style="cursor: pointer;">
+    </a>
+    <div>
+        <ul class="pb-0">
+            <div>
+                @if($user)
+                <a href="/dashboard" type="button" class="button px-8" style="height: 32px; background: rgb(78, 115, 223); color: white;">
+                    @if ($user->role == 'konseli')
+                    {{$user->details->nim}}
+                    @else
+                    @if ($user->role == 'konselor')
+                    {{explode(' ',($user->details->nama_konselor." "))[0]}}
+                    @endif
+                    @endif
+                </a>
+                @else
+                <input id="button__login" type="button" class="button undefined" value="Login" style="width: 120px; height: 32px; background: rgb(78, 115, 223); color: white;">
+                @endif
+            </div>
+        </ul>
+    </div>
+</header>
+    <div class="d-flex flex-column align-items-center">
+        <h1 class="font-weight-bolder mt-24">Pengumuman</h1>
+        <div class="yellow-bar"></div>
+        <div class="row mt-12 align-items-start">
+            @foreach ($pengumumans as $pengumuman)
+                <div class="col-lg-4 mb-8">
+                    <a href={{"/pengumuman/".$pengumuman->id}} class="card card-custom rounded-lg border bg-hover-state-light" style="width: 240px; overflow: hidden; cursor: pointer">
+                        <div class="p-8" style="background-color: #192b45; color: white">
+                            {{$pengumuman->judul}}
+                        </div>
+                        <div class="px-8 py-4">
+                            <div class="font-size-xs text-muted">
+                                {{$pengumuman->created_at->diffForHumans()}}
+                            </div>
+                            <div class="text-dark">
+                                {{substr($pengumuman->isi, 0, 200)}}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
+    </div>
 
-<div id="root">
-    <!-- Modal-->
+
+
     <div class="modal fade" id="modal__persetujuan" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body text-justify">
                     <div class="h2 text-center">
@@ -255,9 +296,23 @@
                                 </div>
                                 <div class="form-group">
                                     <label>No. Hp <span class="text-danger">*</span></label>
-                                    <input name="no_hp_konseli" id="input__nohp" type="number" class="form-control" />
+                                    <input name="no_hp_konseli" id="input__nohp" type="text" class="form-control" />
                                 </div>
-
+                                <div class="form-group">
+                                    <label>No. Hp Kerabat <span class="text-danger">*</span></label>
+                                    <input name="no_hp_kerabat" id="input__nohp_kerabat" type="text" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Hubungan <span class="text-danger">*</span></label>
+                                    <select id="select__hubungan" class="form-control form-control-sm">
+                                        <option value="" id=""></option>
+                                        <option value="Wali" id="">Wali</option>
+                                        <option value="Ayah" id="">Ayah</option>
+                                        <option value="Ibu" id="">Ibu</option>
+                                        <option value="Saudara" id="">Saudara</option>
+                                        <option value="Teman" id="">Teman</option>
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label>NIM <span class="text-danger">*</span></label>
                                     <input name="nim" id="input__nim" type="text" class="form-control" readonly/>
@@ -270,6 +325,8 @@
                                     <label>Prodi <span class="text-danger">*</span></label>
                                     <input name="progdi" id="input__prodi" type="text" class="form-control" readonly/>
                                 </div>
+                            </div>
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label>Jenis Kelamin <span class="text-danger">*</span></label>
                                     <select name="jenis_kelamin" id="select__gender" class="form-control form-control-sm" id="exampleSelects">
@@ -279,8 +336,6 @@
                                     </select>
                                     <span class="text-danger"></span>
                                 </div>
-                            </div>
-                            <div class="col-6">
                                 <div class="form-group">
                                     <label>Agama<span class="text-danger">*</span></label>
                                     <select name="agama" id="select__agama" class="form-control form-control-sm" id="exampleSelects" >
@@ -304,21 +359,6 @@
                                 <div class="form-group">
                                     <label>Alamat Asal <span class="text-danger">*</span></label>
                                     <input name="alamat_konseli" id="input__alamat" type="text" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label>No. Hp Kerabat <span class="text-danger">*</span></label>
-                                    <input name="no_hp_kerabat" id="input__nohp_kerabat" type="number" class="form-control" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Hubungan <span class="text-danger">*</span></label>
-                                    <select id="select__hubungan" class="form-control form-control-sm">
-                                        <option value="" id=""></option>
-                                        <option value="Wali" id="">Wali</option>
-                                        <option value="Ayah" id="">Ayah</option>
-                                        <option value="Ibu" id="">Ibu</option>
-                                        <option value="Saudara" id="">Saudara</option>
-                                        <option value="Teman" id="">Teman</option>
-                                    </select>
                                 </div>
                                 <input name="email" type="email" hidden id="input__email">
                             </div>
@@ -352,221 +392,7 @@
             </div>
         </div>
     </div>
-    <div style="background-color: white;">
-        <div>
-            <div class="">
-                <header class="header border-0"><img src="/static/media/logo_baru.e44b41bb.svg" style="cursor: pointer;">
-                    <div>
-                        <nav>
-                            <ul class="pb-0">
-                                <li><a href="#pengumuman">Pengumuman</a></li>
-                                <li><a href="#layanan">Layanan</a></li>
-                                <li><a href="#konselor">Konselor</a></li>
-                                <li>
-                                    @if($user)
-                                    <a href="/dashboard" type="button" class="button px-8" style="height: 32px; background: rgb(78, 115, 223); color: white;">
-                                        @if ($user->role == 'konseli')
-                                        {{$user->details->nim}}
-                                        @else
-                                        @if ($user->role == 'konselor')
-                                        {{explode(' ',($user->details->nama_konselor." "))[0]}}
-                                        @endif
-                                        @endif
-                                    </a>
-                                    @else
-                                    <input id="button__login" type="button" class="button undefined" value="Login" style="width: 120px; height: 32px; background: rgb(78, 115, 223); color: white;">
-                                    @endif
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </header>
-                <div>
-                    <div class="vh-100 align-items-center row justify-content-around">
-                        <div class="col-xl-6 d-flex flex-column align-items-center mt-12">
-                            <div>
-                                <h1>UKSW Peduli.</h1>
-                                <div class="h3">Konseling gratis oleh Campus Ministry. <br>Apapun yang menjadi
-                                    masalahmu, <br>dapatkan dukungan yang kamu butuhkan. <br>Saat ini juga, di Satya Wacana
-                                    Counseling.
-                                </div>
-                            </div>
-                            <div style="max-width: 170px;">
-                                @if($user)
-                                    <a href="/dashboard" type="button" class="button px-8" style="height: 32px; background: rgb(78, 115, 223); color: white;">
-                                        @if ($user->role == 'konseli')
-                                        {{$user->details->nim}}
-                                        @else
-                                        @if ($user->role == 'konselor')
-                                        {{explode(' ',($user->details->nama_konselor." "))[0]}}
-                                        @endif
-                                        @endif
-                                    </a>
-                                    @else
-                                    <button type="button"
-                                class="button undefined"
-                                value=""
-                                style="width: 170px; background: rgb(78, 115, 223); color: white; height: 46px;" data-toggle="modal" data-target="#modal__login">Mulai Konseling</button>
-                                    @endif
-                            </div>
-                        </div>
-                        <div class="col-5 d-flex justify-content-center">
-                            <img style="height: 350px" src="/static/media/ilustrasi_landingpage.f3d0ad17.svg">
-                        </div>
-                    </div>
-                </div>
-                <div >
-                    <div class="pengunguman-flash" id="pengumuman">
-                        <div class="pengunguman-wraper"
-                             style="display: flex; flex-direction: column; padding-top: 24px;">
-                            <div class="pengunguman-flash-title">{{$pengumuman->judul}}</div>
-                            <div class="pengunguman-flash-description">{{substr($pengumuman->isi, 0, 200)}}</div>
-                            <a href={{"/pengumuman?id=".$pengumuman->id}}>Lihat Selengkapnya</a></div>
-                        <div style="display: flex; justify-content: flex-end; width: 100%;">
-                            <div style="width: 300px;"><a href="/pengumuman" style="text-decoration: none;"><input
-                                        type="button" class="button undefined" value="Lihat semua pengumuman"
-                                        style="background: rgb(78, 115, 223); color: white; width: 170px; height: 46px;"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="layanan">
-                    <div class="row p-6">
-                        <div class="col-lg-4">
-                            <div class="col-6">
-                                <img src="/static/media/ilustrasi_landingpage_layanan.7d0edf05.svg" style="height: 320px;">
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="" >
-                                <div class="display-4">
-                                    Layanan
-                                </div>
-                                <div class="display-4 font-weight-bolder">
-                                    Satya Wacana Counseling <br>selalu siap membantumu..
-                                </div>
-                                <div class="w-80 d-flex justify-content-center">
-                                    <div class="yellow-bar"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="d-flex flex-column align-items-center">
-                                <div class="service-quote"><img
-                                        src="/static/media/icon_landingpage_diskusi.3fc9f1d7.svg">Mendiskusikan
-                                    masalahmu
-                                </div>
-                                <div class="service-description">Konselor di Satya Wacana Counseling akan selalu siap
-                                    mendengarkan masalahmu dan berdiskusi untuk mendapatkan solusi terbaik.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="d-flex flex-column align-items-center">
-                                <div class="service-quote"><img
-                                        src="/static/media/icon_landingpage_versiterbaik.c4f90a41.svg">Mencapai versi
-                                    terbaikmu
-                                </div>
-                                <div class="service-description">Satya Wacana Counseling akan selalu mendukung setiap
-                                    langkahmu dalam mencapai versi terbaik dirimu.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="d-flex flex-column align-items-center">
-                                <div class="service-quote"><img
-                                        src="/static/media/icon_landingpage_percayadiri.8c532434.svg">Menjadi pribadi
-                                    yang percaya diri
-                                </div>
-                                <div class="service-description">Setiap orang adalah spesial. Satya Wacana Counseling
-                                    akan selalu siap mengingatkanmu bahwa kamu mampu, hingga kamu tidak ada alasan untuk
-                                    meragukan dirimu sendiri.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="konselor">
-                    <div class="landing-section container-section" style="background-color: rgb(25, 43, 69);">
-                        <div class="section-title" style="color: white;">Daftar Konselor</div>
-                        <div class="yellow-bar"></div>
-                        <div class="conselors-section">
-                            <div class="owl-carousel owl-theme">
-                                @foreach($konselors as $konselor)
-                                    <div class="conselors-list-card">
-                                        <div class="conselors-list-avatar"><img
-                                                src={{"/avatars/".$konselor->user->avatar}}>
-                                        </div>
-                                        <div class="conselors-list-name">{{$konselor->nama_konselor}}
-                                        </div>
-                                        <div class="conselors-list-profesion">{{$konselor->profesi_konselor}}
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="quote" class="d-flex flex-column align-items-center py-8">
-                    <div>
-                        <img src="/static/media/quote_icon.2e2034c9.svg" alt="">
-                    </div>
-                    <div class="text-center text-slide-container d-flex h4" >
-                        @foreach ($quotes as $quote)
-                            <div class="text-slide-item" style="height: 200px; overflow: hidden; width: 100vw">
-                                <div class="my-24" style="color: #192b45; max-width: 100vw">
-                                    {{$quote->quote}}
-                                </div>
-                                <div class="" style="color: #192b45">
-                                    {{"-".$quote->oleh}}
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <footer class="footer" style="color: white; background: rgb(25, 43, 69);">
-                    <div class="row justify-content-between p-6">
-                        <div class="col-md-3">
-                            <div class="row">
-                                <div class="col-3">
-                                    <img src="/static/media/uksw.d5473bc6.png" style="height: 92px">
-                                </div>
-                                <div class="col-8">
-                                    <div>Jl. Diponegoro 52-60 Salatiga-Indonesia 50711 +62 813 9178 2878</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-xs-1 my-8">
-                            <div class="row">
-                                <div class="col-4 d-flex justify-content-center">
-                                    <a href="https://www.facebook.com/ukswsalatiga1956?_rdc=1&amp;_rdr" target="_blank">
-                                        <img src="/static/media/icon_landingpage_facebook.d5e7c814.svg" style="height: 42px;">
-                                    </a>
-                                </div>
-                                <div class="col-4 d-flex justify-content-center">
-                                    <a href="https://twitter.com/uksw_salatiga" target="_blank">
-                                        <img src="/static/media/icon_landingpage_twitter.2d4450fb.svg" style="height: 42px;">
-                                    </a>
-                                </div>
-                                <div class="col-4 d-flex justify-content-center">`
-                                    <a href="https://instagram.com/uksw_salatiga" target="_blank">
-                                        <img src="/static/media/icon_landingpage_instagram.a12b5891.svg" style="height: 42px;">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="text-align: center;">Copyright 2019 © GMIT - UKSW</div>
-                </footer>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection
-
 @if (config('layout.page-loader.type') != '')
     @include('layout.partials._page-loader')
 @endif
@@ -587,6 +413,3 @@
 <script src="/js/src/config.js" type="text/javascript"></script>
 <script src="/js/src/landing.js" type="text/javascript"></script>
 <script src="{{ asset('js/pages/features/miscellaneous/toastr.js') }}" type="text/javascript"></script>
-
-</body>
-</html>

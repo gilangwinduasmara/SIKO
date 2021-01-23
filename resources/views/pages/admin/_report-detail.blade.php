@@ -78,7 +78,22 @@
                         <td>{{$konseling->konseli->progdi}}</td>
                         <td>{{$konseling->konseli->suku}}</td>
                         <td>{{$konseling->konseli->agama}}</td>
-                        <td>{{$konseling->status_selesai == "C" ? 'Aktif': 'Selesai'}}</td>
+                        <td>
+                            {{-- {{$konseling->status_selesai == "C" ? 'Aktif': 'Selesai'}}</td> --}}
+                            @php
+                                // return;
+                                if($konseling->status_selesai == "expired"){
+                                    echo "Expired";
+                                }else if($konseling->status_selesai == "E"){
+                                    echo "Selesai";
+                                }else if($konseling->status_selesai == "C"){
+                                    if($konseling->refered == "ya"){
+                                        echo "Selesai";
+                                    }else{
+                                        echo "Aktif";
+                                    }
+                                }
+                            @endphp
                         <td><button class="btn btn-link text-warning" data-toggle="modal" data-target={{"#modal__rk_".$konseling->id}} name="" class="text-warning" href="#">{{count(((array)json_decode(json_encode($konseling))->rekam_konselings))}}</button></td>
                     </tr>
 
@@ -91,24 +106,24 @@
             <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-body" style="height: 300px;">
-                        <table class="table" style="display: none">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Tanggal</th>
-                                    <th>Jam berakhir sesi</th>
-                                    <th>Topik</th>
-                                    <th>Rekam Konseling</th>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Jam berakhir sesi</th>
+                                    <th scope="col">Topik</th>
+                                    <th scope="col">Rekam Konseling</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (json_decode(json_encode($konseling))->rekam_konselings as $key=>$rk)
                                     <tr>
-                                        <th>{{$key+1}}</th>
-                                        <th>{{explode("T",$rk->created_at)[0]}}</th>
-                                        <th>{{$konseling->jadwal->jam_akhir.":00"}}</th>
-                                        <th>{{$rk->judul_konseling}}</th>
-                                        <th>{{$rk->isi_rekam_konseling}}</th>
+                                        <td>{{$key+1}}</td>
+                                        <td>{{explode("T",$rk->created_at)[0]}}</td>
+                                        <td>{{$konseling->jadwal->jam_akhir.":00"}}</td>
+                                        <td>{{$rk->judul_konseling}}</td>
+                                        <td>{{$rk->isi_rekam_konseling}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

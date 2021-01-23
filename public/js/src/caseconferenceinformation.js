@@ -8,6 +8,13 @@ function renderCaseConferenceInformation(caseId){
         let listTambahKonselor = "";
         let konselorIds = [];
         res.data.rows.detail_conferences.map((item, index) => {
+            if(item.konselor_id == user.details.id){
+                if(item.role == "host"){
+                    $('#button__tambahkonselor').show();
+                }else{
+                    $('#button__tambahkonselor').hide();
+                }
+            }
             detailList+=`
             <div class="d-flex align-items-center mb-10">
                 <div class="symbol symbol-40 symbol-light-white mr-5">
@@ -60,6 +67,26 @@ function renderCaseConferenceInformation(caseId){
 
 $(document).ready(function(){
     renderCaseConferenceInformation(selectedCaseconference.id);
+    $('#button__lihat_profile').click(function(){
+        $('.profile-konseli').hide();
+        $('#modal__profile_konseli').modal('show')
+        $('.spinner-modal-profile').show();
+        axios.get('/services/konseli/'+selectedCaseconference.konseling.konseli_id).then(res=>{
+            const konseli = res.data.data
+            console.log(konseli)
+            $('#popup__nama').text(konseli.nama_konseli)
+            $('#popup__nim').text(konseli.nim)
+            $('#popup__progdi').text(konseli.progdi)
+            $('#popup__jenis_kelamin').text(konseli.jenis_kelamin)
+            $('#popup__tgl_lahir').text(konseli.tgl_lahir_konseli)
+            $('#popup__agama').text(konseli.agama)
+            $('#popup__suku').text(konseli.suku)
+            $('#popup__alamat').text(konseli.alamat_konseli)
+            $('#popup__avatar').attr('src','/avatars/'+konseli.user.avatar);
+            $('.spinner-modal-profile').hide();
+            $('.profile-konseli').show();
+        })
+    })
 })
 
 

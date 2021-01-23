@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>No. HP <span class="text-danger">*</span></label>
-                                    <input value="{{$user->details->no_hp_konselor}}" class="form-control" />
+                                    <input name="nohp" value="{{$user->details->no_hp_konselor}}" class="form-control" />
                                 </div>
                                 <div class="form-group">
                                     <label>Email <span class="text-danger">*</span></label>

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\CaseConference;
 use App\ChatConference;
 use App\ChatKonseling;
+use App\DetailConference;
+use App\Konseli;
+use App\Notification;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -53,6 +57,28 @@ class ChatConferenceController extends Controller
             'UserID' => $this->user->id,
             'case_conference_id' => $request->case_conference_id
         ]);
+
+        $members = DetailConference::with('konselor')->where('case_conference_id', $request->case_conference_id)->get();
+
+        $caseconference = CaseConference::where('id',$request->case_conference_id)->get()->first();
+
+        foreach ($members as $member) {
+            if($member->konselor->user_id == $this->user->id){
+                continue;
+            }
+
+            $notification = Notification::create([
+                "user_id" => $member->konselor->user_id,
+                "message" => $request->chat_konseling,
+                "data" => $request->case_conference_id,
+                "type" => "chat_conference",
+                "title" => $caseconference->judul_case_conference
+            ]);
+
+        }
+
+
+
         return response()->json([
             'success' => true,
             'message' => ''

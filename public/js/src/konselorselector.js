@@ -26,7 +26,7 @@ function initHari(){
                 selectedJadwalKonselor.map((jadwal, index) => {
                     html +=`
                     <li data-value=${jadwal.id} onclick="onJadwalSelected(${jadwal.id})" class="card card-custom nav-item d-flex col-sm flex-grow-1 flex-shrink-0 mr-3 mb-3 mb-lg-0">
-                        <a class="nav-link py-2 d-flex flex-grow-1 rounded flex-column align-items-center" data-toggle="pill" data-value="{{ucwords($day)}}" href="#jadwal">
+                        <a class="nav-link py-2 d-flex rounded flex-column align-items-center" data-toggle="pill"  href="#jadwal">
                             <span class="font-size-sm py-2 font-weight-bold text-center">${jadwal.jam_mulai+":00-"+jadwal.jam_akhir+":00"}</span>
                         </a>
                     </li>
@@ -45,11 +45,13 @@ $(document).ready(function(){
 $.each(konselors, function(index, konselor){
     $('#daftarkonselor__'+konselor.id).click(function(){
        console.log(konselor.id);
-       renderJadwalSelector(konselor.id);
-       $('#selected_konselor').text(konselor.nama_konselor)
-       $('#button__daftar_sesi_referral').attr('disabled', true);
-       $('#button__daftar_sesi').attr('disabled', true);
-       $('#input__konselor_id').val(konselor.id);
+    });
+    $("#table_list").on("click", '#daftarkonselor__'+konselor.id, function(){
+        renderJadwalSelector(konselor.id);
+        $('#selected_konselor').text(konselor.nama_konselor)
+        $('#button__daftar_sesi_referral').attr('disabled', true);
+        $('#button__daftar_sesi').attr('disabled', true);
+        $('#input__konselor_id').val(konselor.id);
     });
 });
 
@@ -64,6 +66,8 @@ $('#form_daftar_sesi').submit(function(e){
 
 function renderJadwalSelector(konselor_id){
     resetState();
+    $('.active').removeClass('active')
+    $('#ul__days_selector').html("");
     axios.get('/services/jadwalkonselor?konselor_id='+konselor_id).then(res => {
         jadwalKonselor = res.data.data;
         console.log(Object.keys(res.data.data));

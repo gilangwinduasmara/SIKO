@@ -17,3 +17,15 @@ body{
 .content{
     padding-top: 0;
 }
+
+
+.text-slide-item{
+
+}
+
+.yellow-bar{
+    background-color: #4e73df;
+    width: 200px;
+    height: 6px;
+
+}

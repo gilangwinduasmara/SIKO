@@ -1,5 +1,9 @@
 // Setup Event Listener
 
+if(performance.navigation.type == 2){
+    location.reload(true);
+}
+
 $(document).ready(function(){
     tablelist = $('#table_list').KTDatatable({
         translate: conf.datatable.translate,
@@ -9,6 +13,11 @@ $(document).ready(function(){
         },
         sortable: false
     })
+    if($('#table_list').data('marginless')){
+        setTimeout(()=>{
+            $('td').addClass('py-2')
+        },1000)
+    }
     // $('#input__cari').keyup(function(){
     //     tablelist.search($(this).val())
     // })
@@ -65,6 +74,7 @@ $('#button__ask_case_conference').click(function (){
 });
 
 $('#button__masuk_case_conference').click(function(){
+    $(this).attr('disabled', 'true')
     toastr.options = conf.toastr.options.saving;
     toastr.info("Sedang memproses data")
     var checkedKonselors = [];
@@ -208,8 +218,9 @@ $(document).ready(function(){
     let path = window.location.pathname.split("/").pop()
     if(path === "caseconference"){
         if(urlParam.has("id")){
-            selectedCaseconference = caseconferences.filter((o) => (o.id === parseInt(urlParam.get("id"))))[0];
-            showChat();
+            $(`a[data-value="${urlParam.get('id')}"]`).click()
+            // selectedCaseconference = caseconferences.filter((o) => (o.id === parseInt(urlParam.get("id"))))[0];
+            // showChat();
         }
     }
     if(path === "daftarkonseli"){
@@ -264,4 +275,10 @@ $('form[name="form__rekam_konseling"]').submit(function(e){
     axios.post('/services/rekamkonseling', $(this).serialize()).then((res)=>{
         window.location.reload();
     })
+})
+
+$(document).ready(function(){
+    $('.kt_app_chat_toggle').click(function(){
+        $('#kt_app_chat_toggle').click()
+    });
 })

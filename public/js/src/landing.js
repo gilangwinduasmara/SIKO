@@ -12,7 +12,125 @@ function readImage(input) {
     }
 }
 
+
+
 $(document).ready(function(){
+
+    const animationSpeed = 5000;
+    const animationInOut = 500;
+
+    function showSlide(currentDisplay){
+        $('.text-slide-container > .text-slide-item').each(function(index){
+
+            console.log(currentDisplay, index)
+            $('.text-slide-item').css('margin-left','-2500px');
+            $(this).show();
+            $(this).animate({marginLeft: [0, 'swing']})
+            $(this).animate({opacity: '1'})
+            if(currentDisplay == index){
+                $('.text-slide-item').css('margin-left','0');
+                setTimeout(()=>{
+                    $(this).animate({marginLeft: '3500px'})
+                    console.log('out')
+                }
+                ,animationSpeed-animationInOut)
+            }else{
+                $(this).hide();
+            }
+        })
+        return  ((currentDisplay+1) % $('.text-slide-container').children().length)
+    }
+
+    let currentDisplay = 0;
+
+    $('.text-slide-item').hide();
+
+    currentDisplay = showSlide(currentDisplay)
+    setInterval(()=>{
+        currentDisplay = showSlide(currentDisplay)
+    }, animationSpeed)
+
+    $('#checkbox__agree').change(function(){
+        $('#button__setuju').attr('disabled', !$('#checkbox__agree').is(':checked'))
+    })
+
+    // $('#modal__persetujuan').modal('show')
+
+    $('#button__lanjut').click(function(){
+        let error = false
+        if($('#select__gender').val() == ""){
+            $('#select__gender + span').text("Jenis kelamin belum dipilih")
+            error = true
+        }else{
+            $('#select__gender + span').text("")
+        }
+        if($('#select__agama').val() == ""){
+            $('#select__agama + span').text("Agama belum dipilih")
+            error = true
+        }else{
+            $('#select__agama + span').text("")
+        }
+        if($('#input__suku').val() == ""){
+            $('#input__suku + span').text("Suku belum dipilih")
+            error = true
+        }else{
+            $('#input__suku + span').text("")
+        }
+        if($('#input__alamat').val() == ""){
+            $('#input__alamat + span').text("Alamat belum diisi")
+            error = true
+        }else{
+            $('#input__alamat + span').text("")
+        }
+        if($('#input__nama').val() == ""){
+            $('#input__nama + span').text("Nama belum diisi")
+            error = true
+        }else{
+            $('#input__nama + span').text("")
+        }
+        if($('#input__nohp').val() == ""){
+            $('#input__nohp + span').text("Nomor hp belum diisi")
+            error = true
+        }else{
+            $('#input__nohp + span').text("")
+        }
+        if($('#input__nohp_kerabat').val() == ""){
+            $('#input__nohp_kerabat + span').text("Nomor hp kerabat belum diisi")
+            error = true
+        }else{
+            $('#input__nohp_kerabat + span').text("")
+        }
+        if($('#select__hubungan').val() == ""){
+            $('#select__hubungan + span').text("Hubungan belum diisi")
+            error = true
+        }else{
+            $('#select__hubungan + span').text("")
+        }
+        if($('#input__tanggallahir').val() == ""){
+            $('#input__tanggallahir + span').text("Tanggal lahir belum dipilih")
+            error = true
+        }else{
+            $('#input__tanggallahir + span').text("")
+        }
+
+        if(error)
+            return false;
+
+        $('#if__nama').text('   : '+$('#input__name').val())
+        $('#if__jk').text('   : '+$('#select__gender').val()).val();
+        $('#if__alamat').text('   : '+$('#input__alamat').val()).val();
+        $('#if__nama').addClass('pl-6')
+        $('#if__jk').addClass('pl-6')
+        $('#if__alamat').addClass('pl-6')
+        $('#modal__register').modal('hide')
+        $('#modal__persetujuan').modal('show');
+        return false
+    })
+
+
+    $('#button__setuju').click(function(){
+        $('#form__register').submit();
+    })
 
     $('#button_foto').click(function(){
         $('#input_file').click()
@@ -73,20 +191,29 @@ $(document).ready(function(){
                     $('#input__email').val(data.email);
                 }
             }else{
+                toastr.clear()
                 toastr.options = conf.toastr.options.saving;
-                toastr.error("Login gagal!", response.data.message)
+                toastr.error(response.data.message, "Login gagal!")
             }
         });
     });
 
+    $('<span class="text-danger"></span>').insertAfter('input')
+    $('<span class="text-danger"></span>').insertAfter('select')
 
     $('#form__register').submit(function (e){
         e.preventDefault();
+
+
+
+        toastr.options = conf.toastr.options.saving
+        toastr.info("Sedang memproses data")
+
         axios.post('/services/auth/register', $(this).serialize()).then(res => {
             if(res.data.success){
                 $('#modal__login').modal('show');
                 $('#modal__register').modal('hide');
-                // window.location.href="/dashboard";
+                $('#modal__persetujuan').modal('hide');
             }else{
 
             }

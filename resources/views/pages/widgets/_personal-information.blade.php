@@ -4,7 +4,7 @@
         <div class="card-header">
             <div class="card-title">
                 <span class="card-icon">
-                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md d-lg-none" id="kt_app_chat_toggle">
+                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md d-lg-none kt_app_chat_toggle" id="">
                         <span class="svg-icon svg-icon-lg">
                             <!--begin::Svg Icon | path:/metronic/theme/html/demo5/dist/assets/media/svg/icons/Communication/Adress-book2.svg-->
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -43,7 +43,7 @@
                             @endif
                             @if($user->role=="konselor")
                             <a href="#">
-                                <span>{{$konseling->jadwal->jam_mulai.":00 - ".$konseling->jadwal->jam_akhir.":00"}}</span>
+                                <span>{{$konseling->jadwal->hari.", ".$konseling->jadwal->jam_mulai.":00 - ".$konseling->jadwal->jam_akhir.":00"}}</span>
                             </a>
                             @endif
                         </div>
@@ -52,31 +52,29 @@
                         @if($user->role == 'konselor')
                         <div class="">
                             <div class="row">
-                                <div class="col-3">
-                                    <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->nim}}</a>
+                                <div class="col-sm-3 col-lg-3 mt-4">
+                                    <div>
+                                        <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->nim}}</div>
+                                        <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->progdi}}</div>
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->jenis_kelamin}}</a>
+                                <div class="col-sm-3 col-lg-3 mt-4">
+                                    <div>
+                                        <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->jenis_kelamin}}</div>
+                                        <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->tgl_lahir_konseli}}</div>
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Agama: '.$konseli->agama}}</a>
+                                <div class="col-sm-3 col-lg-3 mt-4">
+                                    <div>
+                                        <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Agama: '.$konseli->agama}}</div>
+                                        <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Suku: '.$konseli->suku}}</div>
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Alamat: '}}</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-3">
-                                    <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->progdi}}</a>
-                                </div>
-                                <div class="col-3">
-                                    <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->tgl_lahir_konseli}}</a>
-                                </div>
-                                <div class="col-3">
-                                    <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Suku: '.$konseli->suku}}</a>
-                                </div>
-                                <div class="col-3">
-                                    <a href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->alamat_konseli}}</a>
+                                <div class="col-sm-3 col-lg-3 mt-4">
+                                    <div>
+                                        <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Alamat: '}}</div>
+                                        <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->alamat_konseli}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +93,7 @@
             </div>
             @if ($konseling->status_konseling == "ref")
                 @if($user->role == 'konselor')
-                <button data-toggle="modal" data-target="#modal-pesan-rujukan" class="btn btn-warning">Pesan Rujukan</button>
+                <button data-toggle="modal" data-target="#modal-pesan-rujukan" class="btn btn-primary">Pesan Rujukan</button>
                 @endif
                 <div class="modal fade" id="modal-pesan-rujukan"tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -108,8 +106,8 @@
                             </div>
                             <div class="modal-body" style="height: 300px;">
                                 <div class="form-group">
-                                    <label>Judul</label>
-                                <input type="text" class="form-control"  readonly value="{{$konseling->referral->judul_referral}}"/>
+                                    <label>Oleh</label>
+                                <input type="text" class="form-control"  readonly value="{{$konseling->referral->konselor->nama_konselor}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Pesan</label>
@@ -117,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-light-warning font-weight-bold" data-dismiss="modal">Tutup</button>
+                                <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button>
                             </div>
                         </div>
                     </div>
@@ -127,16 +125,16 @@
 
             <div class="row d-flex align-items-center flex-wrap mt-8">
                 <div class="col-xl-3 col-sm-2 my-2">
-                    <button name={{"personal_information__ruangkonseling"}} konselingId="{{$konseling->id}}" {{$konseling->status_selesai != "C"?"disabled":""}} href="#" class="btn btn-warning btn-xs font-size-xs btn-shadow-hover font-weight-bolder w-100 py-3" {{$type == 'arsip' ? 'disabled' : ''}}>Ruang Konseling</button>
+                    <button name={{"personal_information__ruangkonseling"}} konselingId="{{$konseling->id}}" {{$konseling->status_selesai != "C"?"disabled":""}} href="#" class="btn btn-primary btn-xs font-size-xs btn-shadow-hover font-weight-bolder w-100 py-3" {{$type == 'arsip' ? 'disabled' : ''}}>Ruang Konseling</button>
                 </div>
                 <div class="col-xl-3 col-sm-2 my-2">
-                    <button name={{"personal_information__caseconference"}} {{$konseling->status_selesai != "C"?"disabled":""}} href={{"/setup/caseconference?id=".$konseling->id}} class="btn btn-warning btn-xs font-size-xs btn-shadow-hover font-weight-bolder w-100 py-3" {{$type == 'arsip' ? 'disabled' : ''}}>Case Conference</button>
+                    <button name={{"personal_information__caseconference"}} {{$konseling->status_selesai != "C"?"disabled":""}} href={{"/setup/caseconference?id=".$konseling->id}} class="btn btn-primary btn-xs font-size-xs btn-shadow-hover font-weight-bolder w-100 py-3" {{$type == 'arsip' ? 'disabled' : ''}}>Case Conference</button>
                 </div>
                 <div class="col-xl-3 col-sm-2 my-2">
-                    <button name={{"personal_information__referal"}} {{$konseling->status_selesai != "C"?"disabled":""}} href={{"/setup/referral?id=".$konseling->id}} class="btn btn-warning btn-xs font-size-xs btn-shadow-hover font-weight-bolder w-100 py-3" {{$type == 'arsip' ? 'disabled' : ''}}>Referal</button>
+                    <button name={{"personal_information__referal"}} {{$konseling->status_selesai != "C"?"disabled":""}} href={{"/setup/referral?id=".$konseling->id}} class="btn btn-primary btn-xs font-size-xs btn-shadow-hover font-weight-bolder w-100 py-3" {{$type == 'arsip' ? 'disabled' : ''}}>Referal</button>
                 </div>
                 <div class="col-xl-3 col-sm-2 my-2">
-                    <button {{$konseling->status_selesai == "C"?"disabled":""}} name={{"personal_information__rangkumankonseling"}} data-value={{$konseling->id}} href="#" class="btn btn-warning btn-xs font-size-xs btn-shadow-hover font-weight-bolder w-100 py-3">Rangkuman Konseling</button>
+                    <button {{$konseling->status_selesai == "C"?"disabled":""}} name={{"personal_information__rangkumankonseling"}} data-value={{$konseling->id}} href="#" class="btn btn-primary btn-xs font-size-xs btn-shadow-hover font-weight-bolder w-100 py-3">Rangkuman Konseling</button>
                 </div>
             </div>
         </div>
@@ -155,17 +153,17 @@
                     <input name="konseling_id" type="text" hidden value={{$konseling->id}}>
                     <div class="form-group">
                         <label>Rumusan Masalah Konseling <span class="text-danger">*</span></label>
-                    <input name="rangkuman" type="text" class="form-control"  required value="{{$type == 'arsip' ? $konseling->rangkuman_konseling->rangkuman : ''}}" {{$type == 'arsip' ? 'readonly' : ''}}/>
+                    <input name="rangkuman" type="text" class="form-control"  required value="{{$type == 'arsip' ? ($konseling->rangkuman_konseling->rangkuman ?? '') : ''}}" {{$type == 'arsip' ? 'readonly' : ''}}/>
                     </div>
                     <div class="form-group">
                         <label>Treatment Yang Diberikan <span class="text-danger">*</span></label>
-                    <textarea name="treatment" type="text" class="form-control"  required {{$type == 'arsip' ? 'readonly' : ''}}>@if ($type=='arsip'){{$konseling->rangkuman_konseling->treatment}}@endif</textarea>
+                    <textarea name="treatment" type="text" class="form-control"  required {{$type == 'arsip' ? 'readonly' : ''}}>@if ($type=='arsip'){{$konseling->rangkuman_konseling->treatment??''}}@endif</textarea>
                     </div>
                 </div>
                 @if ($type == 'daftarkonseling')
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light-warning font-weight-bold" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-warning font-weight-bold" value="Simpan">
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary font-weight-bold" value="Simpan">
                     </div>
                 @endif
             </form>

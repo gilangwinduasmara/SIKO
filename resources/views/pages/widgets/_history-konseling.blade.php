@@ -50,7 +50,7 @@
                         </td>
                         <td>
                             <div class="modal fade" id={{"modal_rekam_konseling__".$rk->id}} data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                                     <form class="modal-content" name="form__rekam_konseling">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Rekam Konseling</h5>
@@ -66,7 +66,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Rekam Konseling <span class="text-danger">*</span></label>
-                                                <input name="isi_rekam_konseling" type="text" class="form-control" required value="{{$rk->isi_rekam_konseling}}"/>
+                                                <textarea name="isi_rekam_konseling" type="text" class="form-control" required rows="10" >{{$rk->isi_rekam_konseling}}</textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

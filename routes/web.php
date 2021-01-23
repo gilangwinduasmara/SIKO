@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PagesController@landing');
+Route::get('/pengumuman', 'PagesController@pengumuman');
+Route::get('/pengumuman/{id}', 'PagesController@pengumumanDetail');
 Route::get('/admin', 'AdminController@index');
 Route::get('/admin/login', 'AdminController@login');
 
@@ -39,10 +41,6 @@ Route::get('/gantipassword', 'PagesController@gantiPassword');
 // Setups routes
     Route::get('/setup/caseconference', 'PagesController@conferenceSetup');
     Route::get('/setup/referral', 'PagesController@referralSetup');
-
-});
-
-// Admin routes
     Route::get('/admin/dashboard', 'AdminController@dashboard');
     Route::get('/admin/konselor', 'AdminController@konselor');
     Route::get('/admin/report', 'AdminController@report');
@@ -51,6 +49,10 @@ Route::get('/gantipassword', 'PagesController@gantiPassword');
     Route::get('/admin/konselor/tambah', 'AdminController@tambahKonselor');
     Route::get('/admin/konselor/edit/{id}', 'AdminController@editKonselor');
     Route::post('/admin/post', 'AdminController@doLogin');
+});
+
+// Admin routes
+
 
 // Demo routes
 Route::get('/datatables', 'PagesController@datatables');
@@ -87,6 +89,8 @@ Route::get('services/konseling/count','KonselingController@count');
 Route::post('services/konseling/end', 'KonselingController@end');
 Route::get('services/konseling/{id}', 'KonselingController@show');
 Route::post('services/konseling', 'KonselingController@create');
+
+Route::get('/services/konseli/{id}', 'KonseliController@show');
 
 Route::get('services/conference', 'CaseConferenceController@index');
 Route::get('services/conference/{id}', 'CaseConferenceController@show');
@@ -127,6 +131,7 @@ Route::get('services/notification/count/{id}', 'NotificationController@count');
 Route::post('services/notification', 'NotificationController@store');
 Route::put('services/notification/{id}', 'NotificationController@update');
 Route::post('services/notification/read/{id}', 'NotificationController@read');
+Route::get('/notification/readall', 'NotificationController@readAll');
 Route::get('/notification/{id}', 'NotificationController@read');
 
 

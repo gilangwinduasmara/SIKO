@@ -19,7 +19,7 @@ class JadwalKonselorController extends Controller
                     'data' => $items
                 ]);
             }
-            $items = JadwalKonselor::where('konselor_id',$request->konselor_id)->where('available','true')->get()->groupBy('hari');
+            $items = JadwalKonselor::where('konselor_id',$request->konselor_id)->where('available','true')->orderBy('jam_mulai')->get()->groupBy('hari');
             // foreach($items as $item){
             //     $toArray[] = (array) $item;
             // }

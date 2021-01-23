@@ -36,32 +36,28 @@
                         <!--end:Search-->
                         <!--begin:Users-->
                         <div class="mt-7">
-                            <table id="table_list" style="display: none">
+                            <table id="table_list" data-marginless="true" style="display: none">
                                 <thead>
-                                    <th>
-                                        <td></td>
-                                    </th>
+                                    <tr><th></th></tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($caseconferences as $case)
+                                    @foreach ($caseconferences as $key=>$case)
                                     <tr>
-                                        <td>
-                                            @php($detailConferences = json_decode(json_encode($case))->detail_conferences)
-                                            <div class="d-flex align-items-center justify-content-between mb-5">
+                                        <td class="mt-0">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                @php($detailConferences = json_decode(json_encode($case))->detail_conferences)
                                                 <div class="card card-custom flex-grow-1">
-                                                    <div class="card-body d-flex align-items-center ">
-                                                        <div class="w-25 h-25" >
-                                                        </div>
+                                                    <div class="card-body d-flex align-items-center py-2">
                                                         <div class="d-flex flex-column">
-                                                            <a href="#" name="konselor_list_item" data-value={{$case->id}} class="text-dark text-hover-warning mb-1 font-size-lg">{{ $case->judul_case_conference }}</a>
+                                                            <a href="#" name="konselor_list_item" data-value={{$case->id}} class="text-dark text-hover-primary mb-1 font-size-lg">{{ $case->judul_case_conference }}</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="separator separator-solid m-0"></div>
                                         </td>
                                     </tr>
-                                    <!--end:User-->
-                                @endforeach
+                                    @endforeach
                                 </tbody>
                             </table>
 

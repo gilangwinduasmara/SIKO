@@ -28,7 +28,6 @@
                                 <div class="ml-8">
                                     <div class="text-dark-75 font-weight-bold font-size-h5">{{$konselor->nama_konselor}}</div>
                                     <div class="text-dark-50 font-weight-bold">{{"Profesi: ".$konselor->profesi_konselor}}</div>
-                                    <div class="text-dark-50 font-weight-bold">{{"Email: ".$konselor->user->email}}</div>
                                 </div>
                             </div>
                         </div>

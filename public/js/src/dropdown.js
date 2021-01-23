@@ -1,3 +1,4 @@
+const ps = new PerfectScrollbar('.notif-scroll')
 var hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
 
 function displayDaftarKonselingByHari(target){
@@ -26,47 +27,55 @@ function refreshNotification(){
         let chatHtml = '';
         $('#dropdown-chat').html("")
         $('#dropdown-notif').html("")
+        $('.clear-notif').hide();
+        $('.clear-chat').hide();
         res.data.rows.map((item, index) => {
-            if(item.type === 'chat'){
-                $('#chat-badge').show();
+            if(item.type === 'chat' || item.type === 'chat_conference'){
+                $('[name="chat-badge"]').show();
                 chatHtml +=`
                 <li class="navi-item">
                     <a href=${"/notification/"+item.id} class="navi-link">
                         <div class="navi-text">
                             <div class="font-weight-bold">${item.title}</div>
-                            <div class="text-muted">${item.message}</div>
+                            <div class="d-block text-muted text-truncate" style="max-width: 140px">${item.message}</div>
+                            <div class="font-size-xs text-right">${item.timestamp}</div>
                         </div>
                     </a>
                 </li>
                 `;
-                $('#dropdown-chat').html(chatHtml)
+                $('.clear-chat').show();
+                $('[name="dropdown-chat"]').html(chatHtml)
             }else{
-                $('#notif-badge').show();
+                $('[name="notif-badge"]').show();
                 notifHtml +=`
                 <li class="navi-item">
                     <a href=${"/notification/"+item.id} class="navi-link">
                         <div class="navi-text">
                             <div class="font-weight-bold">${item.title}</div>
                             <div class="text-muted">${item.message}</div>
+                            <div class="font-size-xs text-right">${item.timestamp}</div>
                         </div>
                     </a>
                 </li>
                 `;
-                $('#dropdown-notif').html(notifHtml)
+                $('.clear-notif').show();
+                $('[name="dropdown-notif"]').html(notifHtml)
             }
-
-
+            ps.update()
         })
     })
 }
 
 $(document).ready(function(){
 
+
+
     let notifCount = 0;
     let chatCount = 0;
     refreshNotification();
+
     setInterval(()=>{
         refreshNotification();
-    }, 25000)
+    }, 40000)
 
 })

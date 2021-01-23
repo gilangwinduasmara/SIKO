@@ -78,7 +78,7 @@ var KTAppChat = function () {
 			// Trigger click to show popup modal chat on page load
 			if (KTUtil.getById('kt_app_chat_toggle')) {
 				setTimeout(function() {
-					KTUtil.getById('kt_app_chat_toggle').click();
+					// KTUtil.getById('kt_app_chat_toggle').click();
 				}, 1000);
 			}
 		}

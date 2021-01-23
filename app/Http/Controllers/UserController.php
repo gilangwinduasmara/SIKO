@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\JadwalKonselor;
 use App\Konseli;
 use App\Konselor;
+use App\Setting;
 use App\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -74,6 +75,14 @@ class UserController extends Controller
 
         $konselor->save();
 
+
+        // if(count((array)request()->dataJadwal) > $setting->session_limit){
+        //     return response()->json([
+        //         'success' => false,
+        //         'error' => 'Jumlah jadwal konseling sudah sesuai batas maksimal konseling'
+        //     ]);
+        // }
+
         for($i=0; $i<count((array)request()->dataJadwal);$i++){
             $itemJadwal = request()->dataJadwal[$i];
             if($itemJadwal['id'] == "new"){
@@ -82,7 +91,7 @@ class UserController extends Controller
                     'jam_mulai' => $itemJadwal['jam_mulai'],
                     'jam_akhir' => $itemJadwal['jam_mulai']+1,
                     'konselor_id'=> $konselor['id'],
-                    'available' => true
+                    'available' => 'true'
                 ]);
             }else{
                 $jadwal = JadwalKonselor::find($itemJadwal['id']);
@@ -127,7 +136,7 @@ class UserController extends Controller
                     'jam_mulai' => $itemJadwal['jam_mulai'],
                     'jam_akhir' => $itemJadwal['jam_mulai']+1,
                     'konselor_id'=> $konselor['id'],
-                    'available' => true
+                    'available' => 'true'
                 ]);
             }else{
                 $jadwal = JadwalKonselor::find($itemJadwal['id']);
@@ -221,7 +230,10 @@ class UserController extends Controller
             }
         }
         else {
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json([
+                'error' => true,
+                'message' => 'Email atau password salah',
+            ]);
         }
     }
 
@@ -319,6 +331,9 @@ class UserController extends Controller
 
     public function changePassword(Request $request){
 
+        $this->assignUser();
+        $user = $this->user;
+
         $validator = Validator::make($request->all(), [
             'password_lama' => 'required',
             'password' => 'required',
@@ -334,15 +349,13 @@ class UserController extends Controller
             ], 401);
         }
 
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password_lama, 'role' => $request->role])){
-            $user = User::where('email', $request->email)->first();
+        if(Auth::attempt(['email' => $user->email, 'password' => $request->password_lama])){
+            $user = User::where('email', $user->email)->first();
             $user->password = bcrypt($request->password);
             $user->save();
-            $token = JWTAuth::fromUser($user);
             return response()->json([
                 'success' => true,
-                'message' => 'password berhasil diubah!',
-                'token' => $token
+                'message' => 'password berhasil diubah!'
             ]);
         }else{
             return response()->json([

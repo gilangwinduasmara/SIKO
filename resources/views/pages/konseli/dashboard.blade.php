@@ -31,40 +31,33 @@
                                 <div class="d-flex flex-wrap justify-content-between mt-1">
                                     <div class="flex-grow-1">
                                         <div class="row">
-                                            <div class="col-3">
-                                                <a href="#"
-                                                   class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->nim}}</a>
+                                            <div class="col-sm-3 col-lg-3 mt-4">
+                                                <div>
+                                                    <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->nim}}</div>
+                                                    <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->progdi}}</div>
+                                                </div>
                                             </div>
-                                            <div class="col-3">
-                                                <a href="#"
-                                                   class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->jenis_kelamin}}</a>
+                                            <div class="col-sm-3 col-lg-3 mt-4">
+                                                <div>
+                                                    <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->jenis_kelamin}}</div>
+                                                    <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->tgl_lahir_konseli}}</div>
+                                                </div>
                                             </div>
-                                            <div class="col-3">
-                                                <a href="#"
-                                                   class="text-dark-50 text-hover-primary font-weight-bold">{{'Agama: '.$konseli->agama}}</a>
+                                            <div class="col-sm-3 col-lg-3 mt-4">
+                                                <div>
+                                                    <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Agama: '.$konseli->agama}}</div>
+                                                    <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Suku: '.$konseli->suku}}</div>
+                                                </div>
                                             </div>
-                                            <div class="col-3">
-                                                <a href="#"
-                                                   class="text-dark-50 text-hover-primary font-weight-bold">{{'Alamat: '}}</a>
+                                            <div class="col-sm-3 col-lg-3 mt-4">
+                                                <div>
+                                                    <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Alamat: '}}</div>
+                                                    <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->alamat_konseli}}</div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-3">
-                                                <a href="#"
-                                                   class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->progdi}}</a>
-                                            </div>
-                                            <div class="col-3">
-                                                <a href="#"
-                                                   class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->tgl_lahir_konseli}}</a>
-                                            </div>
-                                            <div class="col-3">
-                                                <a href="#"
-                                                   class="text-dark-50 text-hover-primary font-weight-bold">{{'Suku: '.$konseli->suku}}</a>
-                                            </div>
-                                            <div class="col-3">
-                                                <a href="#"
-                                                   class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->alamat_konseli}}</a>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

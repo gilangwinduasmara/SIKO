@@ -145,8 +145,8 @@
                                 <div class="text-muted mt-3 font-weight-bold font-size-sm ml-7">Case Conference telah bisa dilakukan dengan konselor yang dipilih.</div>
                                 <div class="form-group ml-7 mt-7" >
                                     <label>Judul Case: </label>
-                                    <input type="text" class="form-control"  id="input__judul_case"/>
-                                    <span class="form-text text-muted"><span class="text-danger">*</span>tidak boleh lebih dari 50 karakter</span>
+                                    <input type="text" class="form-control" maxlength="25" id="input__judul_case"/>
+                                    <span class="form-text text-muted"><span class="text-danger">*</span>tidak boleh lebih dari 25 karakter</span>
                                 </div>
                                 <div class="card-body py-3">
                                     <button id="button__masuk_case_conference" class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3" value="Kirim" type="submit">Masuk ke conference</button>

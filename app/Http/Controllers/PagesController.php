@@ -8,6 +8,7 @@ use App\Konseli;
 use App\Konseling;
 use App\Konselor;
 use App\Pengumuman;
+use App\Quote;
 use App\Setting;
 use App\User;
 use Illuminate\Http\Request;
@@ -123,13 +124,18 @@ class PagesController extends Controller
         $type = 'daftarkonseling';
         $konselor = Konselor::where('user_id', $this->user->id)->get()->first();
 
-        $konseling = Konseling::where('refered', '!=', 'ya')->with('rangkumanKonseling')->with('referral')->with(['konseli' => function ($query) {
+        $konseling = Konseling::where('refered', '!=', 'ya')->with('rangkumanKonseling')->doesntHave('rangkumanKonseling')->with('referral', function($query){
+            $query->with('konselor');
+        })->with(['konseli' => function ($query) {
             $query->with('user')->with(['prodi' => function ($query){
                 $query->with('faculty')->get();
             }])->get();
-        }])->with(['chats' => function ($query) {
-                    $query->orderBy('id', 'desc')->first();
-            }])->with('rekamKonselings')->where('konselor_id',$konselor->id)->with('jadwal')->get();
+        }])->with('chats', function($query){
+            return $query->latest()->get();
+        })->with('rekamKonselings')->where('konselor_id',$konselor->id)->with('jadwal')->with('latestChat')->get()->sortByDesc('latestChat.created_at');
+
+
+
         $konseling = $konseling->toArray();
         $konselingaktif = [];
         $konselingselesai = [];
@@ -138,16 +144,12 @@ class PagesController extends Controller
 
         $ordered = [];
         foreach($konseling as $k){
-            if($k['rangkuman_konseling'] == null){
-                $k['p'] = 5;
-                if($k['status_selesai'] != 'C'){
-                    $k['p'] = 1;
-                }
-                if($k['status_konseling'] == 'ref'){
-                    $k['p'] = 2;
-                }
-                array_push($filteredKonseling, $k);
+            $k['p'] = 1;
+
+            if($k['status_selesai'] == 'C'){
+                $k['p'] = 2;
             }
+            array_push($filteredKonseling, $k);
         }
 
         usort($filteredKonseling, function ($item1, $item2){
@@ -174,7 +176,7 @@ class PagesController extends Controller
     public function caseconference(){
         $this->assignUser();
         $user = $this->user;
-        $cases = CaseConference::with(['detailConferences' => function($query){
+        $cases = CaseConference::with('konseling')->with(['detailConferences' => function($query){
             $query->with(['konselor' => function($query){
                 $query->with('user')->get();
             }]);
@@ -207,28 +209,52 @@ class PagesController extends Controller
             $query->with('user');
         }])->with(['referral' => function ($query){
                             $query->with('konselor')->get();
-                        }])->with('rangkumanKonseling')->has('rangkumanKonseling')->with(['konseli' => function ($query) {
-                            $query->with('user')->with(['prodi' => function ($query){
-                                $query->with('faculty')->get();
-                            }])->get();
+                        }])->with('rangkumanKonseling')->with(['konseli' => function ($query) {
+                            $query->with('user');
                         }])->with(['chats' => function ($query) {
                                     $query->orderBy('id', 'desc')->first();
-                            }])->with('rekamKonselings')->where('konselor_id',$this->user->details->id)->with('jadwal')->get();
+                            }])->with('rekamKonselings')->where('konseli_id',$this->user->details->id)->with('jadwal')->get();
+
         $showChat = false;
         // dd($konselis);
         $user = $this->user;
         if($user->role == 'konseli'){
             return view('pages.konseli.arsip', compact('page_title', 'page_description', 'konselings', 'showChat', 'type', 'user'));
         }
+
+        $konselings = Konseling::with(['konselor'=>function($query){
+            $query->with('user');
+        }])->with(['referral' => function ($query){
+                            $query->with('konselor')->get();
+                        }])->with('rangkumanKonseling')->has('rangkumanKonseling')->with(['konseli' => function ($query) {
+                            $query->with('user');
+                        }])->with(['chats' => function ($query) {
+                                    $query->orderBy('id', 'desc')->first();
+                            }])->with('rekamKonselings')->where('konselor_id',$this->user->details->id)->with('jadwal')->get();
+
+
+        $konseling_referred = Konseling::with(['konselor'=>function($query){
+            $query->with('user');
+        }])->with(['referral' => function ($query){
+                            $query->with('konselor')->get();
+                        }])->with('rangkumanKonseling')->with(['konseli' => function ($query) {
+                            $query->with('user');
+                        }])->with(['chats' => function ($query) {
+                                    $query->orderBy('id', 'desc')->first();
+                            }])->with('rekamKonselings')->where('refered', 'ya')->where('konselor_id',$this->user->details->id)->with('jadwal')->get();
+
+        $konselings = $konselings->merge($konseling_referred);
+
         return view('pages.konselor.daftarkonseli', compact('page_title', 'page_description', 'konselings', 'showChat', 'type', 'user'));
     }
 
     public function landing(){
         $this->assignUser();
-        $pengumuman = Pengumuman::get()->first();
+        $pengumuman = Pengumuman::orderBy('created_at', 'DESC')->get()->first();
+        $quotes = Quote::get();
         $user = $this->user;
         $konselors = Konselor::with('user')->get();
-        return view('pages.landing.landing', compact('konselors', 'pengumuman'));
+        return view('pages.landing.landing', compact('konselors', 'pengumuman', 'quotes', 'user'));
     }
 
     public function conferenceSetup(Request $request){
@@ -238,6 +264,14 @@ class PagesController extends Controller
         $page_title = 'Case Conference';
         $page_description = '';
         $konseling = Konseling::find($request->get('id'));
+
+        $caseconference = CaseConference::where('konseling_id', $konseling->id)->get()->first();
+
+        // dd($caseconference);
+
+        if($caseconference != null){
+            return redirect('/caseconference?id='.$caseconference->id);
+        }
 
         if($konseling == null || $konseling->konselor_id != $user->details->id || $konseling->refered == 'ya' || $konseling->status_selesai != 'C'){
             return redirect('/dashboard');
@@ -321,16 +355,33 @@ class PagesController extends Controller
 
         foreach ($konselors as $konselor) {
             $count = 0;
-            foreach($konselor->jadwalKonselor as $jadwal){
+            foreach(JadwalKonselor::where('konselor_id', $konselor->id)->get() as $jadwal){
+                // dd($konselor->jadwalKonselor);
                 if($jadwal->available == "false"|| $jadwal->available == "candidate"){
                     $count++;
                 }
             }
-//            if($count < $settings->session_limit || $request->exists("all")){
-//                array_push($return, $konselor);
-//            }
+           if($count < $settings->session_limit){
+               $konselor->active_konseling = $count;
+               array_push($return, $konselor);
+           }
         }
+        $konselors = $return;
         return view('pages.konseli.daftarsesi', compact('konselors', 'user'));
+    }
+
+    public function pengumuman(){
+        $this->assignUser();
+        $user = $this->user;
+        $pengumumans = Pengumuman::orderBy('created_at', 'DESC')->get();
+        return view("pages.pengumuman", compact('pengumumans', 'user'));
+    }
+
+    public function pengumumanDetail($id){
+        $this->assignUser();
+        $user = $this->user;
+        $pengumuman = Pengumuman::find($id);
+        return view("pages.pengumuman-detail", compact('pengumuman', 'user'));
     }
 
     /**

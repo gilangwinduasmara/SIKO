@@ -45,22 +45,58 @@
                                         @php ($konseling = json_decode(json_encode($konseling)))
                                         <tr>
                                             <td>
-                                                <div class="d-flex align-items-center justify-content-between mb-5">
-                                                    <div class="d-flex align-items-center">
+                                                <div class="d-flex align-items-end flex-column justify-content-between mb-5">
+                                                    <div class="d-flex justify-content-end">
+                                                        @if($type == 'arsip')
+                                                            @if($konseling->refered == 'ya')
+                                                                <span class="label label-lg label-light-primary label-inline">
+                                                                    Referred
+                                                                </span>
+                                                            @else
+                                                                <span class="label label-lg label-light-success label-inline">
+                                                                    Case Close
+                                                                </span>
+                                                            @endif
+                                                        @else
+                                                            @if($konseling->status_selesai == "E" && $type != 'arsip')
+                                                            <span class="label label-lg label-light-primary label-inline">
+                                                                Case Close
+                                                            </span>
+                                                            @else
+                                                            @if($konseling->status_konseling == 'ref')
+                                                            <span class="label label-lg label-light-success label-inline">
+                                                                Ref
+                                                            </span>
+                                                            @else
+                                                            <span class="label label-lg label-light-info label-inline">
+                                                                Baru
+                                                            </span>
+                                                            @endif
+                                                            @endif
+                                                        @endif
+
+                                                    </div>
+                                                    <div class="d-flex align-items-center w-100">
                                                         <div class="symbol symbol-circle symbol-50 mr-3">
                                                             <img alt="Pic" src={{"/avatars/".$konseling->konseli->user->avatar}}>
                                                         </div>
-                                                        <div class="d-flex flex-column">
-                                                            <a id={{"daftarkonseli__".$konseling->id}} href="#" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg">{{$konseling->konseli->nama_konseli}}</a>
-                                                            @if (count($konseling->chats) > 0)
-                                                                <span class="text-muted font-weight-bold font-size-sm">{{ substr(base64_decode($konseling->chats[0]->chat_konseling), 0,20) }}</span>
-                                                            @endif
+                                                        <div class="d-flex flex-column w-100">
+                                                            <a id={{"daftarkonseli__".$konseling->id}} href="#" style="max-width: 70%" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg text-truncate" >{{substr($konseling->konseli->nama_konseli, 0,25)}}</a>
+                                                            <div class="d-flex justify-content-between flex-grow-1">
+                                                                @if (count($konseling->chats) > 0)
+                                                                    <div class="text-muted font-weight-bold font-size-sm text-truncate w-50">{{ substr(base64_decode($konseling->chats[0]->chat_konseling), 0,20) }}</div>
+                                                                @endif
+                                                                @if($konseling->chats)
+                                                                <span class="text-muted font-weight-bold font-size-sm">{{\Carbon\Carbon::parse($konseling->chats[0]->created_at)->diffForHumans(null, true)}}</span>
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex flex-column align-items-end">
-                                                        <span class="text-muted font-weight-bold font-size-sm"></span>
+
                                                     </div>
                                                 </div>
+                                                <div class="separator separator-solid mt-5">
                                             </td>
                                         </tr>
                                     @endforeach

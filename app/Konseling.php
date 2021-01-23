@@ -34,6 +34,10 @@ class Konseling extends Model
         return $this->hasMany('App\ChatKonseling');
     }
 
+    public function latestChat(){
+        return $this->hasOne('App\ChatKonseling')->latest();
+    }
+
     public function jadwal()
     {
         return $this->belongsTo('App\JadwalKonselor', 'jadwal_konselor_id', 'id');

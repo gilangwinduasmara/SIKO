@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CaseConference;
 use App\JadwalKonselor;
+use App\Konseli;
 use App\Referal;
 use App\Konseling;
 use App\Konselor;
@@ -38,7 +39,6 @@ class ReferalController extends Controller
     public function store(Request $request)
     {
         $roleValidator = Validator::make($request->all(), [
-            'judul_referral' => 'required',
             'pesan_referral' => 'required',
             'jadwal_konselor_id' => 'required|exists:jadwal_konselors,id',
             'konseling_id' => 'required|exists:konselings,id',
@@ -85,12 +85,22 @@ class ReferalController extends Controller
 
         $tujuan = Konselor::find($request->konselor_tujuan_id);
 
+        $konseli = Konseli::find($newConseling->konseli_id);
+
         $Notification = Notification::create([
             'type' => 'new_referral',
-            'title' => $konseling->konselor->nama_konselor,
-            'message' => 'Mengirim referal',
+            'title' => 'Referal Konseling',
+            'message' => 'Anda menerima referal konseling',
             'data' => $newConseling->id,
             'user_id' =>$tujuan->user_id
+        ]);
+
+        $Notification = Notification::create([
+            'type' => 'new_referral',
+            'title' => 'Referal Konseling',
+            'message' => 'Sesi anda berpindah ke konselor baru',
+            'data' => $newConseling->id,
+            'user_id' =>$konseli->user_id
         ]);
 
         return response()->json([

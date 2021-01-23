@@ -22,6 +22,27 @@ class NotificationController extends Controller
             'data'=>count($notification)
         ]);
     }
+
+
+    public function readAll(Request $request){
+        $this->assignUser();
+        $user = $this->user;
+        if($request->type == 'chat'){
+            $notif = Notification::where('user_id', $user->id)->where(function($query){
+                $query->where('type', '!=', 'chat')
+                        ->orWhere('type', '!=', 'chat_conference');
+            })->update(['read_at' => now()]);
+        }
+        if($request->type == 'notif'){
+            $notif = Notification::where('user_id', $user->id)->where(function($query){
+                $query->where('type','chat')
+                        ->orWhere('type', 'chat_conference');
+            })->update(['read_at' => now()]);
+        }
+
+        return redirect()->back();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,8 +71,17 @@ class NotificationController extends Controller
             }
         }
 
+        if($notif->type == 'chat_conference'){
+            return redirect('/caseconference?id='.$notif->data);
+        }
+
         if($notif->type == 'new_referral'){
-            return redirect('/daftarkonseli?open&id='.$notif->data);
+            if($user->role === 'konselor'){
+                return redirect('/daftarkonseli?open&id='.$notif->data);
+            }
+            if($user->role === 'konseli'){
+                return redirect("/dashboard#modal__referral");
+            }
         }
 
         if($notif->type == 'new_conference'){
@@ -67,6 +97,12 @@ class NotificationController extends Controller
         if($notif->type == 'ask_conference'){
             if($user->role === 'konseli'){
                 return redirect("/dashboard#modal__case_conference");
+            }
+        }
+
+        if($notif->type == 'invitation_conference'){
+            if($user->role === 'konselor'){
+                return redirect('/caseconference?id='.$notif->data);
             }
         }
 
@@ -109,6 +145,7 @@ class NotificationController extends Controller
 
     }
 
+
     public function index(Request $request)
     {
         $this->assignUser();
@@ -118,7 +155,7 @@ class NotificationController extends Controller
         foreach($dataGroups as $group){
             array_push($n, head($group)[0]);
         }
-        $notifications = Notification::where('type', '!=', 'chat')->where('user_id', $user->id)->where('read_at')->get();
+        $notifications = Notification::where('type', '!=', 'chat')->where('user_id', $user->id)->orderBy('created_at', 'desc')->where('read_at')->get();
         foreach($notifications as $notif){
             array_push($n, $notif);
         }
@@ -128,7 +165,7 @@ class NotificationController extends Controller
         //     'rows'=>$n,
         // ]);
         if(true){
-            $notifications = Notification::where('read_at')->where('type','chat')->where('user_id', $user->id)->get()->groupBy(['data']);
+            $notifications = Notification::where('read_at')->where('type','chat')->orderBy('created_at', 'desc')->where('user_id', $user->id)->get()->groupBy(['data']);
             $notification = [];
             foreach($notifications as $n){
                 $konseling = Konseling::find($n[0]['data']);
@@ -139,6 +176,19 @@ class NotificationController extends Controller
                 }
             }
             $askReferral = [];
+
+            $_chatConference = Notification::whereNull('read_at')->where('type', 'chat_conference')->where('user_id', $user->id)->get()->groupBy(['data']);
+            // dd(json_encode($_chatConference));
+            foreach($_chatConference as $chat){
+                $case = CaseConference::find($chat[0]['data']);
+                if($case){
+                    if($case->status == "on-going"){
+                        // dd(true);
+                        array_push($notification, $chat[count($chat)-1]);
+                    }
+                }
+            }
+
             $_askReferrals = Notification::whereIn('type', ['ask_referral', 'agreed_referral', 'declined_referral'])->where('type','!=','chat')->where('user_id', $user->id)->orderBy('created_at', 'desc')->get()->groupBy(['type'])->first();
             if($_askReferrals){
                 $_askReferrals->toArray();
@@ -152,7 +202,15 @@ class NotificationController extends Controller
                     }
                 };
             }
-            $askConference = [];
+
+            $referral = Notification::where('read_at')->where('user_id', $user->id)->whereIn('type', ['new_referral'])->orderBy('created_at')->get();
+
+            foreach($referral as $r){
+                $k = Konseling::find($r->data);
+                if($k->status_selesai == 'C' && $k->refered != 'ya')
+                    array_push($notification, $r);
+            }
+
             $_conferences = Notification::where('read_at')->where('user_id', $user->id)->whereIn('type', ['ask_conference','agreed_conference','invitation_conference', 'declined_conference'])->orderBy('created_at')->get();
             // return response()->json([$_conferences]);
             foreach($_conferences as $c){
@@ -170,6 +228,8 @@ class NotificationController extends Controller
                 array_push($notification, $c);
             }
 
+
+
             $_others = Notification::where('read_at')->where('user_id', $user->id)->whereIn('type', ['new_konseling', 'end_konseling'])->orderBy('created_at')->get();
             foreach ($_others as $o) {
                 if($o->type == 'new_konseling'){
@@ -185,7 +245,15 @@ class NotificationController extends Controller
                     }
                 }
             }
+
         }
+        foreach($notification as $notif){
+            $notif['timestamp'] = $notif->created_at->diffForHumans(null, true);
+        }
+
+        $created_at = array_column($notification, 'created_at');
+        array_multisort($created_at, SORT_DESC, $notification);
+
         return response()->json([
             'success'=>true,
             'message'=>'',
