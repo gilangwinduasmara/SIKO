@@ -229,6 +229,7 @@ class PagesController extends Controller
                                         $query->orderBy('id', 'desc')->first();
                                 }])->with('rekamKonselings')->where('refered', 'ya')->where('konseli_id',$this->user->details->id)->with('jadwal')->get();
 
+            $konselings = $konselings->merge($konselings_referred);
             return view('pages.konseli.arsip', compact('page_title', 'page_description', 'konselings', 'showChat', 'type', 'user'));
         }
 
