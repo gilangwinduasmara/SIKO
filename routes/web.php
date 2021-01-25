@@ -83,7 +83,7 @@ Route::get('services/jadwalkonselor', 'JadwalKonselorController@index');
 
 
 Route::get('services/konseling/statistic', 'KonselingController@statistic');
-Route::get('services/konseling/expired/candidate', 'KonselingController@checkExpired');
+Route::get('services/konseling/expired', 'KonselingController@checkExpired');
 Route::get('services/konseling', 'KonselingController@index');
 Route::get('services/konseling/count','KonselingController@count');
 Route::post('services/konseling/end', 'KonselingController@end');
