@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
             // $konselings = Konseling::whereDate('tgl_daftar_konseling', '>', 'tgl_expired_konseling')->get();
             $candidates = [];
             $konselings = Konseling::with('chats')->get();
-            // return $konselings;
+            $setting = Setting::get()->first();
             foreach($konselings as $konseling){
                 $lastchat = null;
                 foreach($konseling->chats as $chat){
@@ -48,12 +48,13 @@ class Kernel extends ConsoleKernel
                 if($lastchat){
                     $tgl_last_activity = Carbon::createFromFormat("Y-m-d",Carbon::parse($lastchat->created_at)->toDateString(),'Asia/Jakarta');
                 }else{
-                    $setting = Setting::get()->first();
-                    $tgl_last_activity = Carbon::createFromFormat("Y-m-d", now()->toDateString(), 'Asia/Jakarta');
+                    $tgl_last_activity = $konseling->created_at;
                 }
+
+
                 if($konseling->status_selesai == "C" && $konseling->refered == "tidak"){
                     $tgl_daftar = Carbon::createFromFormat('Y-m-d', $konseling->tgl_daftar_konseling);
-                    if($tgl_daftar->diffInDays($tgl_last_activity)>$setting->expired){
+                    if($konseling->created_at->diffInDays(now(), false)>$setting->expired){
                         array_push($candidates, $konseling);
                         $konseling->status_selesai = 'expired';
                         $konseling->save();
@@ -68,7 +69,6 @@ class Kernel extends ConsoleKernel
                     }
                 }
             }
-
         })->everyMinute();
     }
 

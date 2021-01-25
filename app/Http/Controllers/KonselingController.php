@@ -36,11 +36,13 @@ class KonselingController extends Controller
             if($lastchat){
                 $tgl_last_activity = Carbon::createFromFormat("Y-m-d",Carbon::parse($lastchat->created_at)->toDateString(),'Asia/Jakarta');
             }else{
-                $tgl_last_activity = Carbon::createFromFormat("Y-m-d", now()->toDateString(), 'Asia/Jakarta');
+                $tgl_last_activity = $konseling->created_at;
             }
+
+
             if($konseling->status_selesai == "C" && $konseling->refered == "tidak"){
                 $tgl_daftar = Carbon::createFromFormat('Y-m-d', $konseling->tgl_daftar_konseling);
-                if($tgl_daftar->diffInDays($tgl_last_activity)>$setting->expired){
+                if($konseling->created_at->diffInDays(now(), false)>$setting->expired){
                     array_push($candidates, $konseling);
                     $konseling->status_selesai = 'expired';
                     $konseling->save();
@@ -55,6 +57,11 @@ class KonselingController extends Controller
                 }
             }
         }
+
+        return response()->json([
+            'setting' => $setting,
+            'data' => $candidates
+        ]);
     }
 
     public function end(Request $request){

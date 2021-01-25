@@ -560,7 +560,7 @@
                         @endforeach
                     </div>
                 </div>
-                <footer class="footer" style="color: white; background: rgb(25, 43, 69);">
+                <div class="footer py-8" style="color: white; background: rgb(25, 43, 69);">
                     <div class="row justify-content-between p-6">
                         <div class="col-md-3">
                             <div class="row">
@@ -593,7 +593,7 @@
                         </div>
                     </div>
                     <div style="text-align: center;">Copyright 2019 © GMIT - UKSW</div>
-                </footer>
+                </div>
             </div>
         </div>
     </div>

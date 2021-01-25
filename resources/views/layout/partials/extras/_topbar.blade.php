@@ -10,8 +10,7 @@
                         </i>
                     </div>
                 </div>
-                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right notif-scroll" style="max-height: 300px">
-
+                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right " >
                     <div class="clear-notif">
                         <a href="/notification/readall?type=notif" class="d-block navi-item bg-hover-light text-warning py-4 text-hover-warning">
                             <div class="navi-text text-center py-2 text-warning font-size-xs">
@@ -23,7 +22,7 @@
                         </a>
                         <div class="separator separator-solid"></div>
                     </div>
-                    <ul class="navi navi-hover py-4 " name="dropdown-notif">
+                    <ul class="navi navi-hover py-4 " name="dropdown-notif" style="max-height: 300px; overflow-x: hidden">
                         <li class="navi-item">
                             <div class="navi-text">
                                 <div class="font-weight-bold text-center">Belum ada notifikasi</div>
@@ -41,7 +40,7 @@
                         </i>
                     </div>
                 </div>
-                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right notif-scroll" style="max-height: 300px">
+                <div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right " >
                     <div class="clear-chat">
                         <a href="/notification/readall?type=chat" class="d-block navi-item bg-hover-light py-4 text-warning text-hover-warning clear-chat">
                             <div class="navi-text text-center py-2 text-warning font-size-xs">
@@ -53,7 +52,7 @@
                         </a>
                         <div class="separator separator-solid"></div>
                     </div>
-                    <ul class="navi navi-hover py-4" name="dropdown-chat">
+                    <ul class="navi navi-hover py-4 " name="dropdown-notif" style="max-height: 300px; overflow-x: hidden">
                         <li class="navi-item">
                             <div class="navi-text">
                                 <div class="font-weight-bold text-center">Belum ada Notifikasi</div>

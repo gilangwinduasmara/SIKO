@@ -110,6 +110,29 @@
                     dataJadwal,
                     personal
                 })
+
+                let checkJadwal = dataJadwal.map((item, index) => ({hari: item.hari, jam_mulai: item.jam_mulai}))
+                let tmp = [];
+                let conflict = false;
+                for(var i=0; i<checkJadwal.length; i++){
+                    for(var j=0; j<checkJadwal.length; j++){
+                        if(i!=j){
+                            if(JSON.stringify(checkJadwal[i]) == JSON.stringify(checkJadwal[j])){
+                                conflict = true;
+                                console.log(checkJadwal[i], i, j)
+                                break
+                            }
+                        }
+                    }
+                    if(conflict) break;
+                }
+
+                if(conflict){
+                    Swal.fire("", "Tidak boleh ada jadwal yang sama!", "error");
+                    toastr.clear();
+                    return false;
+                }
+
                 @if($action == "create")
                 axios.post('/services/konselor/tambahKonselor', {personal, dataJadwal}).then(res=>{
                     window.location.href="/admin/konselor";

@@ -111,7 +111,6 @@ $(document).on('focus','.jadwal-close', function(){
 $('#button__profile-simpan').click(function(){
     toastr.options = conf.toastr.options.saving;
     toastr.info("Menyimpan Data");
-
     const dataJadwal = [];
     const personal = $('#form-personal').serializeObject();
     $.each($("select"), function(i,v){
@@ -125,9 +124,7 @@ $('#button__profile-simpan').click(function(){
         dataJadwal,
         personal
     })
-
     let checkJadwal = dataJadwal.map((item, index) => ({hari: item.hari, jam_mulai: item.jam_mulai}))
-
     let tmp = [];
     let conflict = false;
     for(var i=0; i<checkJadwal.length; i++){
