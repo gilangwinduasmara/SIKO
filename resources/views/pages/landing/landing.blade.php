@@ -243,7 +243,7 @@
                                 </div>
                                 <input id="input_file" type="file" value="Tambah Foto" hidden>
                                 <input type="text" value="" name="avatar" hidden>
-                                <button id="button_foto" class="btn btn-warning">Pilih Foto</button>
+                                <button id="button_foto" type="button" class="btn btn-warning">Pilih Foto</button>
                             </div>
                         </div>
                         <div class="row w-100 align-items-start mt-8">

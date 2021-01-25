@@ -99,7 +99,7 @@ class PagesController extends Controller
 //            dd($statistik);
             $compact = compact('page_title', 'page_description', 'token', 'user', 'daftarkonseling', 'statistik');
             return view('pages.dashboard', $compact);
-        }else{
+        }else if($this->user->role == 'konseli'){
             $konseling = Konseling::where('konseli_id',$user->details->id)->where('status_selesai','C')->where('refered','!=','ya')->with(['konselor' => function ($query){
                 $query->with('user')->get();
             }])->with('jadwal')->with('referal')->get()->first();
@@ -219,6 +219,16 @@ class PagesController extends Controller
         // dd($konselis);
         $user = $this->user;
         if($user->role == 'konseli'){
+            $konselings_referred = Konseling::with(['konselor'=>function($query){
+                $query->with('user');
+            }])->with(['referral' => function ($query){
+                                $query->with('konselor')->get();
+                            }])->with('rangkumanKonseling')->has('rangkumanKonseling')->with(['konseli' => function ($query) {
+                                $query->with('user');
+                            }])->with(['chats' => function ($query) {
+                                        $query->orderBy('id', 'desc')->first();
+                                }])->with('rekamKonselings')->where('refered', 'ya')->where('konseli_id',$this->user->details->id)->with('jadwal')->get();
+
             return view('pages.konseli.arsip', compact('page_title', 'page_description', 'konselings', 'showChat', 'type', 'user'));
         }
 

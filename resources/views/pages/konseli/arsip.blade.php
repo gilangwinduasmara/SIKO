@@ -64,19 +64,18 @@
                                                             @endif
                                                         @else
                                                             @if($konseling->status_selesai == "E" && $type != 'arsip')
-                                                            <span class="label label-lg label-light-primary label-inline">
-                                                                Case Close
-                                                            </span>
-                                                            @else
-                                                            @if($konseling->status_konseling == 'ref')
-                                                            <span class="label label-lg label-light-success label-inline">
-                                                                Ref
-                                                            </span>
-                                                            @else
-                                                            <span class="label label-lg label-light-info label-inline">
-                                                                Baru
-                                                            </span>
-                                                            @endif
+                                                                <span class="label label-lg label-light-primary label-inline">
+                                                                    Case Close
+                                                                </span>
+                                                                @else @if($konseling->status_konseling == 'ref')
+                                                                    <span class="label label-lg label-light-success label-inline">
+                                                                        Referal
+                                                                    </span>
+                                                                @else
+                                                                    <span class="label label-lg label-light-info label-inline">
+                                                                        Baru
+                                                                    </span>
+                                                                @endif
                                                             @endif
                                                         @endif
 

@@ -14,6 +14,7 @@ use App\Konselor;
 use App\RekamKonseling;
 use App\Setting;
 use App\User;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Carbon;
 use Validator;
 
@@ -377,6 +378,7 @@ class KonselingController extends Controller
 
     public function create(request $request){
         $this->assignUser();
+        $user = $this->user;
         $roleValidator = Validator::make($request->all(), [
 //            'status_konseling' => 'required',
 //            'status_selesai' => 'required',
@@ -390,9 +392,34 @@ class KonselingController extends Controller
                 'message' => $roleValidator->errors()
             ]);
         }
+
+
         $limit = Setting::first();
         $currentDate = now();
         $inputs = $request->all();
+        $jadwal = JadwalKonselor::find($inputs['jadwal_konselor_id']);
+
+
+        $currentKonseling = Konseling::where('konseli_id',$user->details->id)->where('status_selesai','C')->where('refered','!=','ya')->with(['konselor' => function ($query){
+            $query->with('user')->get();
+        }])->with('jadwal')->with('referal')->get()->first();
+
+        if($currentKonseling){
+            return response()->json([
+                "success" => false,
+                "error" => "Anda sudah terdaftar sesi konseling",
+                "redirect" => "/dashboard"
+            ]);
+        }
+
+        if($jadwal->available != "true"){
+            return response()->json([
+                "success" => false,
+                "error" => "Jadwal sudah tidak tersedia",
+                "redirect" => "/daftarsesi"
+            ]);
+        }
+
         $inputs['status_konseling'] = "non-ref";
         $inputs['status_selesai'] = "C";
         $inputs['konseli_id'] = $this->user->details->id;
@@ -401,7 +428,7 @@ class KonselingController extends Controller
         $inputs['tgl_akhir_konseling'] = $currentDate;
         $inputs['tgl_expired_konseling'] = $currentDate;
         $konseling = Konseling::create($inputs);
-        $jadwal = JadwalKonselor::find($inputs['jadwal_konselor_id']);
+
         $jadwal->available = 'false';
         $jadwal->save();
 

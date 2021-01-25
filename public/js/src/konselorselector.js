@@ -1,3 +1,4 @@
+
 let jadwalKonselor= {};
 var selectedJadwal= null;
 var selectedKonselor= null;
@@ -60,7 +61,25 @@ $('#form_daftar_sesi').submit(function(e){
     console.log($(this).serialize());
     axios.post('/services/konseling', $(this).serialize()).then(res => {
         console.log(res.data);
-        window.location.href="/dashboard";
+        if(res.data.success){
+            window.location.href="/dashboard";
+        }else{
+            Swal.fire(
+                '',
+                res.data.error,
+                'error'
+            )
+            Swal.fire({
+                title: '',
+                text: res.data.error
+            }).then(function(result){
+                if(result.value){
+                    if(res.data.redirect){
+                        window.location.href = res.data.redirect
+                    }
+                }
+            })
+        }
     });
 });
 
