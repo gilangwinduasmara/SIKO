@@ -233,7 +233,9 @@ class NotificationController extends Controller
             $_others = Notification::where('read_at')->where('user_id', $user->id)->whereIn('type', ['new_konseling', 'end_konseling'])->orderBy('created_at')->get();
             foreach ($_others as $o) {
                 if($o->type == 'new_konseling'){
-                    $k = Konseling::with('chats')->find($o->data);
+                    $k = Konseling::with(['chats' => function($query) use ($user){
+                        $query->where('userID', $user->id);
+                    }])->find($o->data);
                     if($k->status_selesai == 'C' && $k->refered != "ya" && count($k->chats) == 0){
                         array_push($notification, $o);
                     }

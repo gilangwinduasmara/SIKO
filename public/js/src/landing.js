@@ -227,6 +227,7 @@ $(document).ready(function(){
     $('#radio__d').click(function(){
         $('#login-email').attr("placeholder", "NIP")
     })
+    $('#input__tanggallahir').attr({"max": new Date().toISOString().split("T")[0]})
 })
 
 function changeSelectedRole(){

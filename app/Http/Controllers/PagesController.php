@@ -209,7 +209,7 @@ class PagesController extends Controller
             $query->with('user');
         }])->with(['referral' => function ($query){
                             $query->with('konselor')->get();
-                        }])->with('rangkumanKonseling')->with(['konseli' => function ($query) {
+                        }])->with('rangkumanKonseling')->has('rangkumanKonseling')->with(['konseli' => function ($query) {
                             $query->with('user');
                         }])->with(['chats' => function ($query) {
                                     $query->orderBy('id', 'desc')->first();

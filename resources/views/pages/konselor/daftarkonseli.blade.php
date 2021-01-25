@@ -63,6 +63,11 @@
                                                                 Case Close
                                                             </span>
                                                             @else
+                                                            @if($konseling->status_selesai == "expired")
+                                                            <span class="label label-lg label-light-danger label-inline">
+                                                                Expired
+                                                            </span>
+                                                            @else
                                                             @if($konseling->status_konseling == 'ref')
                                                             <span class="label label-lg label-light-success label-inline">
                                                                 Ref
@@ -71,6 +76,7 @@
                                                             <span class="label label-lg label-light-info label-inline">
                                                                 Baru
                                                             </span>
+                                                            @endif
                                                             @endif
                                                             @endif
                                                         @endif

@@ -71,13 +71,17 @@
                             <div class="text-center">Konseling Selesai</div>
                             <div class="text-warning font-weight-bold font-size-h1">{{$statistik['selesai']['total']}}</div>
                         </div>
-                        <div class="col-4 d-flex flex-column justify-content-center align-items-center">
+                        <div class="col-3 d-flex flex-column justify-content-center align-items-center">
                             <div>Case Closed</div>
                             <div class="text-success font-weight-bold font-size-h1">{{$statistik['selesai']['cc']}}</div>
                         </div>
-                        <div class="col-4 d-flex flex-column justify-content-center align-items-center">
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
                             <div class="text-center">Referred</div>
                             <div class="text-primary font-weight-bold font-size-h1">{{$statistik['selesai']['r']}}</div>
+                        </div>
+                        <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                            <div class="text-center">Expired</div>
+                            <div class="text-danger font-weight-bold font-size-h1">{{$statistik['selesai']['e']}}</div>
                         </div>
                     </div>
                 </div>
@@ -86,8 +90,9 @@
         <div class="col-lg-6 col-xxl-4">
             <div class="card border card-custom">
                 <div class="card-body">
-                    <div class="row d-flex justify-content-center align-items-center h-200px">
-                        <div class="col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div cla
+                    ss="row d-flex justify-content-center align-items-center h-200px">
+                        <div class="col-12 d-flex flex-column justify-content-center align-items-center">
                             <div class="text-center">Case Conference</div>
                             <div class="text-warning font-weight-bold font-size-h1">{{$statistik['count']['total_conference']}}</div>
                         </div>

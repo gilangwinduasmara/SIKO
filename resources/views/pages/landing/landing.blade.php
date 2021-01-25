@@ -250,7 +250,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Nama <span class="text-danger">*</span></label>
-                                    <input name="nama_konseli" id="input__nama" type="text" class="form-control" />
+                                    <input name="nama_konseli" id="input__nama" type="text" class="form-control" readonly/>
                                     <input name="name" id="input__name" type="text" class="form-control" hidden/>
                                 </div>
                                 <div class="form-group">
@@ -295,7 +295,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input name="tgl_lahir_konseli" id="input__tanggallahir" class="form-control" type="date" value="" id="example-date-input"/>
+                                    <input name="tgl_lahir_konseli" id="input__tanggallahir" class="form-control" type="date" min="1971-01-01" value="" id="example-date-input"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Suku <span class="text-danger">*</span></label>
