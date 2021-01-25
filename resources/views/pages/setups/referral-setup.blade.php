@@ -223,7 +223,20 @@
                 konselor_tujuan_id: $("#input__konselor_id").val()
             }
             axios.post("/services/referral", data).then(res => {
-                window.location.href = "/daftarkonseli";
+                if(res.data.success){
+                    window.location.href = "/daftarkonseli";
+                }else{
+                    Swal.fire({
+                        title: '',
+                        text: res.data.error
+                    }).then(function(result){
+                        if(result.value){
+                            if(res.data.redirect){
+                                window.location.href = res.data.redirect
+                            }
+                        }
+                    })
+                }
             })
         })
     </script>

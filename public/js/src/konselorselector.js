@@ -64,11 +64,6 @@ $('#form_daftar_sesi').submit(function(e){
         if(res.data.success){
             window.location.href="/dashboard";
         }else{
-            Swal.fire(
-                '',
-                res.data.error,
-                'error'
-            )
             Swal.fire({
                 title: '',
                 text: res.data.error

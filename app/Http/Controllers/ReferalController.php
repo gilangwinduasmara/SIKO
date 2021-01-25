@@ -9,6 +9,7 @@ use App\Referal;
 use App\Konseling;
 use App\Konselor;
 use App\Notification;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 use Validator;
 
@@ -53,6 +54,15 @@ class ReferalController extends Controller
         }
         $inputs = $request->all();
         $inputs['tgl_referral'] = now();
+
+        $jadwal = JadwalKonselor::find($request->jadwal_konselor_id);
+        if($jadwal->available != "true"){
+            return response()->json([
+                'success' => false,
+                'error' => 'Jadwal sudah tidak tersedia',
+                'redirect' => '/setup/referral?id='.$request->konseling_id
+            ]);
+        }
 
         $konseling = Konseling::with('konselor')->where('id', $request->konseling_id)->first();
         $konseling->refered = 'ya';
