@@ -22,40 +22,40 @@ class KonselingController extends Controller
 {
     public function checkExpired(Request $request){
         $candidates = [];
-            $konselings = Konseling::with('chats')->get();
-            // return $konselings;
-            foreach($konselings as $konseling){
-                $lastchat = null;
-                foreach($konseling->chats as $chat){
-                    $userChat = User::find($chat->userID);
-                    if($userChat->role == 'konseli'){
-                        $lastchat = $userChat;
-                        break;
-                    }
+        $konselings = Konseling::with('chats')->get();
+        // return $konselings;
+        foreach($konselings as $konseling){
+            $lastchat = null;
+            foreach($konseling->chats as $chat){
+                $userChat = User::find($chat->userID);
+                if($userChat->role == 'konseli'){
+                    $lastchat = $userChat;
+                    break;
                 }
-                if($lastchat){
-                    $tgl_last_activity = Carbon::createFromFormat("Y-m-d",Carbon::parse($lastchat->created_at)->toDateString(),'Asia/Jakarta');
-                }else{
-                    $setting = Setting::get()->first();
-                    $tgl_last_activity = Carbon::createFromFormat("Y-m-d", now()->toDateString(), 'Asia/Jakarta');
-                }
-                if($konseling->status_selesai == "C" && $konseling->refered == "tidak"){
-                    $tgl_daftar = Carbon::createFromFormat('Y-m-d', $konseling->tgl_daftar_konseling);
-                    if($tgl_daftar->diffInDays($tgl_last_activity)>$setting->expired){
-                        array_push($candidates, $konseling);
-                        $konseling->status_selesai = 'expired';
-                        $konseling->save();
-                        $jadwal = JadwalKonselor::find($konseling->jadwal_konselor_id);
-                        $jadwal->save();
+            }
+            if($lastchat){
+                $tgl_last_activity = Carbon::createFromFormat("Y-m-d",Carbon::parse($lastchat->created_at)->toDateString(),'Asia/Jakarta');
+            }else{
+                $setting = Setting::get()->first();
+                $tgl_last_activity = Carbon::createFromFormat("Y-m-d", now()->toDateString(), 'Asia/Jakarta');
+            }
+            if($konseling->status_selesai == "C" && $konseling->refered == "tidak"){
+                $tgl_daftar = Carbon::createFromFormat('Y-m-d', $konseling->tgl_daftar_konseling);
+                if($tgl_daftar->diffInDays($tgl_last_activity)>$setting->expired){
+                    array_push($candidates, $konseling);
+                    $konseling->status_selesai = 'expired';
+                    $konseling->save();
+                    $jadwal = JadwalKonselor::find($konseling->jadwal_konselor_id);
+                    $jadwal->save();
 
-                        $conference = CaseConference::where('konseling_id', $konseling->id)->where('status','on-going')->first();
-                        if($conference){
-                            $conference->status = 'selesai';
-                            $conference->save();
-                        }
+                    $conference = CaseConference::where('konseling_id', $konseling->id)->where('status','on-going')->first();
+                    if($conference){
+                        $conference->status = 'selesai';
+                        $conference->save();
                     }
                 }
             }
+        }
     }
 
     public function end(Request $request){
