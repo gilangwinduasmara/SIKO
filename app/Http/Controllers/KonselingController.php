@@ -23,7 +23,7 @@ class KonselingController extends Controller
     public function checkExpired(Request $request){
         $candidates = [];
         $konselings = Konseling::with('chats')->get();
-        // return $konselings;
+        $setting = Setting::get()->first();
         foreach($konselings as $konseling){
             $lastchat = null;
             foreach($konseling->chats as $chat){
@@ -36,7 +36,6 @@ class KonselingController extends Controller
             if($lastchat){
                 $tgl_last_activity = Carbon::createFromFormat("Y-m-d",Carbon::parse($lastchat->created_at)->toDateString(),'Asia/Jakarta');
             }else{
-                $setting = Setting::get()->first();
                 $tgl_last_activity = Carbon::createFromFormat("Y-m-d", now()->toDateString(), 'Asia/Jakarta');
             }
             if($konseling->status_selesai == "C" && $konseling->refered == "tidak"){
