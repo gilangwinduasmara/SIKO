@@ -11,12 +11,14 @@
     </style>
 @endsection
 @section('content')
-    @if(Hash::check('siko', $user->password))
     <div class="row align-items-center justify-content-center py-24">
         <div class="col-sm-12 col-lg-6">
             <div class="card card-custom border">
+                <div class="card-header">
+                    <div class="card-title">Ganti PIN</div>
+                </div>
                 <div class="card-body">
-                    <div class="font-size-h2 text-center mb-6">Buat PIN Untuk Akses Kedalam SIKO</div>
+                    <div class="font-size-h2 text-center mb-6">PIN Lama</div>
                     <div class="row justify-content-center">
                         @for($i=0; $i<6; $i++)
                             <input data-first=true maxlength="1" type="password" pattern="[0-9]*" inputmode="numeric" class="pin-input pin border shadow bg-white mx-2 text-center">
@@ -24,7 +26,17 @@
                     </div>
                     <div class="container__confirm mt-12" style="display: none">
                         <div class="separator separator-solid mb-6"></div>
-                        <div class="font-size-h2 text-center mb-6">Konfirmasi PIN</div>
+                        <div class="font-size-h2 text-center mb-6">PIN Baru</div>
+                        <div class="row justify-content-center">
+                            @for($i=0; $i<6; $i++)
+                                <input maxlength="1" type="password" pattern="[0-9]*" inputmode="numeric" class="pin-input confirm border shadow bg-white mx-2 text-center">
+                            @endfor
+                        </div>
+                        <div class="text-danger text-center mt-2 error_confirm"></div>
+                    </div>
+                    <div class="container__confirm mt-12" style="display: none">
+                        <div class="separator separator-solid mb-6"></div>
+                        <div class="font-size-h2 text-center mb-6">Konfirmasi PIN Baru</div>
                         <div class="row justify-content-center">
                             @for($i=0; $i<6; $i++)
                                 <input maxlength="1" type="password" pattern="[0-9]*" inputmode="numeric" class="pin-input confirm border shadow bg-white mx-2 text-center">
@@ -35,31 +47,12 @@
                 </div>
                 <div class="card-footer" style="display: none">
                     <div class="row justify-content-end">
-                        <button class="btn btn-primary">Mulai Konseling</button>
+                        <button class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @else
-    <div class="row align-items-center justify-content-center py-24">
-        <div class="col-sm-12 col-lg-6">
-            <div class="card card-custom border">
-                <div class="card-body">
-                    <div class="font-size-h2 text-center mb-6">Masukkan PIN Anda</div>
-                    <div class="row justify-content-center">
-                        @for($i=0; $i<6; $i++)
-                            <input data-first=true maxlength="1" type="password" pattern="[0-9]*" inputmode="numeric" class="pin-input pin border shadow bg-white mx-2 text-center">
-                        @endfor
-                    </div>
-                    <div class="text-danger text-center mt-2 error_confirm" style="display: none">PIN yang anda masukkan salah</div>
-                    <div class="text-danger text-center mt-2 error_too_many_attemps" style="display: none">Terlalu banyak percobaan, coba beberapa saat lagi</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
-@endsection
 
 @section('scripts')
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>

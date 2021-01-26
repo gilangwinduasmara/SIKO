@@ -28,16 +28,20 @@ class NotificationController extends Controller
         $this->assignUser();
         $user = $this->user;
         if($request->type == 'chat'){
-            $notif = Notification::where('user_id', $user->id)->where(function($query){
-                $query->where('type', '!=', 'chat')
-                        ->orWhere('type', '!=', 'chat_conference');
-            })->update(['read_at' => now()]);
+            $notif = Notification::where('user_id', $user->id)->whereIn('type', ['chat', 'chat_conference'])->get();
+            foreach($notif as $n){
+                $n->read_at = now();
+                $n->save();
+            }
         }
         if($request->type == 'notif'){
-            $notif = Notification::where('user_id', $user->id)->where(function($query){
-                $query->where('type','chat')
-                        ->orWhere('type', 'chat_conference');
-            })->update(['read_at' => now()]);
+            $notif = Notification::where('user_id', $user->id)->whereNotIn('type', ['chat', 'chat_conference'])->get();
+
+            // dd(json_encode($notif));
+            foreach($notif as $n){
+                $n->read_at = now();
+                $n->save();
+            }
         }
 
         return redirect()->back();
@@ -166,6 +170,7 @@ class NotificationController extends Controller
         // ]);
         if(true){
             $notifications = Notification::where('read_at')->where('type','chat')->orderBy('created_at', 'desc')->where('user_id', $user->id)->get()->groupBy(['data']);
+            // dd($notifications);
             $notification = [];
             foreach($notifications as $n){
                 $konseling = Konseling::find($n[0]['data']);
@@ -189,7 +194,7 @@ class NotificationController extends Controller
                 }
             }
 
-            $_askReferrals = Notification::whereIn('type', ['ask_referral', 'agreed_referral', 'declined_referral'])->where('type','!=','chat')->where('user_id', $user->id)->orderBy('created_at', 'desc')->get()->groupBy(['type'])->first();
+            $_askReferrals = Notification::where('read_at')->whereIn('type', ['ask_referral', 'agreed_referral', 'declined_referral'])->where('type','!=','chat')->where('user_id', $user->id)->orderBy('created_at', 'desc')->get()->groupBy(['type'])->first();
             if($_askReferrals){
                 $_askReferrals->toArray();
                 foreach($_askReferrals as $ar){

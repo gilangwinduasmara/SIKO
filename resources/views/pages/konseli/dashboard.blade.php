@@ -12,7 +12,7 @@
                 <div class="card border card-custom gutter-b">
                     <div class="card-body">
                         <div class="d-flex mb-9">
-                            <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
+                            <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3 d-flex flex-column align-items-center">
                                 <div class="symbol symbol-50 symbol-lg-120 d-flex align-items-center">
                                     <img id="img-avatar" class="img-fit" src={{{"/avatars/".$user->avatar}}} alt="image">
                                 </div>
@@ -20,9 +20,13 @@
                                     <button class="btn btn-warning" id="button__ganti_foto">Ganti Foto</button>
                                     <input type="file" name="input__foto" accept="image/*" hidden>
                                 </div>
-                                <div class="w-100 justify-content-between mt-3 align-items-center d-none" id="container__simpan">
-                                    <button class="btn btn-warning" id="button__simpan_foto">Simpan</button>
-                                    <a href="" class="text-danger">Batal</a>
+                                <div class="w-100 justify-content-between mt-3 align-items-center d-none flex-column" id="container__simpan">
+                                    <div class="flex-grow-1">
+                                        <button class="btn btn-warning " id="button__simpan_foto">Simpan</button>
+                                    </div>
+                                    <div class="flex-grow-1 mt-2">
+                                        <a href="" class="text-danger">Batal</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="flex-grow-1">
