@@ -1,6 +1,6 @@
 {{-- Topbar --}}
 <div class="topbar pr-8">
-    @if (isset($user) )
+    @if (isset($user) && (!request()->is('pin')))
         @if ($user->role != 'admin')
             <div class="dropdown">
                 <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">

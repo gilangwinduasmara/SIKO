@@ -30,12 +30,12 @@ Route::middleware(['session'])->group(function(){
 
 // Konselor routes
     Route::get('/daftarkonseli', 'PagesController@daftarkonseli');
-    Route::get('/arsip', 'PagesController@arsip');
+    Route::get('/arsip', 'PagesController@arsip')->middleware('konseli');
     Route::get('/caseconference', 'PagesController@caseconference');
 
 // Konseli routes
     Route::get('/daftarsesi', 'PagesController@daftarSesi')->middleware('konseli');
-    Route::get('/ruangkonseling', 'PagesController@ruangkonseling')->middleware('konseli');;
+    Route::get('/ruangkonseling', 'PagesController@ruangkonseling')->middleware('konseli');
     Route::get('/gantijadwal', 'PagesController@gantiJadwal')->middleware('konseli');;
     Route::get('/pin', 'PagesController@pin')->middleware('konseli');;
 
