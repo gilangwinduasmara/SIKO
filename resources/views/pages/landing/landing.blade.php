@@ -311,7 +311,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Hubungan <span class="text-danger">*</span></label>
-                                    <select id="select__hubungan" class="form-control form-control-sm">
+                                    <select name="hubungan" id="select__hubungan" class="form-control form-control-sm">
                                         <option value="" id=""></option>
                                         <option value="Wali" id="">Wali</option>
                                         <option value="Ayah" id="">Ayah</option>

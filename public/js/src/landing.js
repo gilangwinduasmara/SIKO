@@ -202,8 +202,6 @@ $(document).ready(function(){
     $('#form__register').submit(function (e){
         e.preventDefault();
 
-
-
         toastr.options = conf.toastr.options.saving
         toastr.info("Sedang memproses data")
 

@@ -21,6 +21,17 @@ class UserController extends Controller
 {
     public $successStatus = 200;
 
+
+    public function storeBase64($image_64){
+        $image_64 = substr($image_64, strpos($image_64,",")+1);
+        $file = base64_decode($image_64);
+        $folderName = 'public/avatars/';
+        $safeName = Str::random(10).'.'.'png';
+        $destinationPath = public_path() . $folderName;
+        $success = file_put_contents(public_path().'/avatars/'.$safeName, $file);
+        return $safeName;
+    }
+
     public function index(){
         $users = User::get();
         return response()->json([
@@ -52,6 +63,17 @@ class UserController extends Controller
     public function logout(){
         request()->session()->invalidate();
         return redirect("/");
+    }
+
+    public function changePhoto(){
+        $this->assignUser();
+        $user = User::find($this->user->id);
+        $saved = $this->storeBase64(request()->get('photo'));
+        $user->avatar = $saved;
+        $user->save();
+        return response()->json([
+            'success' => true
+        ]);
     }
 
     public function editProfile(){
@@ -269,15 +291,7 @@ class UserController extends Controller
         }
     }
 
-    public function storeBase64($image_64){
-        $image_64 = substr($image_64, strpos($image_64,",")+1);
-        $file = base64_decode($image_64);
-        $folderName = 'public/avatars/';
-        $safeName = Str::random(10).'.'.'png';
-        $destinationPath = public_path() . $folderName;
-        $success = file_put_contents(public_path().'/avatars/'.$safeName, $file);
-        return $safeName;
-    }
+
 
     public function siasatLogin(Request $request){
         $nim = 672018200;
@@ -375,6 +389,8 @@ class UserController extends Controller
             'nama_konseli' => 'required',
             'tgl_lahir_konseli' => 'required',
             'no_hp_konseli' => 'required',
+            'no_hp_kerabat' => 'required',
+            'hubungan' => 'required',
             'alamat_konseli' => 'required',
             'progdi' =>  'required',
             'jenis_kelamin' => 'required',

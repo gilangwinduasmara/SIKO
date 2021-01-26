@@ -122,6 +122,8 @@ Route::get('services/rekamkonseling', 'RekamKonselingController@show');
 Route::post('services/rekamkonseling', 'RekamKonselingController@update');
 
 Route::post('services/user/edit', 'UserController@editProfile');
+Route::post('services/user/changephoto', 'UserController@changePhoto');
+
 Route::get('/logout', 'UserController@logout');
 
 

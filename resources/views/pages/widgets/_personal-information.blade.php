@@ -52,25 +52,31 @@
                         @if($user->role == 'konselor')
                         <div class="">
                             <div class="row">
-                                <div class="col-sm-3 col-lg-3 mt-4">
+                                <div class="col-md-4 col-lg-4 mt-2">
                                     <div>
                                         <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->nim}}</div>
                                         <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->progdi}}</div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-lg-3 mt-4">
+                                <div class="col-md-4 col-lg-4 mt-2">
                                     <div>
                                         <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->jenis_kelamin}}</div>
                                         <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->tgl_lahir_konseli}}</div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-lg-3 mt-4">
+                                <div class="col-md-4 col-lg-4 mt-2">
                                     <div>
                                         <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Agama: '.$konseli->agama}}</div>
                                         <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Suku: '.$konseli->suku}}</div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3 col-lg-3 mt-4">
+                                <div class="col-md-4 col-lg-4 mt-2">
+                                    <div>
+                                        <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'No Hp Kerabat: '}}</div>
+                                        <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->no_hp_kerabat." - $konseli->hubungan"}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 mt-2">
                                     <div>
                                         <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Alamat: '}}</div>
                                         <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->alamat_konseli}}</div>

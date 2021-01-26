@@ -13,11 +13,16 @@
                     <div class="card-body">
                         <div class="d-flex mb-9">
                             <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
-                                <div class="symbol symbol-50 symbol-lg-120">
-                                    <img class="img-fit" src={{{"/avatars/".$user->avatar}}} alt="image">
+                                <div class="symbol symbol-50 symbol-lg-120 d-flex align-items-center">
+                                    <img id="img-avatar" class="img-fit" src={{{"/avatars/".$user->avatar}}} alt="image">
                                 </div>
-                                <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
-                                    <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
+                                <div class="w-100 d-flex justify-content-center mt-3" id="container__ganti">
+                                    <button class="btn btn-warning" id="button__ganti_foto">Ganti Foto</button>
+                                    <input type="file" name="input__foto" hidden>
+                                </div>
+                                <div class="w-100 justify-content-between mt-3 align-items-center d-none" id="container__simpan">
+                                    <button class="btn btn-warning" id="button__simpan_foto">Simpan</button>
+                                    <a href="" class="text-danger">Batal</a>
                                 </div>
                             </div>
                             <div class="flex-grow-1">
@@ -30,34 +35,37 @@
                                 </div>
                                 <div class="d-flex flex-wrap justify-content-between mt-1">
                                     <div class="flex-grow-1">
-                                        <div class="row">
-                                            <div class="col-sm-3 col-lg-3 mt-4">
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-3 col-lg-3 mt-4">
                                                 <div>
                                                     <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->nim}}</div>
                                                     <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->progdi}}</div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-lg-3 mt-4">
+                                            <div class="col-md-2 col-lg-2 mt-4">
                                                 <div>
                                                     <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->jenis_kelamin}}</div>
                                                     <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->tgl_lahir_konseli}}</div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-lg-3 mt-4">
+                                            <div class="col-md-2 col-lg-2 mt-4">
                                                 <div>
                                                     <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Agama: '.$konseli->agama}}</div>
                                                     <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Suku: '.$konseli->suku}}</div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3 col-lg-3 mt-4">
+                                            <div class="col-md-2 col-lg-2 mt-4">
                                                 <div>
                                                     <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'Alamat: '}}</div>
                                                     <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->alamat_konseli}}</div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-
+                                            <div class="col-md-3 col-lg-3 mt-4">
+                                                <div>
+                                                    <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{'No Hp Kerabat'}}</div>
+                                                    <div href="#" class="text-dark-50 text-hover-primary font-weight-bold">{{$konseli->no_hp_kerabat." - $konseli->hubungan"}}</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -231,4 +239,52 @@
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/src/dropdown.js') }}" type="text/javascript"></script>
     <script src="{{asset('js/src/app.js')}}"></script>
+    <script>
+        $('#button__ganti_foto').click(function(){
+            $('input[name="input__foto"]').click();
+        })
+
+        $('input[name="input__foto"]').change(function(){
+            $('#container__ganti').removeClass('d-flex');
+            $('#container__ganti').addClass('d-none');
+
+            $('#container__simpan').removeClass('d-none');
+            $('#container__simpan').addClass('d-flex');
+            readImage(this)
+        });
+
+        $('#button__simpan_foto').click(function(){
+            toastr.options = conf.toastr.options.saving;
+            toastr.info("Sedang memproses data")
+
+            axios.post('/services/user/changephoto', {
+                'photo': $('#img-avatar').val()
+            }).then((res) => {
+                Swal.fire({
+                    title: 'Foto profil berhasil disimpan',
+                    icon: 'success',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((response) => {
+                    if(response.value){
+                        window.location.reload()
+                    }
+                })
+            })
+        })
+
+        function readImage(input) {
+            if ( input.files && input.files[0] ) {
+                var FR= new FileReader();
+                FR.onload = function(e) {
+                    console.log(e.target.result)
+                    $('#img-avatar').attr( "src", e.target.result );
+                    $('#img-avatar').val(e.target.result)
+                };
+                FR.readAsDataURL( input.files[0] );
+            }
+        }
+
+
+    </script>
 @endsection
