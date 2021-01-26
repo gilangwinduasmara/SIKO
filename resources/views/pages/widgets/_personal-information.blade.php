@@ -27,7 +27,11 @@
             <div class="d-flex mb-9">
                 <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
                     <div class="symbol symbol-50 symbol-lg-120">
+                        @if($user->role == 'konselor')
                         <img src={{"/avatars/".$konseli->user->avatar}} alt="image">
+                        @else
+                        <img src={{"/avatars/".$konseling->konselor->user->avatar}} alt="image">
+                        @endif
                     </div>
                     <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
                         <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
