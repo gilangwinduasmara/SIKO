@@ -159,7 +159,7 @@
                         <i aria-hidden="true" class="ki ki-close"></i>
                     </button>
                 </div>
-                <div class="modal-body" style="height: 300px;">
+                <div class="modal-body">
                     <input name="konseling_id" type="text" hidden value={{$konseling->id}}>
                     <div class="form-group">
                         <label>Rumusan Masalah Konseling <span class="text-danger">*</span></label>
