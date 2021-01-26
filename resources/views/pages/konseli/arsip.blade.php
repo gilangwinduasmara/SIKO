@@ -82,10 +82,18 @@
                                                     </div>
                                                     <div class="d-flex align-items-center w-100">
                                                         <div class="symbol symbol-circle symbol-50 mr-3">
+                                                            @if($user->role == 'konseli')
+                                                            <img alt="Pic" src={{"/avatars/".$konseling->konselor->user->avatar}}>
+                                                            @else
                                                             <img alt="Pic" src={{"/avatars/".$konseling->konseli->user->avatar}}>
+                                                            @endif
                                                         </div>
                                                         <div class="d-flex flex-column w-100">
-                                                            <a id={{"daftarkonseli__".$konseling->id}} href="#" style="max-width: 70%" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg text-truncate" >{{substr($konseling->konseli->nama_konseli, 0,25)}}</a>
+                                                            @if($user->role == 'konseli')
+                                                                <a id={{"daftarkonseli__".$konseling->id}} href="#" style="max-width: 70%" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg text-truncate" >{{substr($konseling->konselor->nama_konselor, 0,25)}}</a>
+                                                            @else
+                                                                <a id={{"daftarkonseli__".$konseling->id}} href="#" style="max-width: 70%" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg text-truncate" >{{substr($konseling->konseli->nama_konseli, 0,25)}}</a>
+                                                            @endif
                                                             <div class="d-flex justify-content-between flex-grow-1">
                                                                 @if (count($konseling->chats) > 0)
                                                                     <div class="text-muted font-weight-bold font-size-sm text-truncate w-50">{{ substr(base64_decode($konseling->chats[0]->chat_konseling), 0,20) }}</div>
