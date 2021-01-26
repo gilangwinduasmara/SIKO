@@ -106,7 +106,7 @@
                 <button data-toggle="modal" data-target="#modal-pesan-rujukan" class="btn btn-primary">Pesan Rujukan</button>
                 @endif
                 <div class="modal fade" id="modal-pesan-rujukan"tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
                         <div class="modal-content" >
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Pesan Rujukan</h5>
@@ -151,7 +151,7 @@
     </div>
 
     <div class="modal fade" id={{"modal__rangkumankonseling_".$konseling->id}} tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
             <form class="modal-content" name="form__rangkumankonseling">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Rangkuman Konseling</h5>
