@@ -53,6 +53,7 @@
                         @endfor
                     </div>
                     <div class="text-danger text-center mt-2 error_confirm" style="display: none">PIN yang anda masukkan salah</div>
+                    <div class="text-danger text-center mt-2 error_too_many_attemps" style="display: none">Terlalu banyak percobaan, coba beberapa saat lagi</div>
                 </div>
             </div>
         </div>
@@ -131,8 +132,13 @@
     </script>
     @else
     <script>
+        var loading = false
         $('.pin').keyup(function(){
-            $('.error__confirm').hide()
+            if(loading){
+                return false;
+            }
+            $('.error_too_many_attemps').hide();
+            $('.error_confirm').hide()
             if($(this).val().length == $(this).attr('maxlength')){
                 $(this).next('.pin').focus();
             }else{
@@ -143,6 +149,7 @@
                 pin+=($(this).val()+"")
             })
             if(pin.length == 6){
+                loading = true;
                 toastr.options = conf.toastr.options.saving;
                 toastr.info("Sedang memproses data")
                 axios.post('/services/auth/pin', {
@@ -152,7 +159,14 @@
                     if(res.data.success){
                         window.location.reload()
                     }else{
-                        $('.error__confirm').show()
+                        $('.error_confirm').show()
+                    }
+                    loading = false;
+                }).catch((err) => {
+                    loading = false;
+                    console.log({...err})
+                    if(err.response.status === 429){
+                        $('.error_too_many_attemps').show();
                     }
                 })
 

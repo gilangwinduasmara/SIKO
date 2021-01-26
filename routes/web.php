@@ -74,7 +74,7 @@ Route::post('/services/konselor/tambahKonselor', 'UserController@tambahKonselor'
 Route::post('/services/konselor/editKonselor', 'UserController@editKonselor');
 
 Route::post('services/auth/login', 'UserController@login');
-Route::post('services/auth/pin', 'UserController@pin');
+Route::post('services/auth/pin', 'UserController@pin')->middleware('throttle:3,1');
 Route::post('services/auth/login/admin', 'UserController@adminLogin');
 Route::post('services/auth/register', 'UserController@register');
 Route::post('services/auth/siasat', 'UserController@siasatLogin');
