@@ -63,6 +63,9 @@
 
 @section('scripts')
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
+    <script>
+        $($('input')[0]).focus();
+    </script>
     @if(Hash::check('siko', $user->password))
     <script>
         $('.pin').keyup(function(){

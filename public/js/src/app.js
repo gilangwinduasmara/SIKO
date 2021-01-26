@@ -231,7 +231,8 @@ $(document).ready(function(){
             }
         }
     }
-    $("#"+window.location.href.split("#")[1]).modal('show');
+
+
 
 
 })

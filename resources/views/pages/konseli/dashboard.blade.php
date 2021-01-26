@@ -240,6 +240,9 @@
     <script src="{{ asset('js/src/dropdown.js') }}" type="text/javascript"></script>
     <script src="{{asset('js/src/app.js')}}"></script>
     <script>
+        $(document).ready(function(){
+            $("#"+window.location.href.split("#")[1]).modal('show');
+        })
         $('#button__ganti_foto').click(function(){
             $('input[name="input__foto"]').click();
         })
