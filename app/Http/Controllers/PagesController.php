@@ -195,6 +195,12 @@ class PagesController extends Controller
         return view('pages.konselor.caseconference', compact('user', 'caseconferences', 'konselors'));
     }
 
+    public function pin(){
+        $this->assignUser();
+        $user = $this->user;
+        return view('pages.konseli.pin', compact('user'));
+    }
+
     public function arsip(){
         $this->assignUser();
         $user = $this->user;

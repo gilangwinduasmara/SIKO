@@ -23,10 +23,10 @@ Route::get('/admin/login', 'AdminController@login');
 
 
 Route::middleware(['session'])->group(function(){
-    Route::get('/dashboard', 'PagesController@index');
+    Route::get('/dashboard', 'PagesController@index')->middleware('konseli');;
 
-Route::get('/profile', 'PagesController@profile');
-Route::get('/gantipassword', 'PagesController@gantiPassword');
+    Route::get('/profile', 'PagesController@profile');
+    Route::get('/gantipassword', 'PagesController@gantiPassword');
 
 // Konselor routes
     Route::get('/daftarkonseli', 'PagesController@daftarkonseli');
@@ -34,9 +34,10 @@ Route::get('/gantipassword', 'PagesController@gantiPassword');
     Route::get('/caseconference', 'PagesController@caseconference');
 
 // Konseli routes
-    Route::get('/daftarsesi', 'PagesController@daftarSesi');
-    Route::get('/ruangkonseling', 'PagesController@ruangkonseling');
-    Route::get('/gantijadwal', 'PagesController@gantiJadwal');
+    Route::get('/daftarsesi', 'PagesController@daftarSesi')->middleware('konseli');
+    Route::get('/ruangkonseling', 'PagesController@ruangkonseling')->middleware('konseli');;
+    Route::get('/gantijadwal', 'PagesController@gantiJadwal')->middleware('konseli');;
+    Route::get('/pin', 'PagesController@pin')->middleware('konseli');;
 
 // Setups routes
     Route::get('/setup/caseconference', 'PagesController@conferenceSetup');
@@ -73,6 +74,7 @@ Route::post('/services/konselor/tambahKonselor', 'UserController@tambahKonselor'
 Route::post('/services/konselor/editKonselor', 'UserController@editKonselor');
 
 Route::post('services/auth/login', 'UserController@login');
+Route::post('services/auth/pin', 'UserController@pin');
 Route::post('services/auth/login/admin', 'UserController@adminLogin');
 Route::post('services/auth/register', 'UserController@register');
 Route::post('services/auth/siasat', 'UserController@siasatLogin');

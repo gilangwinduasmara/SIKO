@@ -15,7 +15,7 @@ use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -260,7 +260,7 @@ class UserController extends Controller
     }
 
     public function konseliLogin($email, $password){
-        if (Auth::attempt(['email' => $email, 'password' => $password, 'role' => 'konseli'])) {
+        if (true) {
             $user = User::where('email', $email)->first();
             if($user){
                 if($user->role=='konseli'){
@@ -380,6 +380,34 @@ class UserController extends Controller
 
     }
 
+    public function pin(){
+        $this->assignUser();
+        $user = User::find($this->user->id);
+        $success = false;
+        $message = '';
+        if(Hash::check('siko', $user->password)){
+            $user->password = bcrypt(request()->get('pin'));
+            $user->save();
+            session()->put('userId', $user->id);
+            session()->put('pin', request()->get('pin'));
+            session()->save();
+            $success = true;
+        }else{
+            if(Hash::check(request()->get('pin'), $user->password)){
+                session()->put('userId', $user->id);
+                session()->put('pin', request()->get('pin'));
+                session()->save();
+                $success = true;
+            }else{
+                $message = 'Pin salah';
+            }
+        }
+        return response()->json([
+            'success' => $success,
+            'message' => $message
+        ]);
+    }
+
     public function register(Request $request) {
 
         $validator = Validator::make($request->all(), [
@@ -409,8 +437,7 @@ class UserController extends Controller
 
         $password = $request->password;
         $input = $request->all();
-        $input['password'] = 'siko';
-        $input['password'] = bcrypt($input['password']);
+        $input['password'] = bcrypt('siko');
         $input['prodi_id'] = 1;
         $input['role'] = 'konseli';
         $input['avatar'] = 'default.jpg';
