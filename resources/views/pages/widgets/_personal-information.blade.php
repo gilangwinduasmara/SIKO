@@ -147,7 +147,7 @@
     </div>
 
     <div class="modal fade" id={{"modal__rangkumankonseling_".$konseling->id}} tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <form class="modal-content" name="form__rangkumankonseling">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Rangkuman Konseling</h5>
@@ -163,7 +163,7 @@
                     </div>
                     <div class="form-group">
                         <label>Treatment Yang Diberikan <span class="text-danger">*</span></label>
-                    <textarea name="treatment" type="text" class="form-control"  required {{$type == 'arsip' ? 'readonly' : ''}}>@if ($type=='arsip'){{$konseling->rangkuman_konseling->treatment??''}}@endif</textarea>
+                    <textarea name="treatment" type="text" class="form-control"  rows="10" required {{$type == 'arsip' ? 'readonly' : ''}}>@if ($type=='arsip'){{$konseling->rangkuman_konseling->treatment??''}}@endif</textarea>
                     </div>
                 </div>
                 @if ($type == 'daftarkonseling')

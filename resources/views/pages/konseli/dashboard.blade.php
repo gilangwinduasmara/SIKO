@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="w-100 d-flex justify-content-center mt-3" id="container__ganti">
                                     <button class="btn btn-warning" id="button__ganti_foto">Ganti Foto</button>
-                                    <input type="file" name="input__foto" hidden>
+                                    <input type="file" name="input__foto" accept="image/*" hidden>
                                 </div>
                                 <div class="w-100 justify-content-between mt-3 align-items-center d-none" id="container__simpan">
                                     <button class="btn btn-warning" id="button__simpan_foto">Simpan</button>
