@@ -89,9 +89,26 @@
 
         $('#form__ganti_jadwal').submit(function(e){
             e.preventDefault();
+            toastr.options = conf.toastr.options.saving
+            toastr.info("", "Memproses data");
             axios.post('/services/referral/begin', $(this).serialize()).then(res=>{
-                window.location.href="/ruangkonseling"
+                toastr.clear();
+                if(res.data.success){
+                    window.location.href="/ruangkonseling"
+                }else{
+                    Swal.fire({
+                        title: '',
+                        text: res.data.error
+                    }).then(function(result){
+                        if(result.value){
+                            if(res.data.redirect){
+                                window.location.reload();
+                            }
+                        }
+                    })
+                }
             })
         })
     </script>
 @endsection
+

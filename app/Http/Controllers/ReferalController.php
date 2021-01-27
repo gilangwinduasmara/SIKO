@@ -124,6 +124,7 @@ class ReferalController extends Controller
         $user = $this->user;
         $selectedJadwal = JadwalKonselor::find($request->jadwal_konselor_id);
 
+
         $konseling = Konseling::where('konseli_id',$user->details->id)->where('status_selesai','C')->where('status_konseling','ref')->with(['konselor' => function ($query){
             $query->with('user')->get();
         }])->with('jadwal')->with('referal')->get()->first();
@@ -132,6 +133,13 @@ class ReferalController extends Controller
             $selectedJadwal->available = "false";
             $selectedJadwal->save();
         }else{
+            if($selectedJadwal->available != "true"){
+                return response()->json([
+                    "success" => false,
+                    "error" => "Jadwal sudah tidak tersedia",
+                    "redirect" => "/daftarsesi"
+                ]);
+            }
             $jadwalFromKonseling = JadwalKonselor::find($konseling->jadwal->id);
             $jadwalFromKonseling->available = "true";
 
