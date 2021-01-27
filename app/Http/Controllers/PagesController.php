@@ -330,6 +330,10 @@ class PagesController extends Controller
         return view('pages.setups.referral-setup', compact('page_title', 'page_description', 'konseling', 'konselors', 'user'));
     }
 
+    public function tes(){
+        return ;
+    }
+
     public function ruangKonseling(){
         $this->assignUser();
         $user = $this->user;

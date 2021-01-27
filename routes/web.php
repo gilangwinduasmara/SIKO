@@ -150,3 +150,5 @@ Route::delete('/services/pengumuman/{id}', 'PengumumanController@destroy');
 Route::put('/services/quote', 'QuoteController@update');
 Route::post('/services/quote', 'QuoteController@store');
 Route::delete('/services/quote/{id}', 'QuoteController@destroy');
+
+Route::get('/services/tes', 'PagesController@tes');
