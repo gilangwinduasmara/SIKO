@@ -1,4 +1,6 @@
-@extends('layout.default')
+@extends('layout.default', [
+    'header' => false
+])
 @section('styles')
     <style>
         .pin-input{
@@ -136,7 +138,6 @@
             axios.post('/services/auth/pin', {
                 pin
             }).then((res) => {
-                console.log(res.data)
                 window.location.reload();
             })
         })
@@ -183,13 +184,25 @@
                     loading = false;
                 }).catch((err) => {
                     loading = false;
-                    console.log({...err})
+                    console.log({...err.response})
                     if(err.response.status === 429){
+                        console.log()
                         $.each($('input'), function(){
                             $(this).val("")
                         })
                         $($('input')[0]).focus()
                         $('.error_too_many_attemps').show();
+                        Swal.fire({
+                            title: 'Terlalu banyak percobaan ',
+                            text: 'Silahkan coba beberapa saat lagi',
+                            allowOutsideClick: false,
+                            allowEscapceKey: false,
+                            icon: 'error'
+                        }).then((result) => {
+                            if(result.value){
+                                window.location.href = "/logout?throttle="+err.response.headers['retry-after'];
+                            }
+                        })
                     }
                 })
 

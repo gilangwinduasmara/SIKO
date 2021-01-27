@@ -1,6 +1,6 @@
 {{-- Topbar --}}
 <div class="topbar pr-8">
-    @if (isset($user) && (!request()->is('pin')))
+    @if (isset($user) )
         @if ($user->role != 'admin')
             <div class="dropdown">
                 <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
@@ -78,6 +78,14 @@
                             <a href="/gantipassword" class="navi-link">
                                 <div class="navi-text">
                                     <div class="font-weight-bold">Ganti Password</div>
+                                </div>
+                            </a>
+                        </li>
+                        @else
+                        <li class="navi-item">
+                            <a href="/gantipin" class="navi-link">
+                                <div class="navi-text">
+                                    <div class="font-weight-bold">Ganti Pin</div>
                                 </div>
                             </a>
                         </li>

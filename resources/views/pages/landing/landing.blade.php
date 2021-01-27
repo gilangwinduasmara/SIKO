@@ -367,7 +367,13 @@
                         <input id="login-email" name="email" placeholder="NIM">
                         <input class="my-2" name="password" placeholder="Password" type="password">
                     </div>
-                    <div class="button-submit px-4 mt-8"><input type="Submit" class="button undefined" value="Login" style="height: 38px; background: rgb(118, 159, 205); color: white; width: 170px;"></div>
+
+                    <div class="text-danger text-center mt-2 error-throttle">
+                        Anda sudah mencoba beberapa kali <br>silahkan ditunggu<br>
+                        <div class="error-countdown">
+                        </div>
+                    </div>
+                    <div class="button-submit px-4 mt-4"><input id="button__submit_login" type="Submit" class="button undefined" value="Login" style="height: 38px; background: rgb(118, 159, 205); color: white; width: 170px;"></div>
                 </form>
             </div>
         </div>
@@ -620,6 +626,34 @@
 <script src="/js/src/config.js" type="text/javascript"></script>
 <script src="/js/src/landing.js" type="text/javascript"></script>
 <script src="{{ asset('js/pages/features/miscellaneous/toastr.js') }}" type="text/javascript"></script>
+<script>
+    $(document).ready(function(){
+        @php($throttle = (session()->get("throttle") ?? null))
+        var throttle = "{{$throttle}}";
+        throttle = moment(throttle);
+        setInterval(()=>{
+            var now = moment();
+            console.log(throttle.format())
+            console.log(now.format())
+            duration = moment.duration(throttle.diff(now));
+            console.log(duration.minutes())
+            console.log(duration.seconds())
 
+            $('.error-throttle > .error-countdown').text(moment.utc(duration.as('milliseconds')).format('HH:mm:ss'))
+            $('.error-throttle').hide()
+            console.log(duration.minutes()>0, duration.seconds()>0)
+            if(duration.minutes()>0 || duration.seconds()>0){
+                $('.error-throttle').show()
+                $('#button__submit_login').addClass('shadow')
+                $('#button__submit_login').prop('disabled', true)
+
+            }else{
+                $('#button__submit_login').removeClass('shadow')
+                $('#button__submit_login').prop('disabled', false)
+                $('.error-throttle').hide()
+            }
+        }, 1000)
+    })
+</script>
 </body>
 </html>

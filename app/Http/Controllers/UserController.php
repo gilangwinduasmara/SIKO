@@ -62,6 +62,11 @@ class UserController extends Controller
 
     public function logout(){
         request()->session()->invalidate();
+        if(request()->has('throttle')){
+            $throttle = now()->addSeconds(request('throttle'));
+            session()->put('throttle', $throttle);
+            session()->save();
+        }
         return redirect("/");
     }
 
@@ -378,6 +383,40 @@ class UserController extends Controller
             ]);
         }
 
+    }
+
+    public function gantiPin(){
+        $this->assignUser();
+        $user = User::find($this->user->id);
+        // ganti
+        if(request()->has('old') && request()->has('new')){
+            if(Hash::check(request()->get('old'), $user->password)){
+                $user->password = bcrypt(request()->get('new'));
+                $user->save();
+                return response()->json([
+                    'success' => true,
+                    'data' => 'change'
+                ]);
+            }else{
+                return response()->json([
+                    'success' => false
+                ]);
+            }
+        }
+        // check
+        if(request()->has('old')){
+            if(Hash::check(request()->get('old'), $user->password)){
+                return response()->json([
+                    'success' => true,
+                    'data' => 'check'
+                ]);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Pin yang anda masukkan salah'
+                ]);
+            }
+        }
     }
 
     public function pin(){

@@ -21,15 +21,16 @@
                     <div class="font-size-h2 text-center mb-6">PIN Lama</div>
                     <div class="row justify-content-center">
                         @for($i=0; $i<6; $i++)
-                            <input data-first=true maxlength="1" type="password" pattern="[0-9]*" inputmode="numeric" class="pin-input pin border shadow bg-white mx-2 text-center">
+                            <input data-first=true maxlength="1" type="password" pattern="[0-9]*" inputmode="numeric" class="pin-input old border shadow bg-white mx-2 text-center">
                         @endfor
                     </div>
-                    <div class="container__confirm mt-12" style="display: none">
+                    <div class="text-danger text-center error-old mt-2"></div>
+                    <div class="container__new mt-12" style="display: none">
                         <div class="separator separator-solid mb-6"></div>
                         <div class="font-size-h2 text-center mb-6">PIN Baru</div>
                         <div class="row justify-content-center">
                             @for($i=0; $i<6; $i++)
-                                <input maxlength="1" type="password" pattern="[0-9]*" inputmode="numeric" class="pin-input confirm border shadow bg-white mx-2 text-center">
+                                <input maxlength="1" type="password" pattern="[0-9]*" inputmode="numeric" class="pin-input new border shadow bg-white mx-2 text-center">
                             @endfor
                         </div>
                         <div class="text-danger text-center mt-2 error_confirm"></div>
@@ -59,20 +60,103 @@
     <script>
         $($('input')[0]).focus();
     </script>
-    @if(Hash::check('siko', $user->password))
     <script>
-        $('.pin').keyup(function(){
+        function isBackspace(event){
+            var key = event.keyCode || event.charCoed;
+            console.log(event)
+            if(key == 8 || key == 46){
+                console.log('isbackspace')
+                return true
+            }
+        }
+        $('.old').keyup(function(event){
+            $('.error-old').text("");
+            if(isBackspace(event)){
+                $(this).val("")
+                $(this).prev('.old').val("");
+                $(this).prev('.old').focus();
+                return false;
+            }
+
+            if(!(/^\d+$/.test($(this).val()))){
+                $(this).val("")
+                return false
+            }
+
+            if($(this).val().length == $(this).attr('maxlength')){
+                $(this).next('.old').focus();
+            }else{
+                $(this).prev('.old').focus();
+            }
+            let old = "";
+            $.each($('.old'), function(){
+                old+=($(this).val()+"")
+            })
+            console.log(old)
+
+            if(old.length == 6){
+                toastr.options = conf.toastr.options.saving;
+                toastr.info("Sedang memproses data")
+
+                $.each($('.old'), function(){
+                    $(this).prop("disabled", true)
+                })
+
+                axios.post('/services/auth/gantipin', {
+                    old
+                }).then((response) => {
+                    toastr.clear()
+                    console.log(response.data)
+                    if(response.data.success){
+                        $('.container__new').show();
+                        setTimeout(() => {
+                            $($('.new')[0]).focus()
+                        }, 200);
+                    }else{
+                        $.each($('.old'), function(){
+                            $(this).prop("disabled", false);
+                            $(this).val("");
+                        })
+                        $('.error-old').text(response.data.error)
+                        $($('.old')[0]).focus();
+                    }
+
+                }).catch((err) => {
+
+                })
+
+
+
+            }else{
+
+                $('.container__new').hide();
+                $('.container__confirm').hide();
+                $.each($('.confirm'), function(){
+                    $(this).val("")
+                })
+            }
+            $('.error_confirm').hide();
+        })
+
+        $('.new').keyup(function(){
+            if(isBackspace(event)){
+                $(this).val("")
+                $(this).prev('.new').val("");
+                $(this).prev('.new').focus();
+                return false;
+            }
+
             if(!(/^\d+$/.test($(this).val()))){
                 $(this).val("")
                 return false
             }
             if($(this).val().length == $(this).attr('maxlength')){
-                $(this).next('.pin').focus();
+                $(this).next('.new').focus();
             }else{
-                $(this).prev('.pin').focus();
+                $(this).prev('.new').focus();
             }
             let pin = "";
-            $.each($('.pin'), function(){
+            $.each($('.new'), function(){
                 pin+=($(this).val()+"")
             })
             if(pin.length == 6){
@@ -82,6 +166,7 @@
                 }, 200);
             }else{
                 $('.container__confirm').hide();
+                $('.card-footer').hide();
                 $.each($('.confirm'), function(){
                     $(this).val("")
                 })
@@ -89,7 +174,15 @@
             $('.error_confirm').hide();
         })
 
+
+
         $('.confirm').keyup(function(){
+            if(isBackspace(event)){
+                $(this).val("")
+                $(this).prev('.confirm').val("");
+                $(this).prev('.confirm').focus();
+                return false;
+            }
             if(!(/^\d+$/.test($(this).val()))){
                 $(this).val("")
                 return false
@@ -105,7 +198,7 @@
             })
             if(confirmPin.length == 6){
                 let pin = "";
-                $.each($('.pin'), function(){
+                $.each($('.new'), function(){
                     pin+=($(this).val()+"")
                 })
                 if(pin == confirmPin){
@@ -123,76 +216,29 @@
             toastr.options = conf.toastr.options.saving;
             toastr.info("Sedang memproses data")
             let pin = "";
-            $.each($('.pin'), function(){
+            $.each($('.new'), function(){
                 pin+=($(this).val()+"")
             })
-            axios.post('/services/auth/pin', {
-                pin
+            let old = "";
+            $.each($('.old'), function(){
+                old+=($(this).val()+"")
+            })
+            axios.post('/services/auth/gantipin', {
+                new: pin,
+                old
             }).then((res) => {
                 console.log(res.data)
-                window.location.reload();
+                Swal.fire({
+                    text: 'Pin berhasil disimpan',
+                    allowOutsideClick: false,
+                    allowEscapceKey: false,
+                    icon: 'success'
+                }).then((result) => {
+                    if(result.value){
+                        window.location.href = "/dashboard";
+                    }
+                })
             })
         })
     </script>
-    @else
-    <script>
-        var loading = false
-        $('.pin').keyup(function(){
-            if(!(/^\d+$/.test($(this).val()))){
-                $(this).val("")
-                return false
-            }
-            if(loading){
-                return false;
-            }
-            $('.error_too_many_attemps').hide();
-            $('.error_confirm').hide()
-            if($(this).val().length == $(this).attr('maxlength')){
-                $(this).next('.pin').focus();
-            }else{
-                $(this).prev('.pin').focus();
-            }
-            let pin = "";
-            $.each($('.pin'), function(){
-                pin+=($(this).val()+"")
-            })
-            if(pin.length == 6){
-                loading = true;
-                toastr.options = conf.toastr.options.saving;
-                toastr.info("Sedang memproses data")
-                axios.post('/services/auth/pin', {
-                    pin
-                }).then((res) => {
-                    toastr.clear()
-                    if(res.data.success){
-                        window.location.reload()
-                    }else{
-                        $.each($('input'), function(){
-                            $(this).val("")
-                        })
-                        $($('input')[0]).focus()
-                        $('.error_confirm').show()
-                    }
-                    loading = false;
-                }).catch((err) => {
-                    loading = false;
-                    console.log({...err})
-                    if(err.response.status === 429){
-                        $.each($('input'), function(){
-                            $(this).val("")
-                        })
-                        $($('input')[0]).focus()
-                        $('.error_too_many_attemps').show();
-                    }
-                })
-
-            }else{
-                $('.container__confirm').hide();
-                $.each($('.confirm'), function(){
-                    $(this).val("")
-                })
-            }
-        })
-    </script>
-    @endif
 @endsection

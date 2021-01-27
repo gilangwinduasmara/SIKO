@@ -201,6 +201,13 @@ class PagesController extends Controller
         return view('pages.konseli.pin', compact('user'));
     }
 
+    public function changePin(){
+        $this->assignUser();
+        // old_pin, new_pin
+        $user = $this->user;
+        return view('pages.konseli.gantipin', compact('user'));
+    }
+
     public function arsip(){
         $this->assignUser();
         $user = $this->user;

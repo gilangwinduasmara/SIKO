@@ -169,7 +169,7 @@ class NotificationController extends Controller
         //     'rows'=>$n,
         // ]);
         if(true){
-            $notifications = Notification::where('read_at')->where('type','chat')->orderBy('created_at', 'desc')->where('user_id', $user->id)->get()->groupBy(['data']);
+            $notifications = Notification::where('read_at')->where('type','chat')->orderBy('created_at')->where('user_id', $user->id)->get()->groupBy(['data']);
             // dd($notifications);
             $notification = [];
             foreach($notifications as $n){
