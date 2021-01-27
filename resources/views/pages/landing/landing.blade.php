@@ -368,7 +368,7 @@
                         <input class="my-2" name="password" placeholder="Password" type="password">
                     </div>
 
-                    <div class="text-danger text-center mt-2 error-throttle">
+                    <div class="text-danger text-center mt-2 error-throttle" style="display: none">
                         Anda sudah mencoba beberapa kali <br>silahkan ditunggu<br>
                         <div class="error-countdown">
                         </div>
@@ -627,11 +627,11 @@
 <script src="/js/src/landing.js" type="text/javascript"></script>
 <script src="{{ asset('js/pages/features/miscellaneous/toastr.js') }}" type="text/javascript"></script>
 <script>
-    $(document).ready(function(){
+    function throttleCheck(){
         @php($throttle = (session()->get("throttle") ?? null))
         var throttle = "{{$throttle}}";
         throttle = moment(throttle);
-        setInterval(()=>{
+        window.throttleInterval = setInterval(()=>{
             var now = moment();
             console.log(throttle.format())
             console.log(now.format())
@@ -653,6 +653,17 @@
                 $('.error-throttle').hide()
             }
         }, 1000)
+    }
+
+    function stopThrottleCheck(){
+        console.log('clearing interval')
+        window.clearInterval(window.throttleInterval);
+        $('#button__submit_login').removeClass('shadow')
+        $('#button__submit_login').prop('disabled', false)
+        $('.error-throttle').hide()
+    }
+    $(document).ready(function(){
+        throttleCheck();
     })
 </script>
 </body>

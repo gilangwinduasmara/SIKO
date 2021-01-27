@@ -234,6 +234,7 @@ function changeSelectedRole(){
     $('.role-select .active-role').attr('class', 'role');
 
     if(state.selectedRole === 'konseli'){
+        stopThrottleCheck();
         $('#login-email').attr("placeholder", "Email")
         state.selectedRole = 'konselor';
         $('.radio-role').hide()
@@ -244,6 +245,7 @@ function changeSelectedRole(){
         $('#radio__m').click();
         $('.radio-role').show()
         $('#toggle__selected').removeClass('is-konselor-selected');
+        throttleCheck();
     }
     $('input[name="role"]').attr('value', state.selectedRole);
     $('#toggle__selected').text(state.selectedRole);

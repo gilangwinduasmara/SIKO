@@ -22,7 +22,7 @@ class KonselingController extends Controller
 {
     public function checkExpired(Request $request){
         $candidates = [];
-        $konselings = Konseling::with('chats')->get();
+        $konselings = Konseling::with('konseli')->with('konselor')->with('chats')->get();
         $setting = Setting::get()->first();
         foreach($konselings as $konseling){
             $lastchat = null;
@@ -44,6 +44,23 @@ class KonselingController extends Controller
                 $tgl_daftar = Carbon::createFromFormat('Y-m-d', $konseling->tgl_daftar_konseling);
                 if($konseling->created_at->diffInDays(now(), false)>$setting->expired){
                     array_push($candidates, $konseling);
+
+                    $notification = Notification::create([
+                        "type" => "end_konseling",
+                        "data" => $konseling->id,
+                        'title' => $konseling->konseli->nama_konseli,
+                        "message" => "Sesi konseling kadaluarsa",
+                        "user_id" => $konseling->konselor->user_id
+                    ]);
+                    $notification = Notification::create([
+                        "type" => "end_konseling",
+                        "data" => $konseling->id,
+                        'title' => $konseling->konselor->nama_konselor,
+                        "message" => "Sesi konseling kadaluarsa",
+                        "user_id" => $konseling->konseli->user_id
+                    ]);
+
+
                     $konseling->status_selesai = 'expired';
                     $konseling->save();
                     $jadwal = JadwalKonselor::find($konseling->jadwal_konselor_id);

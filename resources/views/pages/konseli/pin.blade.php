@@ -66,6 +66,7 @@
 @section('scripts')
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     <script>
+        var secure_pin = "{{$secure_pin}}";
         $($('input')[0]).focus();
     </script>
     @if(Hash::check('siko', $user->password))
@@ -169,7 +170,8 @@
                 toastr.options = conf.toastr.options.saving;
                 toastr.info("Sedang memproses data")
                 axios.post('/services/auth/pin', {
-                    pin
+                    pin,
+                    secure_pin
                 }).then((res) => {
                     toastr.clear()
                     if(res.data.success){

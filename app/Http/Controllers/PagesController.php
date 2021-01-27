@@ -12,6 +12,7 @@ use App\Quote;
 use App\Setting;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class PagesController extends Controller
 {
@@ -198,7 +199,8 @@ class PagesController extends Controller
     public function pin(){
         $this->assignUser();
         $user = $this->user;
-        return view('pages.konseli.pin', compact('user'));
+        $secure_pin = Crypt::encryptString($user->id);
+        return view('pages.konseli.pin', compact('user', 'secure_pin'));
     }
 
     public function changePin(){
