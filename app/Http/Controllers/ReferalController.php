@@ -127,7 +127,8 @@ class ReferalController extends Controller
 
         $konseling = Konseling::where('konseli_id',$user->details->id)->where('status_selesai','C')->where('status_konseling','ref')->with(['konselor' => function ($query){
             $query->with('user')->get();
-        }])->with('jadwal')->with('referal')->get()->first();
+        }])->with('jadwal')->with('referal')->orderBy('id', 'desc')->get()->first();
+
 
         if($konseling->jadwal == $selectedJadwal){
             $selectedJadwal->available = "false";
@@ -145,6 +146,7 @@ class ReferalController extends Controller
 
             $konseling->jadwal_konselor_id = $selectedJadwal->id;
             $selectedJadwal->available = "false";
+
             $selectedJadwal->save();
             $jadwalFromKonseling->save();
             $konseling->save();

@@ -241,8 +241,10 @@ class NotificationController extends Controller
                     $k = Konseling::with(['chats' => function($query) use ($user){
                         $query->where('userID', $user->id);
                     }])->find($o->data);
-                    if($k->status_selesai == 'C' && $k->refered != "ya" && count($k->chats) == 0){
-                        array_push($notification, $o);
+                    if($k){
+                        if($k->status_selesai == 'C' && $k->refered != "ya" && count($k->chats) == 0){
+                            array_push($notification, $o);
+                        }
                     }
                 }
                 if($o->type == 'end_konseling'){

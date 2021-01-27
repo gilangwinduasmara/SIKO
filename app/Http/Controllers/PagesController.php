@@ -331,7 +331,7 @@ class PagesController extends Controller
     }
 
     public function tes(){
-        return ;
+
     }
 
     public function ruangKonseling(){
@@ -353,7 +353,6 @@ class PagesController extends Controller
             $jadwals = JadwalKonselor::where('konselor_id',$konselor->id)->where(function ($query) use($konseling){
                 $query->where('available','true')->orWhere('id', $konseling->jadwal->id);
             })->get()->groupBy('hari');
-            // dd($jadwals);
             return view('pages.konseli.gantijadwal', compact('user', 'konseling', 'konselor', 'jadwals'));
         }
         return view('pages.konseli.ruangkonseling', compact('user', 'konseling'));
