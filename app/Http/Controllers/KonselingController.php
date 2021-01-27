@@ -41,8 +41,12 @@ class KonselingController extends Controller
 
 
             if($konseling->status_selesai == "C" && $konseling->refered == "tidak"){
+                if($konseling->konseli->nim){
+                    // dd($tgl_last_activity->diffInDays(now(), false));
+                }
+                // dd("682017048");
                 $tgl_daftar = Carbon::createFromFormat('Y-m-d', $konseling->tgl_daftar_konseling);
-                if($konseling->created_at->diffInDays(now(), false)>$setting->expired){
+                if($tgl_last_activity->diffInDays(now(), false)>$setting->expired){
                     array_push($candidates, $konseling);
 
                     $notification = Notification::create([
@@ -65,7 +69,7 @@ class KonselingController extends Controller
                     $konseling->save();
                     $jadwal = JadwalKonselor::find($konseling->jadwal_konselor_id);
                     $jadwal->save();
-
+                    // kevin -> 682017048
                     $conference = CaseConference::where('konseling_id', $konseling->id)->where('status','on-going')->first();
                     if($conference){
                         $conference->status = 'selesai';
@@ -80,6 +84,8 @@ class KonselingController extends Controller
             'data' => $candidates
         ]);
     }
+
+
 
     public function end(Request $request){
         $konseling = Konseling::with('konseli')->with('konselor')->find($request->id);
