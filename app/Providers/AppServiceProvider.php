@@ -70,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
                         $subject = "Permintaan Case Conference Ditolak";
                         break;
                 }
-                Mail::subject($subject)->to('gilangwinduasmara2@gmail.com')->send(new NotifEmail($notification, $data));
+                Mail::to('gilangwinduasmara2@gmail.com')->send(new NotifEmail($notification, $data, $subject));
                 Log::info('Sending email ... ');
                 Log::info($email);
             });

@@ -13,16 +13,17 @@ class NotifEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $notification, $data;
+    protected $notification, $data, $s;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Notification $notification, $data)
+    public function __construct(Notification $notification, $data, $s)
     {
         $this->notification = $notification;
         $this->data = $data;
+        $this->s = $s;
     }
 
     /**
@@ -34,7 +35,7 @@ class NotifEmail extends Mailable
     {
         $user = User::find(session('userId'));
 
-        return $this->view('emails.notif')->with([
+        return $this->subject($this->s)->view('emails.notif')->with([
             'notification' => $this->notification,
             'user' => $this->user,
             'data' => $this->data
