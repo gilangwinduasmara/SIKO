@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
                 $email['body'] = $notification->message;
                 $subject = "";
                 $data = null;
-                switch($this->notification->type){
+                switch($notification->type){
                     case 'new_konseling':
                         $subject = "Sesi Konseling Baru";
                         $data = Konseling::with('konseli')->with('konselor')->find($this->notification->data);
