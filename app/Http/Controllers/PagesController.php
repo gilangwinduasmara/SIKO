@@ -126,7 +126,9 @@ class PagesController extends Controller
         $konselor = Konselor::where('user_id', $this->user->id)->get()->first();
 
         $konseling = Konseling::where('refered', '!=', 'ya')->with('rangkumanKonseling')->doesntHave('rangkumanKonseling')->with('referral', function($query){
-            $query->with('konselor');
+            $query->with('konselor')->with(['referredFrom' => function($query){
+                $query->with('konselor');
+            }]);
         })->with(['konseli' => function ($query) {
             $query->with('user')->with(['prodi' => function ($query){
                 $query->with('faculty')->get();
