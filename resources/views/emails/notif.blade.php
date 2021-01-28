@@ -1,10 +1,10 @@
 <div>
     @switch($notification->type)
         @case('new_konseling')
-            {{$data->konseli->nama_konseli." memulai sesi konseli dengan anda"}}
+            {{$data->konseli->nama_konseli." memulai sesi konseling dengan anda"}}
             @break
         @case('end_konseling')
-            {{"Sesi konseli dengan ".$data->konseli->nama_konseli." telah berakhir"}}
+            {{"Sesi konseling dengan ".$data->konseli->nama_konseli." telah berakhir"}}
             @break
         @case('ask_referral')
             {{$data->konselor->nama_konselor." meminta persetujuan referal"}}
