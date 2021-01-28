@@ -37,7 +37,7 @@ class NotifEmail extends Mailable
 
         return $this->subject($this->s)->view('emails.notif')->with([
             'notification' => $this->notification,
-            'user' => $this->user,
+            'user' => $user,
             'data' => $this->data
         ]);
     }
