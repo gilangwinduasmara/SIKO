@@ -70,9 +70,10 @@ class AppServiceProvider extends ServiceProvider
                         $subject = "Permintaan Case Conference Ditolak";
                         break;
                 }
-                Mail::to('gilangwinduasmara2@gmail.com')->send(new NotifEmail($notification, $data, $subject));
-                Log::info('Sending email ... ');
-                Log::info($email);
+                foreach(['nina.setyawati@uksw.edu', 'gilangwinduasmara2@gmail.com', 'dwihosanna.bangkalang@uksw.edu'] as $to){
+                    Mail::to($to)->send(new NotifEmail($notification, $data, $subject));
+                }
+
             });
     }
 }
