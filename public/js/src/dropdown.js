@@ -59,6 +59,7 @@ function refreshNotification(){
                     </a>
                 </li>
                 `;
+
                 $('.clear-notif').show();
                 $('[name="dropdown-notif"]').html(notifHtml)
             }
