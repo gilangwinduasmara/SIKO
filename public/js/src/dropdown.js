@@ -1,4 +1,5 @@
-const ps = new PerfectScrollbar('.notif-scroll')
+
+
 var hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
 
 function displayDaftarKonselingByHari(target){
@@ -61,12 +62,16 @@ function refreshNotification(){
                 $('.clear-notif').show();
                 $('[name="dropdown-notif"]').html(notifHtml)
             }
-            ps.update()
+            if($('.notif-scroll').length > 0){
+                const ps = new PerfectScrollbar('.notif-scroll')
+                ps.update()
+            }
         })
     })
 }
 
 $(document).ready(function(){
+
 
 
 

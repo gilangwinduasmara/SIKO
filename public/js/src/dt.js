@@ -1,88 +1,10 @@
     $(document).ready( function () {
-        // var datatable = $('#kt_datatable').DataTable({
-        //     translate: conf.datatable.translate,
-        //     data: {
-        //         saveState: {cookie: false},
-        //     },
-        //     search: {
-        //         input: $('#kt_datatable_search_query'),
-        //         key: 'generalSearch'
-        //     },
-        //     layout: {
-        //         class: 'datatable-bordered',
-        //         scroll: true
-        //     },
-        //     responsive: {
-        //         details: false
-        //     },
-        //     columns: [
-        //         {
-        //             field: 'No',
-        //             title: 'No',
-        //             width: 40
-        //         },
-        //         {
-        //             field: 'Id',
-        //             title: 'Id',
-        //             width: 40
-        //         },
-        //         {
-        //             field: 'Status',
-        //             title: 'Status',
-        //             template: function(row) {
-        //             var status = {
-        //                 1: {
-        //                     'title': 'All',
-        //                     'class': ' label-light-warning'
-        //                 },
-        //                 2: {
-        //                     'title': 'Aktif',
-        //                     'class': ' label-light-info'
-        //                 },
-        //                 3: {
-        //                     'title': 'Selesai',
-        //                     'class': ' label-light-success'
-        //                 }
-        //             };
-        //             return '<span class="label font-weight-bold label-lg' + status[row.Status].class + ' label-inline">' + status[row.Status].title + '</span>';
-        //             },
-        //         },
-        //         {
-        //             field: 'Keterangan',
-        //             title: 'Keterangan',
-        //             template: function(row) {
-        //             var keterangan = {
-        //                 1: {
-        //                     'title': 'All',
-        //                     'class': ' label-light-warning'
-        //                 },
-        //                 2: {
-        //                     'title': 'Baru',
-        //                     'class': ' label-light-info'
-        //                 },
-        //                 3: {
-        //                     'title': 'Referral',
-        //                     'class': ' label-light-success'
-        //                 },
-        //                 4: {
-        //                     'title': 'Referred',
-        //                     'class': ' label-light-success'
-        //                 },
-        //                 5: {
-        //                     'title': 'Close Case',
-        //                     'class': ' label-light-success'
-        //                 },
-        //                 6: {
-        //                     'title': 'Expired',
-        //                     'class': ' label-light-success'
-        //                 }
-        //             };
-        //             return '<span class="label font-weight-bold label-lg' + keterangan[row.Keterangan].class + ' label-inline">' + keterangan[row.Keterangan].title + '</span>';
-        //             },
-        //         }
-        //     ]
-        // });
     var datatable = $('#kt_datatable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            // 'copy', 'csv', 'excel', 'pdf', 'print'
+            'excel', 'pdf', 'print'
+        ],
         columnDefs: [
             {
                 targets: 1,
@@ -99,6 +21,12 @@
     $('#kt_datatable_filter').hide();
     $('#kt_datatable_length').hide();
 
+    $('.dt-button').addClass('btn btn-outline-primary btn-shadow');
+    $('.buttons-excel').prepend('<i class="far fa-file-excel"></i>')
+    $('.buttons-pdf').prepend('<i class="far fa-file-pdf"></i>')
+    $('.buttons-print').prepend('<i class="fas fa-print"></i>')
+    // $('.buttons-pdf').addClass('btn btn-outline-primary btn-shadow');
+    // $('.buttons-print').addClass('btn btn-outline-primary btn-shadow');
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {

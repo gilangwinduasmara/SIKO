@@ -62,21 +62,21 @@ async function renderChat(){
             if(chat.userID === userId.toString()){
                 html+=`
                     <div class="d-flex flex-column mb-5 align-items-end">
-                        <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-left max-w-400px d-flex align-items-center">
+                        <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-right max-w-400px d-flex align-items-end">
                             <div>
                                 ${atob(chat.chat_konseling)}
                             </div>
-                            <div class="text-muted font-size-sm ml-2">${moment(chat.created_at).format("hh:mm:ss a")}</div>
+                            <div class="text-muted font-size-sm ml-2 d-flex align-items-end">${moment(chat.created_at).format("hh:mm:ss")}</div>
                         </div>
                     </div>`;
             }else{
                 html+=`
                     <div class="d-flex flex-column mb-5 align-items-start">
-                            <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px d-flex align-items-center">
+                            <div class="mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px d-flex align-items-end">
                             <div>
                                 ${atob(chat.chat_konseling)}
                             </div>
-                            <div class="text-muted font-size-sm ml-2">${moment(chat.created_at).format("hh:mm:ss a")}</div>
+                            <div class="text-muted font-size-sm ml-2 d-flex align-items-end h-100">${moment(chat.created_at).format("hh:mm:ss")}</div>
                             </div>
                     </div>`;
             }
