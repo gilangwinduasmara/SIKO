@@ -7,12 +7,14 @@ use App\JadwalKonselor;
 use App\Konseli;
 use App\Konseling;
 use App\Konselor;
+use App\Mail\NotifEmail;
 use App\Pengumuman;
 use App\Quote;
 use App\Setting;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
 
 class PagesController extends Controller
 {
@@ -333,7 +335,12 @@ class PagesController extends Controller
     }
 
     public function tes(){
-
+        $email = [];
+        $email['to'] = 'gilangwinduasmara2@gmail.com';
+        $email['subject'] = 'tes';
+        $email['body'] = 'body';
+        Mail::to('gilangwinduasmara2@gmail.com')->send(new NotifEmail($email));
+        return "tes";
     }
 
     public function ruangKonseling(){
