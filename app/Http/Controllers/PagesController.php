@@ -339,7 +339,11 @@ class PagesController extends Controller
         $email['to'] = 'gilangwinduasmara2@gmail.com';
         $email['subject'] = 'tes';
         $email['body'] = 'body';
-        Mail::to('gilangwinduasmara2@gmail.com')->send(new NotifEmail($email));
+        Mail::send([], [], function ($message) {
+            $message->to('gilangwinduasmara2@gmail.com')
+              ->subject('tes')
+              ->setBody('Hi, welcome user!');
+          });
         return "tes";
     }
 
