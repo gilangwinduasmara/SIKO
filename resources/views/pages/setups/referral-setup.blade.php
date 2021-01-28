@@ -170,10 +170,10 @@
                                 </div>
                                 <div class="form-group ml-7 mt-7" >
                                     <label>Pesan:  </label>
-                                    <textarea type="text" class="form-control"  id="input__pesan"></textarea>
+                                    <textarea type="text" class="form-control" id="input__pesan"></textarea>
                                 </div>
                                 <div class="card-body py-3">
-                                    <button id="button__submit_referral" class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3" value="Kirim" type="submit">Kirim Referral</button>
+                                    <button id="button__submit_referral" disabled class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3" value="Kirim" type="submit">Kirim Referral</button>
                                 </div>
                             </div>
                             @endif
@@ -197,6 +197,7 @@
     <script src="{{ asset('js/src/app.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/src/konselorselector.js') }}" type="text/javascript"></script>
     <script>
+
         let searchParams = new URLSearchParams(window.location.search);
         @if($konseling->refered == 'agreed')
         $("#content-wrapper").removeClass("container")
@@ -213,6 +214,15 @@
             $("#content-wrapper").removeClass("container-fluid")
             $("#content-wrapper").addClass("container")
         })
+
+        $("#input__pesan").keyup(function(){
+            if($(this).val().length == 0){
+                $('#button__submit_referral').prop('disabled', true)
+            }else{
+                $('#button__submit_referral').prop('disabled', false)
+            }
+        })
+
         $('#button__submit_referral').click(function(){
             $(this).attr('disabled', 'true')
             const data = {

@@ -6,10 +6,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use App\Konselor;
 use App\Konseli;
 use App\User;
 use App\Admin;
+use App\Konselor;
 use Illuminate\Support\Facades\Session;
 
 class Controller extends BaseController

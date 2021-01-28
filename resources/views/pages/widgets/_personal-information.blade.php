@@ -115,6 +115,7 @@
                                 </button>
                             </div>
                             <div class="modal-body" style="height: 300px;">
+                                {{json_encode($konseling)}}
                                 <div class="form-group">
                                     <label>Oleh</label>
                                 <input type="text" class="form-control"  readonly value="{{$konseling->referral->konselor->nama_konselor}}"/>
