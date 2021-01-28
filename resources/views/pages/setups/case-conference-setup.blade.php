@@ -149,7 +149,7 @@
                                     <span class="form-text text-muted"><span class="text-danger">*</span>tidak boleh lebih dari 25 karakter</span>
                                 </div>
                                 <div class="card-body py-3">
-                                    <button id="button__masuk_case_conference" class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3" value="Kirim" type="submit">Masuk ke conference</button>
+                                    <button id="button__masuk_case_conference" disabled class="btn btn-warning btn-shadow-hover font-weight-bolder w-100 py-3" value="Kirim" type="submit">Masuk ke conference</button>
                                 </div>
                             </div>
                             @endif
@@ -171,4 +171,13 @@
     <script src="{{ asset('js/src/list.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/src/setup.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/src/app.js') }}" type="text/javascript"></script>
+    <script>
+        $("#input__judul_case").keyup(function(){
+            if($(this).val().length == 0){
+                $('#button__masuk_case_conference').prop('disabled', true)
+            }else{
+                $('#button__masuk_case_conference').prop('disabled', false)
+            }
+        })
+    </script>
 @endsection
