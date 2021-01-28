@@ -40,31 +40,31 @@ class AppServiceProvider extends ServiceProvider
                 switch($notification->type){
                     case 'new_konseling':
                         $subject = "Sesi Konseling Baru";
-                        $data = Konseling::with('konseli')->with('konselor')->find($this->notification->data);
+                        $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
                         break;
                     case 'end_konseling':
                         $subject = "Sesi Konseling Berakhir";
-                        $data = Konseling::with('konseli')->with('konselor')->find($this->notification->data);
+                        $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
                         break;
                     case 'ask_referral':
                         $subject = "Permintaan Referal";
-                        $data = Konseling::with('konseli')->with('konselor')->find($this->notification->data);
+                        $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
                         break;
                     case 'agreed_referral':
                         $subject = "Permintaan Referal Disetujui";
-                        $data = Konseling::with('konseli')->with('konselor')->find($this->notification->data);
+                        $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
                         break;
                     case 'declined_referral':
                         $subject = "Permintaan Referal Ditolak";
-                        $data = Konseling::with('konseli')->with('konselor')->find($this->notification->data);
+                        $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
                         break;
                     case 'ask_conference':
                         $subject = "Permintaan Case Conference";
-                        $data = Konseling::with('konseli')->with('konselor')->find($this->notification->data);
+                        $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
                         break;
                     case 'agreed_conference':
                         $subject = "Permintaan Case Conference Disetujui";
-                        $data = Konseling::with('konseli')->with('konselor')->find($this->notification->data);
+                        $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
                         break;
                     case 'declined_conference':
                         $subject = "Permintaan Case Conference Ditolak";
