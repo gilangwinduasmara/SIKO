@@ -52,5 +52,7 @@
         </div>
         @endif
     </div>
-
+    <div class="p-2">
+        v2.0
+    </div>
 </div>
