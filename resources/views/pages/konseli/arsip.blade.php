@@ -102,12 +102,12 @@
                                                                 <a id={{"daftarkonseli__".$konseling->id}} href="#" style="max-width: 70%" class="text-dark-75 text-hover-primary font-weight-bold font-size-lg text-truncate" >{{substr($konseling->konseli->nama_konseli, 0,25)}}</a>
                                                             @endif
                                                             <div class="d-flex justify-content-between flex-grow-1">
-                                                                @if (count($konseling->chats) > 0)
+                                                                {{-- @if (count($konseling->chats) > 0)
                                                                     <div class="text-muted font-weight-bold font-size-sm text-truncate w-50">{{ substr(base64_decode($konseling->chats[0]->chat_konseling), 0,20) }}</div>
                                                                 @endif
                                                                 @if($konseling->chats)
                                                                 <span class="text-muted font-weight-bold font-size-sm">{{\Carbon\Carbon::parse($konseling->chats[0]->created_at)->diffForHumans(null, true)}}</span>
-                                                                @endif
+                                                                @endif --}}
                                                             </div>
                                                         </div>
                                                     </div>

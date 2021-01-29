@@ -248,7 +248,7 @@ class PagesController extends Controller
                                         $query->orderBy('id', 'desc')->first();
                                 }])->with('rekamKonselings')->where('refered', 'ya')->where('konseli_id',$this->user->details->id)->with('jadwal')->get();
 
-            $konselings = $konselings->merge($konselings_referred);
+            $konselings = $konselings->merge($konselings_referred)->sortByDesc('updated_at');
             return view('pages.konseli.arsip', compact('page_title', 'page_description', 'konselings', 'showChat', 'type', 'user'));
         }
 
@@ -273,7 +273,7 @@ class PagesController extends Controller
                                     $query->orderBy('id', 'desc')->first();
                             }])->with('rekamKonselings')->where('refered', 'ya')->where('konselor_id',$this->user->details->id)->with('jadwal')->get();
 
-        $konselings = $konselings->merge($konseling_referred);
+        $konselings = $konselings->merge($konseling_referred)->sortByDesc('updated_at');
 
         return view('pages.konselor.daftarkonseli', compact('page_title', 'page_description', 'konselings', 'showChat', 'type', 'user'));
     }

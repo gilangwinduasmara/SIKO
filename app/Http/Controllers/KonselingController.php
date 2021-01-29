@@ -46,7 +46,7 @@ class KonselingController extends Controller
                 }
                 // dd("682017048");
                 $tgl_daftar = Carbon::createFromFormat('Y-m-d', $konseling->tgl_daftar_konseling);
-                if($tgl_last_activity->diffInDays(now(), false)>$setting->expired){
+                if($tgl_last_activity->diffInDays(now(), false)>=$setting->expired){
                     array_push($candidates, $konseling);
 
                     $notification = Notification::create([
