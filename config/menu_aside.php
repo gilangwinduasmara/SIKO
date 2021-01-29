@@ -53,7 +53,7 @@ return [
                 [
                     'title' => 'Dashboard',
                     'root' => true,
-                    'icon' => 'flaticon-analytic', // or can be 'flaticon-home' or any flaticon-*
+                    'icon' => 'flaticon-analytics', // or can be 'flaticon-home' or any flaticon-*
                     'page' => '/admin/dashboard',
                     'new-tab' => false,
                 ],
