@@ -41,6 +41,7 @@ function initHari(){
 
 $(document).ready(function(){
     initHari();
+    $('#chat-container').hide();
 })
 
 $.each(konselors, function(index, konselor){
@@ -48,6 +49,9 @@ $.each(konselors, function(index, konselor){
        console.log(konselor.id);
     });
     $("#table_list").on("click", '#daftarkonselor__'+konselor.id, function(){
+        $('#chat-container').show();
+        $('.empty-state').hide();
+
         renderJadwalSelector(konselor.id);
         $('#selected_konselor').text(konselor.nama_konselor)
         $('#button__daftar_sesi_referral').attr('disabled', true);

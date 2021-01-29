@@ -53,17 +53,17 @@ class ChatKonselingController extends Controller
 
         $konseling = Konseling::find($input['konseling_id']);
 
-        if($user->role == 'konseli'){
-            if($konseling->konseli_id != $user->details->id){
-                return "denied";
-            }
-        }else if($user->role == 'konselor'){
-            if($konseling->konseli_id != $user->details->id){
-                return "denied";
-            }
-        }else{
-            return "denied";
-        }
+        // if($user->role == 'konseli'){
+        //     if($konseling->konseli_id != $user->details->id){
+        //         return "denied";
+        //     }
+        // }else if($user->role == 'konselor'){
+        //     if($konseling->konseli_id != $user->details->id){
+        //         return "denied";
+        //     }
+        // }else{
+        //     return "denied";
+        // }
 
         if($konseling->status_selesai != "C"){
             return response()->json([

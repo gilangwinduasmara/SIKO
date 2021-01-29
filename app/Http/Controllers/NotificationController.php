@@ -135,7 +135,7 @@ class NotificationController extends Controller
 
         if($notif->type == 'new_konseling'){
             if($user->role === 'konselor'){
-                return redirect("/daftarkonseli?open&id=".$notif->data);
+                return redirect("/daftarkonseli?&id=".$notif->data);
             }
         }
 

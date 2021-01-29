@@ -1,4 +1,24 @@
-<div class="card card-custom" id="conference-information-container">
+<div class="empty-state h-100">
+    <div class="card card-custom h-100">
+        <div class="card-header">
+            <div class="card-title">
+                <span class="card-icon">
+                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md d-lg-none kt_app_chat_toggle" id="">
+                        <span class="svg-icon svg-icon-lg">
+                            <i class="fas fa-arrow-left"></i>
+                        </span>
+                    </button>
+                </span>
+                <h3 class="card-label">Informasi Case Conference </h3>
+            </div>
+
+        </div>
+        <div class="card-body h-100">
+
+        </div>
+    </div>
+</div>
+<div class="card card-custom" id="conference-information-container" style="display: none">
     <div class="card-header">
         <div class="card-title">
             <span class="card-icon">

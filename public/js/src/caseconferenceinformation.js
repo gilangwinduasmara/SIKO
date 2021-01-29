@@ -1,5 +1,6 @@
 
 function renderCaseConferenceInformation(caseId){
+    $('.empty-state').hide();
     $('#chat-container').hide();
     $('#conference-information-container').show();
     axios.get(`/services/conference?case_conference_id=${caseId}`).then(res => {
@@ -66,7 +67,9 @@ function renderCaseConferenceInformation(caseId){
 }
 
 $(document).ready(function(){
-    renderCaseConferenceInformation(selectedCaseconference.id);
+    $('#conference-information-container').hide();
+    $('#chat-container').hide();
+    // renderCaseConferenceInformation(selectedCaseconference.id);
     $('#button__lihat_profile').click(function(){
         $('.profile-konseli').hide();
         $('#modal__profile_konseli').modal('show')

@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-body">
                         <div class="card card-custom glutter-b card-stretch">
-                            <div class="card-body bg-white">
+                            <div class="{{$konseling->conferenced == 'tidak' || $konseling->conferenced == 'ask' ? 'card-body bg-white' : 'card-body bg-light' }}">
                                 <div class="card-title">
                                     <span>1. Persetujuan Case Conference</span><br>
                                     <span class="text-muted">Meminta persetujuan ke konseli untuk mendiskusikan permasalahan mereka.</span>
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                         <div class="card card-custom glutter-b card-stretch mt-3 card-shadowless">
-                            <div class="card-body bg-light">
+                            <div class="{{$konseling->conferenced == 'agreed' ? 'card-body bg-white' : 'card-body bg-light' }}" id="step-card-2">
                                 <div class="card-title">
                                     <span>2. Memilih Konselor</span><br>
                                     <span class="text-muted">Memilih konselor untuk melakukan Case Conference</span>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="card card-custom glutter-b card-stretch mt-3 card-shadowless">
-                            <div class="card-body bg-light">
+                            <div class="card-body bg-light" id="step-card-3">
                                 <div class="card-title">
                                     <span>3. Melakukan Case Conference</span><br>
                                     <span class="text-muted">Melakukan Case Conference dengan konselor yang telah dipilih.</span>
@@ -178,6 +178,12 @@
             }else{
                 $('#button__masuk_case_conference').prop('disabled', false)
             }
+        })
+        $('#button__submit_case_conference').click(function(){
+            $('#step-card-2').removeClass("bg-white")
+            $('#step-card-2').addClass("bg-light")
+            $('#step-card-3').removeClass("bg-light")
+            $('#step-card-3').addClass("bg-white")
         })
     </script>
 @endsection

@@ -107,7 +107,8 @@
         var caseconferences = @json($caseconferences);
         var user = @json($user);
         var konselors = @json($konselors);
-        var selectedCaseconference = caseconferences[0];
+        var selectedCaseconference = null;
+        // var selectedCaseconference = caseconferences[0];
     </script>
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/pages/custom/chat/chat.js') }}" type="text/javascript"></script>

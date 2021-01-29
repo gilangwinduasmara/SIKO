@@ -1,4 +1,7 @@
 function showPersonalInformationById(id){
+    if(id!=null){
+        $('.empty-state').hide();
+    }
     window.clearInterval(window.chatInterval);
     $.each(konselings, function(i, konseling){
         if(konseling.id===id){

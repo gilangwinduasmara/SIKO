@@ -6,6 +6,7 @@ use App\Konseling;
 use App\Mail\NotifEmail;
 use App\Notification;
 use App\User;
+use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\ServiceProvider;
@@ -80,20 +81,24 @@ class AppServiceProvider extends ServiceProvider
                         $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
                         break;
                 }
-                if($notification->type != 'chat' && $notification->type != 'chat_conference'){
-                    if($user->role == 'konselor'){
-                        if($user->email == 'maria.nugraheni@uksw.edu'){
-                            Mail::to('nina.setiyawati@uksw.edu')->send(new NotifEmail($notification, $data, $subject));
-                        }else if($user->email == 'ones.dani@uksw.edu'){
-                            Mail::to('dwihosanna.bangkalang@uksw.edu')->send(new NotifEmail($notification, $data, $subject));
+                try{
+                    if($notification->type != 'chat' && $notification->type != 'chat_conference'){
+                        if($user->role == 'konselor'){
+                            if($user->email == 'maria.nugraheni@uksw.edu'){
+                                Mail::to('nina.setiyawati@uksw.edu')->send(new NotifEmail($notification, $data, $subject));
+                            }else if($user->email == 'ones.dani@uksw.edu'){
+                                Mail::to('dwihosanna.bangkalang@uksw.edu')->send(new NotifEmail($notification, $data, $subject));
+                            }else{
+                                Mail::to('gilangwinduasmara2@gmail.com')->send(new NotifEmail($notification, $data, $subject));
+                            }
+                            foreach(['nina.setiyawati@uksw.edu', 'gilangwinduasmara2@gmail.com', 'dwihosanna.bangkalang@uksw.edu'] as $to){
+                            }
                         }else{
-                            Mail::to('gilangwinduasmara2@gmail.com')->send(new NotifEmail($notification, $data, $subject));
+                            Mail::to($user->email)->send(new NotifEmail($notification, $data, $subject));
                         }
-                        foreach(['nina.setiyawati@uksw.edu', 'gilangwinduasmara2@gmail.com', 'dwihosanna.bangkalang@uksw.edu'] as $to){
-                        }
-                    }else{
-                        Mail::to($user->email)->send(new NotifEmail($notification, $data, $subject));
                     }
+                }catch(Exception $e){
+
                 }
 
             });

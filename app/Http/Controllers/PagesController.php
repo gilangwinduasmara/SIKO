@@ -185,7 +185,7 @@ class PagesController extends Controller
             $query->with(['konselor' => function($query){
                 $query->with('user')->get();
             }]);
-        }])->where('status', 'on-going')->get();
+        }])->where('status', 'on-going')->get()->sortByDesc('created_at');
         $caseconferences = [];
         $konselors = Konselor::with('user')->get();
         foreach($cases as $case){
@@ -300,7 +300,7 @@ class PagesController extends Controller
         // dd($caseconference);
 
         if($caseconference != null){
-            return redirect('/caseconference?id='.$caseconference->id);
+            return redirect('/caseconference?open&id='.$caseconference->id);
         }
 
         if($konseling == null || $konseling->konselor_id != $user->details->id || $konseling->refered == 'ya' || $konseling->status_selesai != 'C'){

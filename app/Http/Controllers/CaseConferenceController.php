@@ -118,6 +118,7 @@ class CaseConferenceController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Data successfully stored!',
+            'redirect' => '/caseconference?open=true&id='.$caseConference->id
         ]);
     }
 

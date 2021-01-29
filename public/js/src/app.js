@@ -90,7 +90,7 @@ $('#button__masuk_case_conference').click(function(){
     };
 
     axios.post('/services/conference', data).then(res=>{
-        window.location.href = "/caseconference"
+        window.location.href = res.data.redirect
     });
 
 });
@@ -218,6 +218,9 @@ $(document).ready(function(){
     if(path === "caseconference"){
         if(urlParam.has("id")){
             $(`a[data-value="${urlParam.get('id')}"]`).click()
+            if(urlParam.has("open")){
+                $('#button__masuk_conference').click();
+            }
             // selectedCaseconference = caseconferences.filter((o) => (o.id === parseInt(urlParam.get("id"))))[0];
             // showChat();
         }
@@ -291,7 +294,6 @@ $(document).ready(function(){
 
     setInterval(function(){
         sessionLifetime-=1;
-        console.log(sessionLifetime)
         if(sessionLifetime<24 && isPopupShow == false){
             isPopupShow = true
             let timerInterval;

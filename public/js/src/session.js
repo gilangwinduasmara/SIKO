@@ -9,7 +9,6 @@ $(document).ready(function(){
 
     setInterval(function(){
         sessionLifetime-=1;
-        console.log(sessionLifetime)
         if(sessionLifetime<24 && isPopupShow == false){
             isPopupShow = true
             let timerInterval;
