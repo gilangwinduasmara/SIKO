@@ -103,9 +103,9 @@
             </div>
             @if ($konseling->status_konseling == "ref")
                 @if($user->role == 'konselor')
-                <button data-toggle="modal" data-target="#modal-pesan-rujukan" class="btn btn-primary">Pesan Rujukan</button>
+                <button data-toggle="modal" data-target={{"#modal-pesan-rujukan__".$konseling->id}} class="btn btn-primary">Pesan Rujukan</button>
                 @endif
-                <div class="modal fade" id="modal-pesan-rujukan"tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+                <div class="modal fade" id={{"modal-pesan-rujukan__".$konseling->id}} tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
                         <div class="modal-content" >
                             <div class="modal-header">
@@ -114,7 +114,6 @@
                                     <i aria-hidden="true" class="ki ki-close"></i>
                                 </button>
                             </div>
-                            @if($type != 'arsip')
                             <div class="modal-body" style="height: 300px;">
                                 <div class="form-group">
                                     <label>Oleh</label>
@@ -128,7 +127,6 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button>
                             </div>
-                            @endif
                         </div>
                     </div>
                 </div>
