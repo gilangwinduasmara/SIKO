@@ -71,6 +71,10 @@ class AppServiceProvider extends ServiceProvider
                         $subject = "Permintaan Case Conference Ditolak";
                         $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
                         break;
+                    case 'new_referral':
+                        $subject = "Pemindahan sesi konseling";
+                        $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
+                        break;
                 }
                 if($notification->type != 'chat' && $notification->type != 'chat_conference'){
                     if($user->role == 'konselor'){

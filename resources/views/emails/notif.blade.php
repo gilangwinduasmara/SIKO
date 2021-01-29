@@ -16,6 +16,13 @@
         @case('agreed_referral')
             {{$data->konseli->nama_konseli." menyetujui persetujuan referal"}}
             @break
+        @case('new_referral')
+            @if($user->role == 'konseli')
+            {{"Sesi konseling anda telah berpindah ke konselor baru"}}
+            @else
+            {{"Anda menerima referral konseling"}}
+            @endif
+            @break
         @case('declined_referral')
             {{$data->konseli->nama_konseli." menolak persetujuan referal"}}
             @break
@@ -28,6 +35,7 @@
         @case('declined_conference')
             {{$data->konseli->nama_konseli." menolak persetujuan referal"}}
             @break
+
         @default
     @endswitch
 </div>
