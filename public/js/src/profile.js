@@ -107,8 +107,12 @@ $(document).on('focus','.jadwal-close', function(){
     })
 });
 
-
+let profileSimpanLoading = false;
 $('#button__profile-simpan').click(function(){
+    if(profileSimpanLoading){
+        return false
+    }
+    profileSimpanLoading = true;
     toastr.options = conf.toastr.options.saving;
     toastr.info("Menyimpan Data");
     const dataJadwal = [];
@@ -141,6 +145,7 @@ $('#button__profile-simpan').click(function(){
     }
 
     if(conflict){
+        profileSimpanLoading = false;
         Swal.fire("", "Tidak boleh ada jadwal yang sama!", "error");
         toastr.clear();
     }else{
@@ -148,6 +153,7 @@ $('#button__profile-simpan').click(function(){
             dataJadwal,
             personal
         }).then(res => {
+            profileSimpanLoading = false;
             toastr.clear();
             window.location.href = window.location.href
         })

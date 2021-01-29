@@ -94,7 +94,12 @@
     <script src="{{ asset('js/src/profile.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+            let isLoading = false
             $('#button__konselor-simpan').click(function(){
+                if(isLoading){
+                    return false
+                }
+                isLoading = true
                 toastr.options = conf.toastr.options.saving;
                 toastr.info("Menyimpan data...")
                 const dataJadwal = [];

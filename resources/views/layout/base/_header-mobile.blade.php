@@ -122,7 +122,7 @@
                     <ul class="navi navi-hover py-4">
                         @if ($user->role != 'konseli')
                             <li class="navi-item">
-                                <a href="#" class="navi-link">
+                                <a href="/gantipassword" class="navi-link">
                                     <div class="navi-text">
                                         <div class="font-weight-bold">Ganti Password</div>
                                     </div>
