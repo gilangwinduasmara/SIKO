@@ -17,6 +17,7 @@
 @section('scripts')
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/src/dropdown.js') }}" type="text/javascript"></script>
+    <script src="{{asset('js/src/session')}}"></script>
     <script>
         $(document).ready(function(){
             @if(request()->submenu == "pengumuman")

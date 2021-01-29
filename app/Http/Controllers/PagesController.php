@@ -335,16 +335,7 @@ class PagesController extends Controller
     }
 
     public function tes(){
-        $email = [];
-        $email['to'] = 'gilangwinduasmara2@gmail.com';
-        $email['subject'] = 'tes';
-        $email['body'] = 'body';
-        Mail::send([], [], function ($message) {
-            $message->to('gilangwinduasmara2@gmail.com')
-              ->subject('tes')
-              ->setBody('Hi, welcome user!');
-          });
-        return "tes";
+        return now();
     }
 
     public function ruangKonseling(){

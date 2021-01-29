@@ -14,7 +14,7 @@
             {{$data->konselor->nama_konselor." meminta persetujuan referal"}}
             @break
         @case('agreed_referral')
-            {{$data->konseli->nama_konseli."***** menyetujui persetujuan referal"}}
+            {{substr($data->konseli->nama_konseli, 0, 3)."***** menyetujui persetujuan referal"}}
             @break
         @case('new_referral')
             @if($user->role == 'konseli')

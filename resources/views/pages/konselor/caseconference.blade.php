@@ -60,13 +60,14 @@
                                         <td class="mt-0">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 @php($detailConferences = json_decode(json_encode($case))->detail_conferences)
-                                                <div class="card card-custom flex-grow-1">
+                                                <a class="card card-custom flex-grow-1 bg-hover-light" href="#" name="konselor_list_item" data-value={{$case->id}} >
                                                     <div class="card-body d-flex align-items-center py-2">
                                                         <div class="d-flex flex-column">
-                                                            <a href="#" name="konselor_list_item" data-value={{$case->id}} class="text-dark text-hover-primary mb-1 font-size-lg">{{ $case->judul_case_conference }}</a>
+                                                            <div class="text-muted">{{\Carbon\Carbon::parse($case->created_at)->format("d/m/Y H:i:s")}}</div>
+                                                            <div class="text-dark text-hover-primary mb-1 font-size-lg">{{ $case->judul_case_conference }}</div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </a>
                                             </div>
                                             <div class="separator separator-solid m-0"></div>
                                         </td>

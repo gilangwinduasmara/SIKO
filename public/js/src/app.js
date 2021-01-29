@@ -278,7 +278,7 @@ $('form[name="form__rekam_konseling"]').submit(function(e){
 })
 
 $(document).ready(function(){
-    var sessionLifetime = 3600;
+    var sessionLifetime = 60*5;
     let isPopupShow = false;
     $('.kt_app_chat_toggle').click(function(){
         $('#kt_app_chat_toggle').click()
@@ -286,7 +286,7 @@ $(document).ready(function(){
 
     $(document).click(function(e){
         console.log('refresh session')
-        sessionLifetime = 3600;
+        sessionLifetime = 60*5;
     })
 
     setInterval(function(){
@@ -326,7 +326,7 @@ $(document).ready(function(){
                 }
             }).then((result) => {
                 if(result.value){
-                    sessionLifetime = 3600
+                    sessionLifetime = 60*5
                 }
             })
         }
