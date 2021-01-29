@@ -43,7 +43,6 @@
         </div>
     </div>
     <div class="row mt-8">
-
         <div class="col-lg-6 col-xxl-6">
             <div class="card border card-custom">
                 <div class="card-body">
@@ -108,4 +107,5 @@
 @section('scripts')
     <script src="{{ asset('js/pages/widgets.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/src/dropdown.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/src/session.js') }}" type="text/javascript"></script>
 @endsection

@@ -35,6 +35,9 @@ class ChatKonselingController extends Controller
 
     public function index(Request $request)
     {
+
+        $this->assignUser();
+        $user = $this->user;
         $input = $request->all();
 
         if($request->has('last') && $request->has('konseling_id')){
@@ -49,6 +52,19 @@ class ChatKonselingController extends Controller
         $chat = ChatKonseling::where('konseling_id', $input['konseling_id'])->get()->groupBy('tgl_chat');
 
         $konseling = Konseling::find($input['konseling_id']);
+
+        if($user->role == 'konseli'){
+            if($konseling->konseli_id != $user->details->id){
+                return "denied";
+            }
+        }else if($user->role == 'konselor'){
+            if($konseling->konseli_id != $user->details->id){
+                return "denied";
+            }
+        }else{
+            return "denied";
+        }
+
         if($konseling->status_selesai != "C"){
             return response()->json([
                 'success' => false,
