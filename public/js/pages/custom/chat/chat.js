@@ -28,7 +28,6 @@ var KTAppChat = function () {
 				rememberPosition: true, // Remember scroll position in cookie
 				height: function() {  // Calculate height
 					var height;
-
 					if (KTUtil.isBreakpointUp('lg')) {
 						height = KTLayoutContent.getHeight();
 					} else {
@@ -52,10 +51,8 @@ var KTAppChat = function () {
 						height = height - parseInt(KTUtil.css(searchEl, 'height'));
 						height = height - parseInt(KTUtil.css(searchEl, 'margin-top')) - parseInt(KTUtil.css(searchEl, 'margin-bottom'));
 					}
-
 					// Remove additional space
 					height = height - 2;
-
 					return height;
 				}
 			});

@@ -114,6 +114,7 @@
                                     <i aria-hidden="true" class="ki ki-close"></i>
                                 </button>
                             </div>
+                            @if($type != 'arsip')
                             <div class="modal-body" style="height: 300px;">
                                 <div class="form-group">
                                     <label>Oleh</label>
@@ -127,6 +128,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Tutup</button>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -35,7 +35,7 @@
                         </div>
                         <!--end:Search-->
                         <!--begin:Users-->
-                        <div class="mt-7 scroll scroll-pull ps ps--active-y" style="height: 12px; overflow: hidden;">
+                        <div class="mt-7 scroll scroll-pull" style="height: 12px; overflow: hidden;">
 {{--                            @if (count($konselings) == 0)--}}
 {{--                                <center>--}}
 {{--                                    <span>Belum ada data</span>--}}
@@ -102,7 +102,7 @@
                     <!--begin::Body-->
                     <div class="card-body">
                         <!--begin::Scroll-->
-                        <div class="scroll scroll-pull ps ps--active-y" data-mobile-height="350" style="height: 165px; overflow: hidden;">
+                        <div class="scroll scroll-pull" data-mobile-height="350" style="height: 165px; overflow: hidden;">
                             <div class="container-fluid d-flex justify-content-center align-items-center mt-30">
                                 <div id="chat-spinner" class="spinner"></div>
                             </div>
@@ -111,7 +111,7 @@
 
                             </div>
                             <!--end::Messages-->
-                            <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 165px; right: -2px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 40px;"></div></div></div>
+                            {{-- <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 165px; right: -2px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 40px;"></div></div></div> --}}
                         <!--end::Scroll-->
                     </div>
                     <!--end::Body-->

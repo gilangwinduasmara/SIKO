@@ -59,14 +59,14 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <input type="text" name="id" value={{$rk->id}} hidden>
+                                            <input {{$type=="arsip"?'readonly':''}} type="text" name="id" value={{$rk->id}} hidden>
                                             <div class="form-group">
                                                 <label>Topik <span class="text-danger">*</span></label>
                                                 <input name="judul_konseling" type="text" class="form-control" required value="{{$rk->judul_konseling}}">
                                             </div>
                                             <div class="form-group">
                                                 <label>Rekam Konseling <span class="text-danger">*</span></label>
-                                                <textarea name="isi_rekam_konseling" type="text" class="form-control" required rows="10" >{{$rk->isi_rekam_konseling}}</textarea>
+                                                <textarea {{$type=="arsip"?'readonly':''}} name="isi_rekam_konseling" type="text" class="form-control" required rows="10" >{{$rk->isi_rekam_konseling}}</textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

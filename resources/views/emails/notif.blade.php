@@ -27,21 +27,3 @@
         @default
     @endswitch
 </div>
-{{-- switch($notification->type){
-    case 'new_konseling':
-        break;
-    case 'end_konseling':
-        break;
-    case 'ask_referral':
-        break;
-    case 'agreed_referral':
-        break;
-    case 'declined_referral':
-        break;
-    case 'ask_conference':
-        break;
-    case 'agreed_conference':
-        break;
-    case 'declined_conference':
-        break;
-} --}}

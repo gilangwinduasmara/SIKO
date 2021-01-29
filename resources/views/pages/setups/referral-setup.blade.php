@@ -137,7 +137,7 @@
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="d-flex flex-column align-items-end">
-                                                                                        <span class="text-muted font-weight-bold font-size-sm">35 mins</span>
+                                                                                        {{-- <span class="text-muted font-weight-bold font-size-sm">35 mins</span> --}}
                                                                                     </div>
                                                                                 </div>
                                                                             </td>

@@ -114,7 +114,7 @@
     <!--begin::Body-->
     <div class="card-body">
         <!--begin::Scroll-->
-        <div class="scroll scroll-pull ps ps--active-y" data-mobile-height="350" style="height: 165px; overflow: hidden;">
+        <div class="scroll scroll-pull " data-mobile-height="350" style="height: 165px; overflow: hidden;">
             <div class="container-fluid d-flex justify-content-center align-items-center">
                 <div id="chat-spinner" class="spinner"></div>
             </div>

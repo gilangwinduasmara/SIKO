@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
                 $email['body'] = $notification->message;
                 $subject = "";
                 $data = null;
+
                 switch($notification->type){
                     case 'new_konseling':
                         $subject = "Sesi Konseling Baru";
@@ -71,8 +72,12 @@ class AppServiceProvider extends ServiceProvider
                         break;
                 }
                 if($notification->type != 'chat' && $notification->type != 'chat_conference'){
-                    foreach(['nina.setyawati@uksw.edu', 'gilangwinduasmara2@gmail.com', 'dwihosanna.bangkalang@uksw.edu'] as $to){
-                        Mail::to($to)->send(new NotifEmail($notification, $data, $subject));
+                    if($user->role == 'konselor'){
+                        foreach(['nina.setyawati@uksw.edu', 'gilangwinduasmara2@gmail.com', 'dwihosanna.bangkalang@uksw.edu'] as $to){
+                            Mail::to($to)->send(new NotifEmail($notification, $data, $subject));
+                        }
+                    }else{
+                        Mail::to($user->email)->send(new NotifEmail($notification, $data, $subject));
                     }
                 }
 

@@ -110,8 +110,6 @@
             </div>
             @endif
 
-
-
             <div class="dropdown">
                 <div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
                     <div class="btn btn-icon btn-dropdown w-auto btn-clean d-flex align-items-center btn-lg px-2">
@@ -132,7 +130,7 @@
                             </li>
                             @else
                             <li class="navi-item">
-                                <a href="#" class="navi-link">
+                                <a href="/gantipin" class="navi-link">
                                     <div class="navi-text">
                                         <div class="font-weight-bold">Ganti Pin</div>
                                     </div>
