@@ -85,6 +85,8 @@
             $('#form__ganti_jadwal').submit(function(e){
                 e.preventDefault();
             })
+            $('.empty-state').hide()
+            $('#chat-container').show()
         })
 
         $('#form__ganti_jadwal').submit(function(e){

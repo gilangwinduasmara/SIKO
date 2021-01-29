@@ -91,7 +91,7 @@
             $('input[name="password"]').keyup(function(){
                 console.log($(this).val())
                 if($(this).val().length < 8){
-                    $(this).next().text("Password harus lebih dari 8 karakter")
+                    $(this).next().text("Password harus minimal 8 karakter")
                 }else{
                     $(this).next().text("")
                 }
