@@ -63,7 +63,6 @@
 
                                                                 @if($type == 'arsip')
                                                                     @if($konseling->refered!="ya")
-                                                                    {{-- <div class="text-muted">{{json_encode($konseling->rangkuman_konseling)}}</div> --}}
                                                                     <div class="text-muted">{{\Carbon\Carbon::parse($konseling->rangkuman_konseling->created_at)->format('d/m/Y H:i:s')}}</div>
                                                                     @else
                                                                     <div class="text-muted">{{\Carbon\Carbon::parse($konseling->updated_at)->format('d/m/Y H:i:s')}}</div>

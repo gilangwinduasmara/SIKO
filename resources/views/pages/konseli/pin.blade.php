@@ -71,6 +71,14 @@
     </script>
     @if(Hash::check('siko', $user->password))
     <script>
+        function isBackspace(event){
+            var key = event.keyCode || event.charCoed;
+            console.log(event)
+            if(key == 8 || key == 46){
+                console.log('isbackspace')
+                return true
+            }
+        }
         $('.pin').keyup(function(){
             if(!(/^\d+$/.test($(this).val()))){
                 $(this).val("")
@@ -145,8 +153,23 @@
     </script>
     @else
     <script>
+        function isBackspace(event){
+            var key = event.keyCode || event.charCoed;
+            console.log(event)
+            if(key == 8 || key == 46){
+                console.log('isbackspace')
+                return true
+            }
+        }
         var loading = false
+
         $('.pin').keyup(function(){
+            if(isBackspace(event)){
+                $(this).val("")
+                $(this).prev('.pin').val("");
+                $(this).prev('.pin').focus();
+                return false;
+            }
             if(!(/^\d+$/.test($(this).val()))){
                 $(this).val("")
                 return false

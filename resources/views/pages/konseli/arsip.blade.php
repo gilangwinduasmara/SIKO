@@ -51,7 +51,8 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-end flex-column justify-content-between mb-5">
-                                                    <div class="d-flex justify-content-end">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <div class="text-muted">{{\Carbon\Carbon::parse($konseling->updated_at)->format('d/m/Y H:i:s')}}</div>
                                                         @if($type == 'arsip')
                                                             @if($konseling->status_selesai == 'expired')
                                                                 <span class="label label-lg label-light-warning label-inline">
