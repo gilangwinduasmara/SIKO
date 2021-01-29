@@ -326,7 +326,8 @@ $(document).ready(function(){
                 }
             }).then((result) => {
                 if(result.value){
-                    sessionLifetime = 60*5
+                    sessionLifetime = 60*5;
+                    isPopupShow = false
                 }
             })
         }

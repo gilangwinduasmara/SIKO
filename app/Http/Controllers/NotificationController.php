@@ -60,7 +60,7 @@ class NotificationController extends Controller
         if($notif->read_at != null){
             return redirect()->back();
         }
-        if($notif->type == 'chat'){
+        if($notif->type == 'chat' || $notif->type == 'chat_conference'){
             $data = $notif->data;
             $chats = Notification::where('data', $data)->update(['read_at' => now()]);
         }
