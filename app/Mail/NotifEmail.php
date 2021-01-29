@@ -33,7 +33,7 @@ class NotifEmail extends Mailable
      */
     public function build()
     {
-        $user = User::find(session('userId'));
+        $user = User::find($this->notification->user_id);
 
         return $this->subject($this->s)->view('emails.notif')->with([
             'notification' => $this->notification,

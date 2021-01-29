@@ -10,19 +10,19 @@
             {{$data->konselor->nama_konselor." meminta persetujuan referal"}}
             @break
         @case('agreed_referral')
-            {{$data->konselor->nama_konselor." menyetujui persetujuan referal"}}
+            {{$data->konseli->nama_konseli." menyetujui persetujuan referal"}}
             @break
         @case('declined_referral')
-            {{$data->konselor->nama_konselor." menolak persetujuan referal"}}
+            {{$data->konseli->nama_konseli." menolak persetujuan referal"}}
             @break
         @case('ask_conference')
             {{$data->konselor->nama_konselor." meminta persetujuan referal"}}
             @break
         @case('agreed_conference')
-            {{$data->konselor->nama_konselor." menyetujui persetujuan referal"}}
+            {{$data->konseli->nama_konseli." menyetujui persetujuan referal"}}
             @break
         @case('declined_conference')
-            {{$data->konselor->nama_konselor." menolak persetujuan referal"}}
+            {{$data->konseli->nama_konseli." menolak persetujuan referal"}}
             @break
         @default
     @endswitch

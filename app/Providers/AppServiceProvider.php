@@ -69,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
                         break;
                     case 'declined_conference':
                         $subject = "Permintaan Case Conference Ditolak";
+                        $data = Konseling::with('konseli')->with('konselor')->find($notification->data);
                         break;
                 }
                 if($notification->type != 'chat' && $notification->type != 'chat_conference'){
