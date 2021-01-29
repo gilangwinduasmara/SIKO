@@ -237,14 +237,14 @@
                 <div class="modal-body px-8" >
                     <form class="d-flex flex-column align-items-center justify-content-center" id="form__register">
                         <div class="row justify-content-center align-items-center">
-                            <div class="d-flex flex-column align-items-center">
+                            {{-- <div class="d-flex flex-column align-items-center">
                                 <div class="symbol symbol-50 symbol-circle">
                                     <img id="img-avatar" src="/avatars/default.jpg" alt="">
                                 </div>
                                 <input id="input_file" type="file" value="Tambah Foto" hidden>
                                 <input type="text" value="" name="avatar" hidden>
                                 <button id="button_foto" type="button" class="btn btn-warning">Pilih Foto</button>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="row w-100 align-items-start mt-8">
                             <div class="col-6">
