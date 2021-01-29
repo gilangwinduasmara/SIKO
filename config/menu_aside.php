@@ -51,9 +51,9 @@ return [
             ],
             'admin' => [
                 [
-                    'title' => 'flaticon-analytics',
+                    'title' => 'Dashboard',
                     'root' => true,
-                    'icon' => 'media/svg/icons/Design/Layers.svg', // or can be 'flaticon-home' or any flaticon-*
+                    'icon' => 'flaticon-analytic', // or can be 'flaticon-home' or any flaticon-*
                     'page' => '/admin/dashboard',
                     'new-tab' => false,
                 ],
