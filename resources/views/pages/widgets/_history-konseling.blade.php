@@ -33,7 +33,7 @@
                         </td>
                         <td>
 
-                            <button href="#" class="btn btn-icon btn-light btn-hover-warning btn-sm mx-3" data-toggle="modal" data-target={{"#modal_rekam_konseling__".$rk->id}}>
+                            <button class="btn btn-icon btn-light btn-hover-warning btn-sm mx-3" data-toggle="modal" data-target={{"#modal_rekam_konseling__".$rk->id}}>
                                 <span class="svg-icon svg-icon-md svg-icon-warning">
                                     <!--begin::Svg Icon | path:/metronic/theme/html/demo5/dist/assets/media/svg/icons/Communication/Write.svg-->
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -49,35 +49,7 @@
 
                         </td>
                         <td>
-                            <div class="modal fade" id={{"modal_rekam_konseling__".$rk->id}} data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
-                                    <form class="modal-content" name="form__rekam_konseling">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Rekam Konseling</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <i aria-hidden="true" class="ki ki-close"></i>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <input  type="text" name="id" value={{$rk->id}} hidden>
-                                            <div class="form-group">
-                                                <label>Topik <span class="text-danger">*</span></label>
-                                                <input {{$type=="arsip"?'readonly':''}} name="judul_konseling" type="text" class="form-control" required value="{{$rk->judul_konseling}}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Rekam Konseling <span class="text-danger">*</span></label>
-                                                <textarea {{$type=="arsip"?'readonly':''}} name="isi_rekam_konseling" type="text" class="form-control" required rows="10" >{{$rk->isi_rekam_konseling}}</textarea>
-                                            </div>
-                                        </div>
-                                        @if($type != 'arsip')
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light-warning font-weight-bold" data-dismiss="modal">Tutup</button>
-                                            <input type="Submit" class="btn btn-warning font-weight-bold" name="save-rekam-konseling" value="Simpan">
-                                        </div>
-                                        @endif
-                                    </form>
-                                </div>
-                            </div>
+
                         </td>
 
                     </tr>
@@ -90,5 +62,36 @@
             <center><span class="mb-3">Belum ada history</span></center>
         @endif
     </div>
+    @foreach ($konseling->rekam_konselings as $rk)
+    <div class="modal fade" id={{"modal_rekam_konseling__".$rk->id}} data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+            <form class="modal-content" name="form__rekam_konseling">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Rekam Konseling</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i aria-hidden="true" class="ki ki-close"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input  type="text" name="id" value={{$rk->id}} hidden>
+                    <div class="form-group">
+                        <label>Topik <span class="text-danger">*</span></label>
+                        <input {{$type=="arsip"?'readonly':''}} name="judul_konseling" type="text" class="form-control" required value="{{$rk->judul_konseling}}">
+                    </div>
+                    <div class="form-group">
+                        <label>Rekam Konseling <span class="text-danger">*</span></label>
+                        <textarea {{$type=="arsip"?'readonly':''}} name="isi_rekam_konseling" type="text" class="form-control" required rows="10" >{{$rk->isi_rekam_konseling}}</textarea>
+                    </div>
+                </div>
+                @if($type != 'arsip')
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light-warning font-weight-bold" data-dismiss="modal">Tutup</button>
+                    <input type="Submit" class="btn btn-warning font-weight-bold" name="save-rekam-konseling" value="Simpan">
+                </div>
+                @endif
+            </form>
+        </div>
+    </div>
+    @endforeach
     <!--end::Body-->
 </div>
