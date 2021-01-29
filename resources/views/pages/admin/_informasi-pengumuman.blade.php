@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="modal fade" id="modal__add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-xl" role="document">
                 <form class="modal-content" id="form_pengumuman__create">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Tambah Pengumuman</h5>
@@ -76,7 +76,7 @@
                         </div>
                         <div class="form-group">
                             <label>Isi<span class="text-danger">*</span></label>
-                            <textarea name="isi" type="text" class="form-control" required></textarea>
+                            <textarea name="isi" type="text" class="form-control" required rows="10"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

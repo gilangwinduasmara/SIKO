@@ -36,7 +36,6 @@
                         <!--end:Search-->
                         <!--begin:Users-->
                         <div class="mt-7">
-
                             <table id="table_list">
                                 <thead>
                                     <tr>

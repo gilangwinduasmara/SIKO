@@ -549,9 +549,9 @@
                                         <div class="conselors-list-avatar"><img
                                                 src={{"/avatars/".$konselor->user->avatar}}>
                                         </div>
-                                        <div class="conselors-list-name">{{$konselor->nama_konselor}}
+                                        <div class="conselors-list-name text-center">{{$konselor->nama_konselor}}
                                         </div>
-                                        <div class="conselors-list-profesion">{{$konselor->profesi_konselor}}
+                                        <div class="conselors-list-profesion text-center">{{$konselor->profesi_konselor}}
                                         </div>
                                     </div>
                                 @endforeach

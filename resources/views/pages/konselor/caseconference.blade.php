@@ -6,7 +6,21 @@
     @php($k = 's')
     {{-- Dashboard 1 --}}
     <div class="container">
-        <!--begin::Chat-->
+        @if(count($caseconferences)==0)
+        <div class="row w-100 justify-content-center align-items-center m-0 pt-24">
+            <div class="row w-100 justify-content-center align-items-center m-0">
+                <div class="col-sm-12 col-lg-6 ">
+                    <div class="card border card-custom">
+                        <div class="card-body">
+                            <div class="text-center">
+                                Belum ada case conference
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @else
         <div class="d-flex flex-row">
             <!--begin::Aside-->
             <div class="flex-row-auto offcanvas-mobile w-350px w-xl-400px" id="kt_chat_aside">
@@ -79,6 +93,9 @@
             </div>
             <!--end::Content-->
         </div>
+        @endif
+        <!--begin::Chat-->
+
         <!--end::Chat-->
     </div>
 @endsection

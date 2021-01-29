@@ -165,11 +165,11 @@
                     <input name="konseling_id" type="text" hidden value={{$konseling->id}}>
                     <div class="form-group">
                         <label>Rumusan Masalah Konseling <span class="text-danger">*</span></label>
-                    <input name="rangkuman" type="text" class="form-control"  required value="{{$type == 'arsip' ? ($konseling->rangkuman_konseling->rangkuman ?? '') : ''}}" {{$type == 'arsip' ? 'readonly' : ''}}/>
+                    <textarea name="rangkuman" type="text" class="form-control" rows="5"  required {{$type == 'arsip' ? 'readonly' : ''}}>@if ($type=='arsip'){{$konseling->rangkuman_konseling->rangkuman??''}}@endif</textarea>
                     </div>
                     <div class="form-group">
                         <label>Treatment Yang Diberikan <span class="text-danger">*</span></label>
-                    <textarea name="treatment" type="text" class="form-control"  rows="10" required {{$type == 'arsip' ? 'readonly' : ''}}>@if ($type=='arsip'){{$konseling->rangkuman_konseling->treatment??''}}@endif</textarea>
+                    <textarea name="treatment" type="text" class="form-control"  rows="5" required {{$type == 'arsip' ? 'readonly' : ''}}>@if ($type=='arsip'){{$konseling->rangkuman_konseling->treatment??''}}@endif</textarea>
                     </div>
                 </div>
                 @if ($type == 'daftarkonseling')

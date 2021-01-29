@@ -22,7 +22,7 @@
                                     <span class="navi-text">{{$hari}}</span>
                                     @if (isset($daftarkonseling[$hari]))
                                         <span class="navi-label">
-                                            <span class="label label-light-danger label-rounded font-weight-bold"></span>
+                                            <span class="label label-primary label-rounded font-weight-bold"></span>
                                         </span>
                                     @endif
                                 </a>
