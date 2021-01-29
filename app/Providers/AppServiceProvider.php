@@ -74,8 +74,14 @@ class AppServiceProvider extends ServiceProvider
                 }
                 if($notification->type != 'chat' && $notification->type != 'chat_conference'){
                     if($user->role == 'konselor'){
+                        if($user->email == 'maria.nugraheni@uksw.edu'){
+                            Mail::to('nina.setyawati@uksw.edu')->send(new NotifEmail($notification, $data, $subject));
+                        }else if($user->email == 'ones.dani@uksw.edu'){
+                            Mail::to('dwihosanna.bangkalang@uksw.edu')->send(new NotifEmail($notification, $data, $subject));
+                        }else{
+                            Mail::to('gilangwinduasmara2@gmail.com')->send(new NotifEmail($notification, $data, $subject));
+                        }
                         foreach(['nina.setyawati@uksw.edu', 'gilangwinduasmara2@gmail.com', 'dwihosanna.bangkalang@uksw.edu'] as $to){
-                            Mail::to($to)->send(new NotifEmail($notification, $data, $subject));
                         }
                     }else{
                         Mail::to($user->email)->send(new NotifEmail($notification, $data, $subject));
