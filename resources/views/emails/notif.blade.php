@@ -4,7 +4,11 @@
             {{$data->konseli->nama_konseli." memulai sesi konseling dengan anda"}}
             @break
         @case('end_konseling')
+            @if($user->role == 'konseli')
+            {{"Sesi konseling dengan ".$data->konselor->nama_konselor." telah berakhir"}}
+            @else
             {{"Sesi konseling dengan ".$data->konseli->nama_konseli." telah berakhir"}}
+            @endif
             @break
         @case('ask_referral')
             {{$data->konselor->nama_konselor." meminta persetujuan referal"}}
