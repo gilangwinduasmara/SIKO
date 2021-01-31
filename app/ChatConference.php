@@ -14,7 +14,7 @@ class ChatConference extends Model
         try{
             return Crypt::decryptString($this->attributes['chat_konseling']);
         }catch(Exception $e){
-            return "";
+            return $this->attributes['chat_konseling'];
         }
     }
 
