@@ -181,6 +181,8 @@ class PagesController extends Controller
     public function caseconference(){
         $this->assignUser();
         $user = $this->user;
+        $page_title = 'Case Conference';
+        $page_description = '';
         $cases = CaseConference::with('konseling')->with(['detailConferences' => function($query){
             $query->with(['konselor' => function($query){
                 $query->with('user')->get();
@@ -197,7 +199,7 @@ class PagesController extends Controller
             }
         }
         // dd($caseconferences);
-        return view('pages.konselor.caseconference', compact('user', 'caseconferences', 'konselors'));
+        return view('pages.konselor.caseconference', compact('user', 'caseconferences', 'konselors', 'page_title'));
     }
 
     public function pin(){
@@ -217,7 +219,7 @@ class PagesController extends Controller
     public function arsip(){
         $this->assignUser();
         $user = $this->user;
-        $page_title = 'Daftar Konseli';
+        $page_title = 'Arsip';
         $page_description = '';
         $type = 'arsip';
 

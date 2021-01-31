@@ -23,7 +23,6 @@ $.each(hari, function(i, item){
 
 function refreshNotification(){
     axios.get('/services/notification').then(res=>{
-        console.log(res.data)
         let notifHtml = '';
         let chatHtml = '';
         $('#dropdown-chat').html("")

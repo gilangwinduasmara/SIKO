@@ -67,7 +67,6 @@ $('#button__ask_case_conference').click(function (){
     axios.post('/services/conference/createagreement', {
         konseling_id
     }).then((res) => {
-       console.log(res.data);
        window.location.href = window.location.href;
     });
 });
@@ -130,12 +129,12 @@ $('button[name="personal_information__rangkumankonseling"]').click(function(){
 
 
 $('button[name="konseli__caseconference"]').click(function(){
-    console.log('modal');
+
     $('#modal__case_conference').modal('show');
 });
 
 $('button[name="konseli__referral"]').click(function(){
-    console.log('modal');
+
     $('#modal__referral').modal('show');
 });
 
@@ -191,7 +190,7 @@ $('#button_referral__decline').click(function(){
     axios.post('/services/referral/declineagreement', {
         konseling_id
     }).then((res) => {
-        console.log(res.data)
+
         window.location.href = "/dashboard";
     });
 });
@@ -202,7 +201,7 @@ $('form[name="form__rangkumankonseling"').submit(function(e){
     toastr.options = conf.toastr.options.saving
     toastr.info("", "Menyimpan data");
     axios.post('/services/rangkumankonseling', $(this).serialize()).then((res) => {
-        console.log(res.data)
+
         window.location.href="/daftarkonseli"
     })
 })
@@ -243,11 +242,11 @@ $('#cari-konseling').keyup(function(){
     const searchVal = $(this).val().toLowerCase();
     let k = konselings;
 
-    console.log(k.length)
+
     const filteredKonseling = k.filter((o, i) => {
         return o.konseli.nama_konseli.toLowerCase().indexOf(searchVal) > -1
     })
-    console.log(filteredKonseling)
+
     let newHtml = ``;
     filteredKonseling.map((item, index) => {
         newHtml+=`
@@ -271,7 +270,7 @@ $('#cari-konseling').keyup(function(){
 })
 
 $('form[name="form__rekam_konseling"]').submit(function(e){
-    console.log('submit')
+
     e.preventDefault();
     toastr.options = conf.toastr.options.saving
     toastr.info("", "Menyimpan data");
@@ -288,7 +287,6 @@ $(document).ready(function(){
     });
 
     $(document).click(function(e){
-        console.log('refresh session')
         sessionLifetime = 60*5;
     })
 
@@ -298,7 +296,7 @@ $(document).ready(function(){
             isPopupShow = true
             let timerInterval;
             Swal.fire({
-                title: 'Sesi anda akan segera habis dalam<br><b></b>',
+                title: 'Sesi anda akan segera habis<br><b></b>',
                 text: 'Apakah anda ingin memperpanjang sesi?',
                 html: `<div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:100%">

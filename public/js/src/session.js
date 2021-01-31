@@ -3,7 +3,6 @@ $(document).ready(function(){
     let isPopupShow = false;
 
     $(document).click(function(e){
-        console.log('refresh session')
         sessionLifetime = 60*5;
     })
 
@@ -13,7 +12,7 @@ $(document).ready(function(){
             isPopupShow = true
             let timerInterval;
             Swal.fire({
-                title: 'Sesi anda akan segera habis dalam<br><b></b>',
+                title: 'Sesi anda akan segera habis<br><b></b>',
                 text: 'Apakah anda ingin memperpanjang sesi?',
                 html: `<div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:100%">

@@ -1,8 +1,6 @@
 var currentChatGroup = null;
 $('#button__conference').click(function(){
-    showPersonalInformationById(selectedKonseling);
-    $('#chat-container').hide();
-    $('#conference-information-container').show();
+    renderCaseConferenceInformation(selectedCaseconference.id)
 });
 
 function showChat(){
@@ -22,14 +20,11 @@ function showChat(){
 }
 
 function sendChat(message){
-    console.log('send chat',message);
     axios.post('/services/chatconference', {
         chat_konseling: message,
         case_conference_id: selectedCaseconference.id
     }).then(function(res){
-        console.log(res);
     }).catch(function(err){
-        console.log(err.message);
     });
 }
 
@@ -92,7 +87,6 @@ async function renderChat(){
     });
     $('#messages-box').html(html);
     if(currentChatGroup!==lastId){
-        console.log('scroll')
         $('.scroll').scrollTop($('#messages-box').height());
     }
     currentChatGroup = lastId;

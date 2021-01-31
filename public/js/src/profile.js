@@ -7,7 +7,6 @@ $('input[name="time-picker-mulai"], #kt_timepicker_1_modal').timepicker({
 });
 
 $('#time-picker-mulai').change(function(){
-    console.log($(this).val());
 })
 
 $(document).ready(function(){
@@ -124,10 +123,7 @@ $('#button__profile-simpan').click(function(){
             jam_mulai: parseInt($($($(this).closest(".jadwal-item-wrapper").children()[1]).children(".form-group")).children("input").val().split(":")[0])
         })
     })
-    console.log({
-        dataJadwal,
-        personal
-    })
+
     let checkJadwal = dataJadwal.map((item, index) => ({hari: item.hari, jam_mulai: item.jam_mulai}))
     let tmp = [];
     let conflict = false;
@@ -136,7 +132,6 @@ $('#button__profile-simpan').click(function(){
             if(i!=j){
                 if(JSON.stringify(checkJadwal[i]) == JSON.stringify(checkJadwal[j])){
                     conflict = true;
-                    console.log(checkJadwal[i], i, j)
                     break
                 }
             }
