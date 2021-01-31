@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('chatkonseling', 'ChatKonselingController@index');
-Route::post('chatkonseling', 'ChatKonselingController@create');
+Route::post('chatkonseling', 'ChatKonselingController@create')->middleware('sanitizer');;
 
 
 

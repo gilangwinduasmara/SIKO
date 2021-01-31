@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'customthrottle' => \App\Http\Middleware\CustomThrottle::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'session' => \App\Http\Middleware\SessionMiddleware::class,
-        'konseli' => \App\Http\Middleware\KonseliMiddleware::class
+        'konseli' => \App\Http\Middleware\KonseliMiddleware::class,
+        'sanitizer' => \App\Http\Middleware\XssSanitization::class,
     ];
 }

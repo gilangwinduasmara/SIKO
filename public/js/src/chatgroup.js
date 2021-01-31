@@ -48,14 +48,6 @@ async function renderChat(){
             if(chat.UserID === user.id.toString()){
                 html+=`
                     <div class="d-flex flex-column mb-5 align-items-end">
-<!--                        <div class="d-flex align-items-center">-->
-<!--                            <div class="symbol symbol-circle symbol-40 mr-3">-->
-<!--                                <img alt="Pic" src="/metronic/theme/html/demo5/dist/assets/media/users/300_12.jpg">-->
-<!--                            </div>-->
-                            <div>
-
-                            </div>
-<!--                        </div>-->
                         <div class="mt-2 rounded p-5 bg-light-primary text-dark-50 font-weight-bold font-size-lg text-left max-w-400px d-flex align-items-center">
                             <div>
                                 ${atob(chat.chat_konseling)}

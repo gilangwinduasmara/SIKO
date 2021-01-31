@@ -107,7 +107,7 @@ Route::post('services/rangkumankonseling', 'RangkumanKonselingController@store')
 Route::get('services/chatconference', 'ChatConferenceController@index');
 Route::get('services/chatconference/chat', 'ChatConferenceController@chat');
 Route::get('services/chatconference/{id}', 'ChatConferenceController@show');
-Route::post('services/chatconference', 'ChatConferenceController@store');
+Route::post('services/chatconference', 'ChatConferenceController@store')->middleware('sanitizer');
 Route::put('services/chatconference', 'ChatConferenceController@update');
 
 Route::get('services/detailconference/tes', 'DetailConferenceController@tes');
