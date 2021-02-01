@@ -3,11 +3,6 @@
     <!--begin::Header-->
     <div class="card-header align-items-center px-4 py-3">
         <div class="text-left flex-grow-1">
-            <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" id="button__conference" aria-expanded="false">
-                <span class="svg-icon svg-icon-lg">
-                    <i class="fas fa-arrow-left"></i>
-                </span>
-            </button>
             <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md d-lg-none" id="kt_app_chat_toggle">
                 <span class="svg-icon svg-icon-lg">
                     <!--begin::Svg Icon | path:/metronic/theme/html/demo5/dist/assets/media/svg/icons/Communication/Adress-book2.svg-->
@@ -19,6 +14,11 @@
                         </g>
                     </svg>
                     <!--end::Svg Icon-->
+                </span>
+            </button>
+            <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" id="button__conference" aria-expanded="false">
+                <span class="svg-icon svg-icon-lg">
+                    <i class="fas fa-arrow-left"></i>
                 </span>
             </button>
         </div>
