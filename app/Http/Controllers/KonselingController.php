@@ -70,8 +70,8 @@ class KonselingController extends Controller
                     $jadwal = JadwalKonselor::find($konseling->jadwal_konselor_id);
                     $jadwal->save();
                     // kevin -> 682017048
-                    $conference = CaseConference::where('konseling_id', $konseling->id)->where('status','on-going')->first();
-                    if($conference){
+                    $conferences = CaseConference::where('konseling_id', $konseling->id)->where('status','on-going')->get();
+                    foreach($conferences as $conference){
                         $conference->status = 'selesai';
                         $conference->save();
                     }
@@ -91,13 +91,13 @@ class KonselingController extends Controller
         $konseling = Konseling::with('konseli')->with('konselor')->find($request->id);
         if($konseling){
             $konseling->status_selesai = 'E';
-            $conference = CaseConference::where('konseling_id', $request->id)->where('status','on-going')->first();
+            $conferences = CaseConference::where('konseling_id', $request->id)->where('status','on-going')->get();
             $jadwal = JadwalKonselor::find($konseling->jadwal_konselor_id);
             if($jadwal){
                 // $jadwal->available = "true";
                 $jadwal->save();
             }
-            if($conference){
+            foreach($conferences as $conference){
                 $conference->status = 'selesai';
                 $conference->save();
             }
