@@ -52,6 +52,7 @@
         <div class="modal-content" id="modal-content_login " >
             <div class="modal-body px-8" >
                 <form class="d-flex flex-column align-items-center justify-content-center" id="form__register">
+                    @csrf
                     <div class="row justify-content-center align-items-center">
                         {{-- <div class="d-flex flex-column align-items-center">
                             <div class="symbol symbol-50 symbol-circle">
@@ -178,6 +179,7 @@
             </div>
 
             <form class="d-flex flex-column align-items-center justify-content-center" id="form__login">
+                @csrf
                 <div class="popup-forms">
                     <input type="text" hidden value="konseli" name="role">
                     <input id="login-email" name="email" placeholder="NIM">

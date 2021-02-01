@@ -432,6 +432,7 @@
 
 {{-- Global Config (global config for global JS scripts) --}}
 <script>
+    var csrf_token = "{{csrf_token() ?? null}}";
     var KTAppSettings = {!! json_encode(config('layout.js'), JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES) !!};
 </script>
 @foreach(config('layout.resources.js') as $script)
@@ -443,17 +444,14 @@
 <script src="/js/src/landing.js" type="text/javascript"></script>
 <script src="{{ asset('js/pages/features/miscellaneous/toastr.js') }}" type="text/javascript"></script>
 <script>
+
     function throttleCheck(){
         @php($throttle = (session()->get("throttle") ?? null))
         var throttle = "{{$throttle}}";
         throttle = moment(throttle);
         window.throttleInterval = setInterval(()=>{
             var now = moment();
-            console.log(throttle.format())
-            console.log(now.format())
             duration = moment.duration(throttle.diff(now));
-            console.log(duration.minutes())
-            console.log(duration.seconds())
 
             $('.error-throttle > .error-countdown').text(moment.utc(duration.as('milliseconds')).format('HH:mm:ss'))
             $('.error-throttle').hide()
